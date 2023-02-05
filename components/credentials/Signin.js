@@ -107,11 +107,17 @@ export default function Signin() {
 
   // Google Handler function
   async function handleGoogleSignIn() {
-    signIn('google', { callbackUrl: 'http://localhost:3000' });
+    /** DEVELOPMENT */
+    // signIn('google', { callbackUrl: 'http://localhost:3000' });
+    /** PRODUCTION */
+    signIn('google', { callbackUrl: 'https://touring.vercel.app' });
   }
   // GitHub Handler function
   async function handleGitHubSignIn() {
-    signIn('github', { callbackUrl: 'http://localhost:3000' });
+    /** DEVELOPMENT */
+    // signIn('github', { callbackUrl: 'http://localhost:3000' });
+    /** PRODUCTION */
+    signIn('github', { callbackUrl: 'https://touring.vercel.app' });
   }
 
   return (

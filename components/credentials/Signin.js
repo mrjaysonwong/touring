@@ -110,14 +110,14 @@ export default function Signin() {
     /** DEVELOPMENT */
     // signIn('google', { callbackUrl: 'http://localhost:3000' });
     /** PRODUCTION */
-    signIn('google', { callbackUrl: 'https://touring.vercel.app' });
+    signIn('google', { callbackUrl: '/' });
   }
   // GitHub Handler function
   async function handleGitHubSignIn() {
     /** DEVELOPMENT */
     // signIn('github', { callbackUrl: 'http://localhost:3000' });
     /** PRODUCTION */
-    signIn('github', { callbackUrl: 'https://touring.vercel.app' });
+    signIn('github', { callbackUrl: '/' });
   }
 
   return (

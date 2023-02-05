@@ -98,7 +98,7 @@ export default function Register() {
         setOpen(true);
         setShowError(false);
         setTimeout(() => {
-          router.push('http://localhost:3000/login');
+          router.push('/login');
         }, 1000);
       } 
     } catch (error) {

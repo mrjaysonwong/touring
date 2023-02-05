@@ -107,17 +107,17 @@ export default function Signin() {
 
   // Google Handler function
   async function handleGoogleSignIn() {
-    /** DEVELOPMENT */
-    // signIn('google', { callbackUrl: 'http://localhost:3000' });
-    /** PRODUCTION */
-    signIn('google', { callbackUrl: '/' });
+
+    signIn('google', { callbackUrl: 'http://localhost:3000' });
+ 
+    // signIn('google', { callbackUrl: '/' });
   }
   // GitHub Handler function
   async function handleGitHubSignIn() {
-    /** DEVELOPMENT */
-    // signIn('github', { callbackUrl: 'http://localhost:3000' });
-    /** PRODUCTION */
-    signIn('github', { callbackUrl: '/' });
+
+    signIn('github', { callbackUrl: 'http://localhost:3000' });
+
+    // signIn('github', { callbackUrl: '/' });
   }
 
   return (

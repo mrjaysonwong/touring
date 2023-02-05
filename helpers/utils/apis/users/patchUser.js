@@ -2,7 +2,8 @@ import { sleep } from 'helpers/utils/common/Sleep';
 
 export const patchUser = async (userId, values) => {
   try {
-    const apiUrl = `https://touring.vercel.app/api/auth/users?userId=${userId}`;
+    // const apiUrl = `http://localhost:3000/api/users?userId=${userId}`;
+    const apiUrl = `https://touring.vercel.app/api/users?userId=${userId}`;
 
     await sleep(1000);
 

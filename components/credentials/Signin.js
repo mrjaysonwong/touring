@@ -108,14 +108,14 @@ export default function Signin() {
   // Google Handler function
   async function handleGoogleSignIn() {
 
-    signIn('google', { callbackUrl: 'http://localhost:3000' });
+    signIn('google', { callbackUrl: '/' });
  
     // signIn('google', { callbackUrl: '/' });
   }
   // GitHub Handler function
   async function handleGitHubSignIn() {
 
-    signIn('github', { callbackUrl: 'http://localhost:3000' });
+    signIn('github', { callbackUrl: '/' });
 
     // signIn('github', { callbackUrl: '/' });
   }

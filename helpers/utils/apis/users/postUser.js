@@ -2,7 +2,7 @@ import { sleep } from 'helpers/utils/common/Sleep';
 
 export const postUser = async (values) => {
   try {
-    const apiUrl = 'http://localhost:3000/api/auth/signup';
+    const apiUrl = 'https://touring.vercel.app/api/auth/signup';
 
     await sleep(1000);
 

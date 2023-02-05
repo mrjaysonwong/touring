@@ -1,7 +1,23 @@
-import '../styles/globals.css'
+import Head from 'next/head';
+import '../styles/globals.css';
+import PageProvider from 'helpers/theme/PageProvider';
+import { SessionProvider } from 'next-auth/react';
+import Layout from '@components/layout/Layout';
 
-function MyApp({ Component, pageProps }) {
-  return <Component {...pageProps} />
+export default function MyApp({ Component, pageProps }) {
+  return (
+    <>
+      <Head>
+        <meta name="viewport" content="initial-scale=1, width=device-width" />
+      </Head>
+
+      <SessionProvider session={pageProps.session}>
+        <PageProvider>
+          <Layout>
+            <Component {...pageProps} />
+          </Layout>
+        </PageProvider>
+      </SessionProvider>
+    </>
+  );
 }
-
-export default MyApp

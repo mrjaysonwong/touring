@@ -1,9 +1,23 @@
+:root {
+  --secondaryColor: #f48638;
+  --lightIcon: #ffd324;
+  --navItemFocusColor: rgba(216, 216, 216, 0.5);
+  --navItemActiveColor: #f48638;
+  --bgOverlayColor: rgba(22, 28, 36, 0.5);
+  --floatingIconColor: rgba(40, 40, 40, 0.5);
+  --dividerColor: rgba(155, 155, 155, 0.3);
+  --borderColor: rgba(215, 215, 215, 0.8);
+  --demoColor: rgba(129, 129, 129, 0.5);
+}
+
+
+
 html,
 body {
   padding: 0;
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
-    Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
+  font-family: 'Poppins', -apple-system, BlinkMacSystemFont, Segoe UI, Roboto,
+    Oxygen, Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
 }
 
 a {
@@ -15,7 +29,7 @@ a {
   box-sizing: border-box;
 }
 
-@media (prefers-color-scheme: dark) {
+/* @media (prefers-color-scheme: dark) {
   html {
     color-scheme: dark;
   }
@@ -23,4 +37,27 @@ a {
     color: white;
     background: black;
   }
+} */
+
+/* Works on Firefox */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: gray;
+  scroll-behavior: smooth;
+}
+
+/* Works on Chrome, Edge, and Safari */
+*::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+*::-webkit-scrollbar-track {
+  box-shadow: inset 0 0 2px rgb(255, 255, 255);
+  border-radius: 20px;
+}
+
+*::-webkit-scrollbar-thumb {
+  background-color: gray;
+  border-radius: 20px;
 }

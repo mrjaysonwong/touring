@@ -2,7 +2,7 @@ import { sleep } from 'helpers/utils/common/Sleep';
 
 export const patchUser = async (userId, values) => {
   try {
-    const apiUrl = `api/users?userId=${userId}`;
+    const apiUrl = `api/auth/users?userId=${userId}`;
 
     await sleep(1000);
 

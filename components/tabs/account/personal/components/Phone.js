@@ -5,11 +5,11 @@ import { Box, Button, Typography, TextField, MenuItem } from '@mui/material';
 import { countryCodes } from '@src/country_codes';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
-import { phoneSchema } from 'helpers/yup/account-settings/PInfoSchema';
-import { AlertBox } from 'helpers/utils/common/AlertBox';
+import { phoneSchema } from '@utils/yup/account-settings/PInfoSchema';
+import { AlertBox } from '@utils/common/AlertBox';
 import { DataContext } from '@pages/account/profile';
-import { formatNum, formatPatternNum } from 'helpers/utils/common/Format';
-import { patchUser } from 'helpers/utils/apis/users/patchUser';
+import { formatNum, formatPatternNum } from '@utils/common/Format';
+import { patchUser } from '@utils/apis/users/patchUser';
 
 const Wrapper = styled(Box)({
   '&:not(:last-child)': {

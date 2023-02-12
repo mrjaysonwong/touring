@@ -67,7 +67,7 @@ export default NextAuth({
         const providerAuthData = {
           id: user.id,
           firstName: fName,
-          lastName: lName,
+          lastName: lName ?? '',
           email: user.email,
           image: user.image,
           authProvider: account.provider,

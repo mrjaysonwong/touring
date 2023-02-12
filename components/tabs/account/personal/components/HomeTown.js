@@ -12,12 +12,12 @@ import SearchIcon from '@mui/icons-material/Search';
 import { useDebounce } from 'use-debounce';
 import { DataContext } from '@pages/account/profile';
 import { useForm } from 'react-hook-form';
-import { homeTownSchema } from 'helpers/yup/account-settings/PInfoSchema';
+import { homeTownSchema } from '@utils/yup/account-settings/PInfoSchema';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useRouter } from 'next/router';
-import { AlertBox } from 'helpers/utils/common/AlertBox';
-import { patchUser } from 'helpers/utils/apis/users/patchUser';
-import { getCities } from '@helpers/utils/apis/cities/getCities';
+import { AlertBox } from '@utils/common/AlertBox';
+import { patchUser } from '@utils/apis/users/patchUser';
+import { getCities } from '@utils/apis/cities/getCities';
 
 const Wrapper = styled(Box)({
   '&:not(:last-child)': {

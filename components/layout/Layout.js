@@ -1,12 +1,11 @@
-import { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
 import { styled } from '@mui/system';
 import Navbar from './Navbar';
 import Footer from './Footer';
-import { useTheme } from 'next-themes';
-import { Tooltip, IconButton, Box, SvgIcon, css } from '@mui/material';
+import { Tooltip, IconButton, Box, SvgIcon, useTheme } from '@mui/material';
 import Brightness4OutlinedIcon from '@mui/icons-material/Brightness4Outlined';
 import LightModeOutlinedIcon from '@mui/icons-material/LightModeOutlined';
+import ColorModeContext from 'contexts/colorModeContext';
 
 const MainContainer = styled('main')({
   minHeight: '100vh',
@@ -31,22 +30,9 @@ const ThemeToggler = styled(Box)({
 });
 
 export default function Layout({ children }) {
-  const { resolvedTheme, setTheme } = useTheme();
-  const [mounted, setMounted] = useState(false);
+  const theme = useTheme();
 
   const router = useRouter();
-
-  // When mounted on client, now we can show the UI
-  useEffect(() => setMounted(true), []);
-
-  if (!mounted)
-    return (
-      <div
-        css={css`
-          min-height: 162.38px;
-        `}
-      ></div>
-    );
 
   return (
     <>
@@ -55,30 +41,34 @@ export default function Layout({ children }) {
       )}
       <MainContainer>
         <ThemeToggler>
-          <Tooltip
-            title={`Toggle ${resolvedTheme === 'dark' ? 'light' : 'dark'} mode`}
-            placement="left"
-          >
-            <IconButton
-              color="inherit"
-              onClick={() =>
-                setTheme(resolvedTheme === 'light' ? 'dark' : 'light')
-              }
-            >
-              {resolvedTheme === 'dark' ? (
-                <SvgIcon htmlColor="var(--lightIcon)">
-                  <LightModeOutlinedIcon />
-                </SvgIcon>
-              ) : (
-                <SvgIcon>
-                  <Brightness4OutlinedIcon />
-                </SvgIcon>
-              )}
-            </IconButton>
-          </Tooltip>
+          <ColorModeContext.Consumer>
+            {({ toggleColorMode }) => (
+              <>
+                <Tooltip
+                  title={`Toggle ${
+                    theme.palette.mode === 'dark' ? 'light' : 'dark'
+                  } mode`}
+                  placement="left"
+                >
+                  <IconButton color="inherit" onClick={toggleColorMode}>
+                    {theme.palette.mode === 'dark' ? (
+                      <SvgIcon htmlColor="var(--lightIcon)">
+                        <LightModeOutlinedIcon />
+                      </SvgIcon>
+                    ) : (
+                      <SvgIcon>
+                        <Brightness4OutlinedIcon />
+                      </SvgIcon>
+                    )}
+                  </IconButton>
+                </Tooltip>
+              </>
+            )}
+          </ColorModeContext.Consumer>
         </ThemeToggler>
         {children}
       </MainContainer>
+
       <Footer />
     </>
   );

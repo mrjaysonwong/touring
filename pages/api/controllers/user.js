@@ -1,7 +1,7 @@
 /** Controller */
 import Users from '@model/userSchema';
 import { hash } from 'bcryptjs';
-import { filteredUsers } from '@helpers/utils/common/Common';
+import { filteredUsers } from '@utils/common/Common';
 
 /** explicit flag disables warnings unresolved requests. */
 export const config = {

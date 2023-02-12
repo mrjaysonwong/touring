@@ -17,9 +17,9 @@ import {
   MenuItem,
   ListItemIcon,
   Divider,
+  useTheme,
 } from '@mui/material';
 import { styled } from '@mui/system';
-import { useTheme } from 'next-themes';
 import MenuIcon from '@mui/icons-material/Menu';
 import PersonIcon from '@mui/icons-material/Person';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
@@ -48,7 +48,8 @@ export default function Navbar() {
 
   const { data: session, status } = useSession();
 
-  const { resolvedTheme } = useTheme();
+  const theme = useTheme();
+
   const [mobileOpen, setMobileOpen] = useState(false);
   const [anchorEl, setAnchorEl] = useState(null);
   const open = Boolean(anchorEl);
@@ -79,7 +80,7 @@ export default function Navbar() {
 
   return (
     <>
-      <Wrapper component="div">
+      <Wrapper>
         <AppBar
           position="fixed"
           color="default"
@@ -100,13 +101,10 @@ export default function Navbar() {
               <MenuIcon />
             </IconButton>
             <Tooltip title="Touring logo" arrow>
-              <Box
-                component="div"
-                sx={{ display: 'flex', alignItems: 'center' }}
-              >
+              <Box sx={{ display: 'flex', alignItems: 'center' }}>
                 <Image
                   src={`/assets/touring-${
-                    resolvedTheme === 'dark' ? 'light' : 'dark'
+                    theme.palette.mode === 'dark' ? 'light' : 'dark'
                   }.png`}
                   alt="Touring app logo"
                   width={140}
@@ -202,7 +200,9 @@ export default function Navbar() {
                             sx={{ mr: 1, width: 42, height: 42 }}
                           />
                         )}
-                        {session.user.name}
+                        <Typography variant="body1">
+                          {session.user.name}
+                        </Typography>
                       </ListItemIcon>
                     </Box>
                     <Divider />

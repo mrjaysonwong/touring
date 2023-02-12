@@ -4,11 +4,11 @@ import { useRouter } from 'next/router';
 import { Box, Typography, Button, TextField, MenuItem } from '@mui/material';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
-import { languageSchema } from 'helpers/yup/account-settings/PreferencesSchema';
-import { AlertBox } from 'helpers/utils/common/AlertBox';
+import { languageSchema } from '@utils/yup/account-settings/PreferencesSchema';
+import { AlertBox } from '@utils/common/AlertBox';
 import { DataContext } from '@pages/account/profile';
 import { LoadSkeleton } from '@components/placeholder/LoadingSkeleton';
-import { patchUser } from 'helpers/utils/apis/users/patchUser';
+import { patchUser } from '@utils/apis/users/patchUser';
 import { tourLanguages } from '@src/tour_languages';
 
 const Wrapper = styled(Box)({

@@ -2,11 +2,10 @@ import { useEffect, useState, forwardRef } from 'react';
 import Image from 'next/image';
 import NextLink from 'next/link';
 import { useRouter } from 'next/router';
-import { useTheme } from '@mui/material/styles';
-import { Link } from 'helpers/utils/common/Link';
+import { Link } from '@utils/common/Link';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
-import { signupSchema } from 'helpers/yup/credentials/CredentialsSchema';
+import { signupSchema } from '@utils/yup/credentials/CredentialsSchema';
 import { styled } from '@mui/system';
 import {
   Box,
@@ -22,11 +21,12 @@ import {
   Snackbar,
   Stack,
   Alert as MuiAlert,
+  useTheme,
 } from '@mui/material';
 import Visibility from '@mui/icons-material/Visibility';
 import VisibilityOff from '@mui/icons-material/VisibilityOff';
 import ErrorIcon from '@mui/icons-material/Error';
-import { postUser } from 'helpers/utils/apis/users/postUser';
+import { postUser } from '@utils/apis/users/postUser';
 
 const StyledForm = styled('form')({
   position: 'relative',
@@ -61,7 +61,6 @@ export default function Register() {
   const [open, setOpen] = useState(false);
 
   const theme = useTheme();
-  const themeMode = theme.palette.mode;
 
   const [showError, setShowError] = useState(false);
   const [errorMessage, setErrorMessage] = useState(null);
@@ -100,7 +99,7 @@ export default function Register() {
         setTimeout(() => {
           router.push('/login');
         }, 1000);
-      } 
+      }
     } catch (error) {
       setShowError(true);
       setErrorMessage(error.message);
@@ -131,7 +130,7 @@ export default function Register() {
               <MUILink component={Link} href="/">
                 <Image
                   src={`/assets/touring-${
-                    themeMode === 'dark' ? 'light' : 'dark'
+                    theme.palette.mode === 'dark' ? 'light' : 'dark'
                   }.png`}
                   alt="Touring logo"
                   width={85}

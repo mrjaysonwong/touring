@@ -1,5 +1,5 @@
 import connectMongo from 'database/connection';
-import { postUser } from '@pages/api/controller/users/usersController';
+import { postUser } from '@pages/api/controllers/user';
 
 /** explicit flag disables warnings unresolved requests. */
 export const config = {

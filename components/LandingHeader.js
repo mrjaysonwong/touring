@@ -1,6 +1,12 @@
 import NextLink from 'next/link';
 import { styled } from '@mui/system';
-import { Button, Box, Typography, CardMedia } from '@mui/material';
+import {
+  Button,
+  Box,
+  Typography,
+  CardMedia,
+  Container,
+} from '@mui/material';
 
 const Wrapper = styled(Box)({
   margin: '4rem 0',

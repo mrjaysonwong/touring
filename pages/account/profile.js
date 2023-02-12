@@ -2,7 +2,7 @@ import Head from 'next/head';
 import { createContext } from 'react';
 import { useTheme } from '@mui/styles';
 import { Box, Container, useMediaQuery } from '@mui/material';
-import { requireAuthentication } from 'helpers/utils/auth/RequireAuthentication';
+import { requireAuthentication } from '@utils/auth/RequireAuthentication';
 import Tabs from '@components/tabs/Tabs';
 
 export const DataContext = createContext();

@@ -1,6 +1,6 @@
 import Head from 'next/head';
 import { Button, Box, Container, Typography, CardMedia } from '@mui/material';
-import { requireAuthentication } from 'helpers/utils/auth/RequireAuthentication';
+import { requireAuthentication } from '@utils/auth/RequireAuthentication';
 
 export default function Bookings(props) {
   return (

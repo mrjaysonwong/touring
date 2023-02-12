@@ -1,9 +1,5 @@
 import connectMongo from 'database/connection';
-import {
-  getUsers,
-  postUser,
-  updateUser,
-} from '@pages/api/controller/users/usersController';
+import { getUsers, postUser, updateUser } from '@pages/api/controllers/user';
 import { getSession } from 'next-auth/react';
 
 export default async function handler(req, res) {

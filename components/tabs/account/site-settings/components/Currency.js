@@ -5,8 +5,8 @@ import { Box, Typography, Button, TextField, MenuItem } from '@mui/material';
 import { useForm } from 'react-hook-form';
 import { DataContext } from '@pages/account/profile';
 import { countryCurrency } from '@src/currency';
-import { patchUser } from '@helpers/utils/apis/users/patchUser';
-import { AlertBox } from 'helpers/utils/common/AlertBox';
+import { patchUser } from '@utils/apis/users/patchUser';
+import { AlertBox } from '@utils/common/AlertBox';
 
 const Wrapper = styled(Box)({
   '&:not(:last-child)': {

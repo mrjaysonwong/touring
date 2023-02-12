@@ -17,8 +17,8 @@ import {
   continentEurope,
   continentAfrica,
 } from '@src/country_languages';
-import { patchUser } from '@helpers/utils/apis/users/patchUser';
-import { AlertBox } from 'helpers/utils/common/AlertBox';
+import { patchUser } from '@utils/apis/users/patchUser';
+import { AlertBox } from '@utils/common/AlertBox';
 
 const Wrapper = styled(Box)({
   '&:not(:last-child)': {

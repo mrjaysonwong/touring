@@ -1,11 +1,10 @@
 import { useEffect, useState } from 'react';
 import Image from 'next/image';
 import NextLink from 'next/link';
-import { useTheme } from '@mui/material/styles';
-import { Link } from 'helpers/utils/common/Link';
+import { Link } from '@utils/common/Link';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
-import { loginSchema } from 'helpers/yup/credentials/CredentialsSchema';
+import { loginSchema } from '@utils/yup/credentials/CredentialsSchema';
 import { signIn } from 'next-auth/react';
 import { styled } from '@mui/system';
 import {
@@ -19,11 +18,12 @@ import {
   IconButton,
   Link as MUILink,
   Tooltip,
+  useTheme,
 } from '@mui/material';
 import Visibility from '@mui/icons-material/Visibility';
 import VisibilityOff from '@mui/icons-material/VisibilityOff';
 import ErrorIcon from '@mui/icons-material/Error';
-import { sleep } from 'helpers/utils/common/Sleep';
+import { sleep } from '@utils/common/Sleep';
 
 const StyledForm = styled('form')({
   position: 'relative',
@@ -57,7 +57,6 @@ const ProviderButton = styled(Button)({
 
 export default function Signin() {
   const theme = useTheme();
-  const themeMode = theme.palette.mode;
 
   const [showError, setShowError] = useState(false);
   const [errorMessage, setErrorMessage] = useState(null);
@@ -107,17 +106,11 @@ export default function Signin() {
 
   // Google Handler function
   async function handleGoogleSignIn() {
-
     signIn('google', { callbackUrl: '/' });
- 
-    // signIn('google', { callbackUrl: '/' });
   }
   // GitHub Handler function
   async function handleGitHubSignIn() {
-
     signIn('github', { callbackUrl: '/' });
-
-    // signIn('github', { callbackUrl: '/' });
   }
 
   return (
@@ -136,7 +129,7 @@ export default function Signin() {
               <MUILink component={Link} href="/">
                 <Image
                   src={`/assets/touring-${
-                    themeMode === 'dark' ? 'light' : 'dark'
+                    theme.palette.mode === 'dark' ? 'light' : 'dark'
                   }.png`}
                   alt="Touring logo"
                   width={85}
@@ -237,7 +230,7 @@ export default function Signin() {
             <Box sx={{ display: 'flex' }}>
               <Image
                 src={`/assets/github-${
-                  themeMode === 'dark' ? 'light' : 'dark'
+                  theme.palette.mode === 'dark' ? 'light' : 'dark'
                 }.svg`}
                 alt="Github icon"
                 width={34}

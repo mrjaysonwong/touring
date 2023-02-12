@@ -1,6 +1,6 @@
 import { useRouter } from 'next/router';
-import { useTheme } from '@mui/styles';
-import { Tabs as MuiTabs, Tab, useMediaQuery } from '@mui/material';
+
+import { Tabs as MuiTabs, Tab, useMediaQuery, useTheme } from '@mui/material';
 import { accountItems } from 'src/routes';
 import TabPanel from './TabPanel';
 import {
@@ -11,7 +11,6 @@ import {
   TravelPreferences,
   SiteSettings,
 } from './account/index';
-
 
 const a11yProps = (value) => {
   return {
@@ -25,6 +24,7 @@ export default function Tabs() {
   const currentTab = router.query.tab;
 
   const theme = useTheme();
+
   const breakpoint = useMediaQuery(theme.breakpoints.up('md'));
 
   const handleChange = (event, newValue) => {

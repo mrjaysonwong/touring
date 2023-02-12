@@ -5,8 +5,8 @@ import { Box, Typography, Switch, Divider, Alert } from '@mui/material';
 import { DataContext } from '@pages/account/profile';
 import { useForm, Controller } from 'react-hook-form';
 import { useRouter } from 'next/router';
-import { AlertBox } from 'helpers/utils/common/AlertBox';
-import { patchUser } from 'helpers/utils/apis/users/patchUser';
+import { AlertBox } from '@utils/common/AlertBox';
+import { patchUser } from '@utils/apis/users/patchUser';
 
 const Wrapper = styled(Box)({
   '&:not(:last-child)': {

@@ -3,11 +3,11 @@ import { styled } from '@mui/system';
 import { Box, Button, Typography, TextField } from '@mui/material';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
-import { nameSchema } from 'helpers/yup/account-settings/PInfoSchema';
-import { AlertBox } from 'helpers/utils/common/AlertBox';
+import { nameSchema } from '@utils/yup/account-settings/PInfoSchema';
+import { AlertBox } from '@utils/common/AlertBox';
 import { useRouter } from 'next/router';
 import { DataContext } from '@pages/account/profile';
-import { patchUser } from 'helpers/utils/apis/users/patchUser';
+import { patchUser } from '@utils/apis/users/patchUser';
 
 const Wrapper = styled(Box)({
   '&:not(:last-child)': {

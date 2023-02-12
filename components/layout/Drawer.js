@@ -15,6 +15,7 @@ import {
   Button,
   Avatar,
   Typography,
+  useTheme,
 } from '@mui/material';
 import CloseIcon from '@mui/icons-material/Close';
 import LogoutIcon from '@mui/icons-material/Logout';
@@ -22,7 +23,6 @@ import PersonIcon from '@mui/icons-material/Person';
 import EventNoteIcon from '@mui/icons-material/EventNote';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import { navItems } from '@src/routes';
-import { useTheme } from 'next-themes';
 
 const Wrapper = styled(List)({
   '.active, .active.svg': {
@@ -35,7 +35,7 @@ export default function Sidebar({ handleDrawerToggle }) {
 
   const { data: session } = useSession();
 
-  const { resolvedTheme } = useTheme();
+  const theme = useTheme();
 
   const handleSignOut = () => {
     signOut({ callbackUrl: '/' });
@@ -45,7 +45,6 @@ export default function Sidebar({ handleDrawerToggle }) {
     <>
       <Box onClick={handleDrawerToggle} sx={{ textAlign: 'center' }}>
         <Box
-          component="div"
           sx={{
             py: 1.5,
             display: 'flex',
@@ -57,7 +56,7 @@ export default function Sidebar({ handleDrawerToggle }) {
           </IconButton>
           <Image
             src={`/assets/touring-${
-              resolvedTheme === 'dark' ? 'light' : 'dark'
+              theme.palette.mode === 'dark' ? 'light' : 'dark'
             }.png`}
             alt="Touring app logo"
             width={140}
@@ -106,9 +105,9 @@ export default function Sidebar({ handleDrawerToggle }) {
                   <AccountCircleIcon sx={{ width: 64, height: 64, my: 2 }} />
                 )}
 
-                {/* <Typography variant="body1" sx={{ fontWeight: 600 }}>
+                <Typography variant="body1" sx={{ fontWeight: 600 }}>
                   {session.user.name}
-                </Typography> */}
+                </Typography>
               </Box>
 
               <Button

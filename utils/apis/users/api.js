@@ -21,8 +21,8 @@ export async function getUsers() {
 
 export const getUser = async (userId) => {
   try {
-    const apiUrl = `http://localhost:3000/api/users?userId=${userId}`;
-    // const apiUrl = `https://touring.vercel.app/api/users?userId=${userId}`;
+    // const apiUrl = `http://localhost:3000/api/users?userId=${userId}`;
+    const apiUrl = `https://touring.vercel.app/api/users?userId=${userId}`;
 
     let res = await fetch(apiUrl);
 

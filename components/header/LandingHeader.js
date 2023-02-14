@@ -58,7 +58,11 @@ const Header = () => {
               Book Now
             </Button>
           </NextLink>
-          
+          <NextLink href="/dashboard" passHref>
+            <Button variant="contained" color="primary" sx={{ my: 2 }}>
+              Test Dashboard
+            </Button>
+          </NextLink>
         </OverlayTitle>
         <BgOverlay></BgOverlay>
       </Wrapper>

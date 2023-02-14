@@ -18,7 +18,7 @@ import { useSession } from 'next-auth/react';
 export default function Dashboard(props) {
   // console.log(props);
 
-  const { data: session } = useSession();
+  // const { data: session } = useSession();
 
   return (
     <>
@@ -26,7 +26,7 @@ export default function Dashboard(props) {
         <title>Dashboard | Touring</title>
       </Head>
 
-      {session.user.role !== 'admin' && (
+      {props.session.user.role !== 'admin' && (
         <Container
           sx={{
             display: 'flex',
@@ -57,7 +57,7 @@ export async function getServerSideProps(context) {
     return {
       props: {
         session,
-        data: session.user.role === 'admin' ? data : '',
+        data,
       },
     };
   });

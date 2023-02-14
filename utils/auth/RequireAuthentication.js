@@ -1,10 +1,11 @@
-import { getSession } from 'next-auth/react';
+// import { getSession } from 'next-auth/react';
+import { getToken } from 'next-auth/jwt';
 
 export const requireAuthentication = async (context, cb) => {
-  const session = await getSession(context);
+  const token = await getToken(context);
 
   const res = await fetch(
-    `http://localhost:3000/api/users?userId=${session?.user._id}`,
+    `http://localhost:3000/api/users?userId=${token?.user._id}`,
     {
       headers: {
         cookie: context.req.headers.cookie,
@@ -13,7 +14,7 @@ export const requireAuthentication = async (context, cb) => {
   );
   const data = await res.json();
 
-  if (!session) {
+  if (!token) {
     return {
       redirect: {
         destination: '/login',
@@ -22,5 +23,5 @@ export const requireAuthentication = async (context, cb) => {
     };
   }
 
-  return cb({ session, data });
+  return cb({ token, data });
 };

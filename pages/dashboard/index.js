@@ -26,16 +26,16 @@ export default function Dashboard(props) {
         <title>Dashboard | Touring</title>
       </Head>
 
-      {props.session.user.role !== 'admin' && (
-        <Container
-          sx={{
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-            minHeight: '100vh',
-            textAlign: 'center',
-          }}
-        >
+      <Container
+        sx={{
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          minHeight: '100vh',
+          textAlign: 'center',
+        }}
+      >
+        {props.token.user.role !== 'admin' && (
           <Box>
             <DoDisturbIcon
               sx={{ color: 'red', height: '100px', width: '100px' }}
@@ -46,17 +46,17 @@ export default function Dashboard(props) {
               <Link href="/">Return Home</Link>
             </Typography>
           </Box>
-        </Container>
-      )}
+        )}
+      </Container>
     </>
   );
 }
 
 export async function getServerSideProps(context) {
-  return requireAuthentication(context, ({ session, data }) => {
+  return requireAuthentication(context, ({ token, data }) => {
     return {
       props: {
-        session,
+        token,
         data,
       },
     };

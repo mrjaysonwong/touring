@@ -16,7 +16,7 @@ import { homeTownSchema } from '@utils/yup/account-settings/PInfoSchema';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useRouter } from 'next/router';
 import { AlertBox } from '@utils/common/AlertBox';
-import { patchUser } from '@utils/apis/users/patchUser';
+import { patchUser } from '@utils/apis/users/api';
 import { getCities } from '@utils/apis/cities/getCities';
 
 const Wrapper = styled(Box)({
@@ -32,8 +32,8 @@ const SingleRow = styled(Box)({
 });
 
 export default function HomeTown() {
-  const { session } = useContext(DataContext);
-  const userData = session.result;
+  const { data, session } = useContext(DataContext);
+  const userData = data.result;
 
   const router = useRouter();
   const [isSave, setIsSave] = useState(false);

@@ -5,6 +5,8 @@ import CredentialsProvider from 'next-auth/providers/credentials';
 import connectMongo from '@database/connection';
 import Users from '@model/userSchema';
 import { compare } from 'bcryptjs';
+import authSignin from '@utils/auth/authSignin';
+import authCredentials from '@utils/auth/authCredentials';
 
 export default NextAuth({
   // Configure one or more authentication providers
@@ -24,36 +26,15 @@ export default NextAuth({
           throw new Error('Connection Failed...!');
         });
 
-        // check if user exist
-        const result = await Users.findOne({ email: credentials.email });
-
-        // if no result of user
-        if (!result) {
-          throw new Error('No user found with the email');
-        }
-
-        // check password with bcrpyt compare(fn) both token and db session
-        const checkPassword = await compare(
-          credentials.password,
-          result.password
+        // helper f(n)
+        const userCredentials = authCredentials(
+          credentials,
+          req,
+          Users,
+          compare
         );
 
-        // incorrect password || email
-        if (!checkPassword || result.email !== credentials.email) {
-          throw new Error('Email and Password do not match');
-        }
-
-        // modify payload user property
-        let {
-          email,
-          name = `${result.firstName} ${result.lastName}`,
-          role,
-          image,
-        } = result;
-
-        let newObj = { email, name, role, image };
-
-        return newObj;
+        return userCredentials;
       },
     }),
   ],
@@ -61,44 +42,8 @@ export default NextAuth({
     signIn: async ({ user, account, profile, email, credentials }) => {
       connectMongo();
 
-      if (account?.provider === 'google' || account?.provider === 'github') {
-        const [fName, lName] = user.name.split(' ');
-
-        const providerAuthData = {
-          id: user.id,
-          firstName: fName,
-          lastName: lName ?? '',
-          email: user.email,
-          image: user.image,
-          authProvider: account.provider,
-        };
-
-        const exist = await Users.findOne({
-          email: user.email,
-        });
-
-        if (exist) {
-          await Users.findOneAndUpdate(
-            { email: user.email },
-            {
-              id: user.id,
-              email: user.email,
-              image: user.image,
-              authProvider: account.provider,
-            },
-            { new: true }
-          );
-        } else {
-          Users.create({
-            id: providerAuthData.id,
-            firstName: providerAuthData.firstName,
-            lastName: providerAuthData.lastName,
-            email: providerAuthData.email,
-            image: providerAuthData.image,
-            authProvider: providerAuthData.authProvider,
-          });
-        }
-      }
+      // helper f(n)
+      authSignin(user, account, Users);
 
       return true;
     },
@@ -113,11 +58,11 @@ export default NextAuth({
       connectMongo();
       const result = await Users.findOne({ email: token.user.email });
 
-      // add payload result property
+      // add result property from db to session object
       session.user = token.user;
       session.user.role = result.role;
       session.user.name = `${result.firstName} ${result.lastName}`;
-      session.result = result;
+      session.user._id = result._id;
 
       return session;
     },

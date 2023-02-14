@@ -2,7 +2,7 @@ import { createContext } from 'react';
 import Head from 'next/head';
 import '../styles/globals.css';
 import { CacheProvider } from '@emotion/react';
-import createEmotionCache from '@src/theme/createEmotionCache';
+import createEmotionCache from '@utils/theme/createEmotionCache';
 import parseCookies from '@utils/theme/parseCookies';
 import MuiThemeProvider from '@utils/common/ThemeProvider';
 import { SessionProvider } from 'next-auth/react';

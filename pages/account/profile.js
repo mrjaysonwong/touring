@@ -38,11 +38,14 @@ export default function Profile(props) {
 }
 
 export async function getServerSideProps(context) {
-  return requireAuthentication(context, ({ session }) => {
+  return requireAuthentication(context, ({ session, data }) => {
     return {
       props: {
         session,
+        data,
       },
     };
   });
 }
+
+

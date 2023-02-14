@@ -33,31 +33,31 @@ export const accountItems = [
   {
     title: 'Personal Information',
     icon: <PersonOutlineOutlinedIcon />,
-    value: 'personal'
+    value: 'personal',
   },
   {
     title: 'Login Information',
     icon: <TouchAppOutlinedIcon />,
-    value: 'login'
+    value: 'login',
   },
   {
     title: 'Payment Method',
     icon: <PaymentIcon />,
-    value: 'payment'
+    value: 'payment',
   },
   {
     title: 'Notifications',
     icon: <NotificationsNoneIcon />,
-    value: 'notifications'
+    value: 'notifications',
   },
   {
     title: 'Travel Preferences',
     icon: <TravelExploreIcon />,
-    value: 'preferences'
+    value: 'preferences',
   },
   {
     title: 'Site Settings',
     icon: <SettingsOutlinedIcon />,
-    value: 'settings'
+    value: 'settings',
   },
 ];

@@ -72,6 +72,7 @@ export default function Navbar() {
 
   const handleSignOut = () => {
     signOut({ callbackUrl: '/' });
+    setAnchorEl(null);
   };
 
   const handleDrawerToggle = () => {

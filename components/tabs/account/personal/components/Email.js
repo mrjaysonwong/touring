@@ -19,8 +19,8 @@ const SingleRow = styled(Box)({
 });
 
 export default function Email() {
-  const data = useContext(DataContext);
-  const userData = data.session.result;
+  const { data, session } = useContext(DataContext);
+  const userData = data.result;
 
   const [editForm, setEditForm] = useState(false);
   const [isSave, setIsSave] = useState(false);
@@ -54,7 +54,7 @@ export default function Email() {
                 Edit
               </Button>
             </SingleRow>
-            <Typography variant="body1">{data.session.user.email}</Typography>
+            <Typography variant="body1">{session.user.email}</Typography>
           </>
         )}
         {editForm && (

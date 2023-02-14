@@ -26,7 +26,7 @@ import {
 import Visibility from '@mui/icons-material/Visibility';
 import VisibilityOff from '@mui/icons-material/VisibilityOff';
 import ErrorIcon from '@mui/icons-material/Error';
-import { postUser } from '@utils/apis/users/postUser';
+import { postUser } from '@utils/apis/users/api';
 
 const StyledForm = styled('form')({
   position: 'relative',

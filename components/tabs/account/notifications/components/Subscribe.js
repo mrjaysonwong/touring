@@ -1,12 +1,11 @@
 import { useState, useContext, useEffect } from 'react';
 import { styled } from '@mui/system';
-
 import { Box, Typography, Switch, Divider, Alert } from '@mui/material';
 import { DataContext } from '@pages/account/profile';
 import { useForm, Controller } from 'react-hook-form';
 import { useRouter } from 'next/router';
 import { AlertBox } from '@utils/common/AlertBox';
-import { patchUser } from '@utils/apis/users/patchUser';
+import { patchUser } from '@utils/apis/users/api';
 
 const Wrapper = styled(Box)({
   '&:not(:last-child)': {
@@ -26,8 +25,8 @@ const SingleRow = styled(Box)({
 });
 
 export default function Subscribe() {
-  const { session } = useContext(DataContext);
-  const userData = session.result;
+  const { data, session } = useContext(DataContext);
+  const userData = data.result;
 
   const router = useRouter();
 

@@ -24,8 +24,8 @@ const SingleRow = styled(Box)({
 });
 
 export default function Phone() {
-  const { session } = useContext(DataContext);
-  const userData = session.result;
+  const { data, session } = useContext(DataContext);
+  const userData = data.result;
 
   const router = useRouter();
 

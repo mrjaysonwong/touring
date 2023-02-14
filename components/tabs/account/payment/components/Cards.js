@@ -12,8 +12,8 @@ const Wrapper = styled(Box)({
 });
 
 export default function Cards() {
-  const { session } = useContext(DataContext);
-  const userData = session.result;
+  const { data, session } = useContext(DataContext);
+  const userData = data.result;
 
   return (
     <>

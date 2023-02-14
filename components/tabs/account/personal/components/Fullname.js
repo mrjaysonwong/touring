@@ -32,8 +32,8 @@ const SingleRow = styled(Box)({
 });
 
 export default function Fullname() {
-  const data = useContext(DataContext);
-  const userData = data.session.result;
+  const { data, session } = useContext(DataContext);
+  const userData = data.result;
 
   const router = useRouter();
 
@@ -102,7 +102,7 @@ export default function Fullname() {
               </Button>
             </SingleRow>
             <Typography variant="body1">
-              {isSave ? `${firstName} ${lastName}` : data.session.user.name}
+              {isSave ? `${firstName} ${lastName}` : session.user.name}
             </Typography>
           </>
         )}

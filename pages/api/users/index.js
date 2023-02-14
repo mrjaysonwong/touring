@@ -1,6 +1,11 @@
 import connectMongo from 'database/connection';
-import { getUsers, postUser, updateUser } from '@pages/api/controllers/user';
-import { getSession } from 'next-auth/react';
+import {
+  getUser,
+  getUsers,
+  postUser,
+  updateUser,
+} from '@pages/api/controllers/user';
+import { getToken } from 'next-auth/jwt';
 
 export default async function handler(req, res) {
   try {
@@ -8,22 +13,21 @@ export default async function handler(req, res) {
       res.status(405).json({ error: 'Connection Failed...!' })
     );
 
+    const token = await getToken({ req });
+
     // type of request
-    const { method } = req;
-
-    if (method === 'GET') {
-      const session = await getSession({ req });
-
-      if (!session || session.user.role !== 'admin') {
-        res.status(403).send(`You don't have authorization to view this page.`);
-        return;
-      }
-    }
+    const { method, query } = req;
 
     switch (method) {
       case 'GET':
-        await getUsers(req, res);
-        break;
+        if (!query.userId) {
+          await getUsers(req, res, token);
+          break;
+        } else {
+          await getUser(req, res, token);
+          break;
+        }
+
       case 'POST':
         await postUser(req, res);
         break;
@@ -38,7 +42,7 @@ export default async function handler(req, res) {
         res.status(405).send(`Method ${method} Not Allowed`);
     }
   } catch (error) {
-    console.log('Error:', error.message);
+    console.log('Method Error:', error.message);
     // throw new Error(error.message)
   }
 }

@@ -1,5 +1,5 @@
 import Head from 'next/head';
-import LandingHeader from '@components/LandingHeader';
+import LandingHeader from '@components/header/LandingHeader';
 
 export default function Home(props) {
   // console.log('ssr', props);
@@ -25,6 +25,8 @@ export default function Home(props) {
 // export async function getServerSideProps(context) {
 //   const res = await fetch('http://localhost:3000/api/users');
 //   const data = await res.json();
+
+//   console.log(data)
 
 //   return {
 //     props: {

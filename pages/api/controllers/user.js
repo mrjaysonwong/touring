@@ -11,8 +11,13 @@ export const config = {
 };
 
 // GET:http://localhost:3000/api/users
-export async function getUsers(req, res) {
+export async function getUsers(req, res, token) {
   try {
+    if (!token || token.user.role !== 'admin') {
+      res.status(403).json(`You don't have authorization to view this page.`);
+      return;
+    }
+
     const users = await Users.find({});
 
     if (!users) {
@@ -21,7 +26,28 @@ export async function getUsers(req, res) {
 
     res.status(200).json({
       total_users: users.length,
-      result: filteredUsers(users),
+      // result: filteredUsers(users),
+      result: users,
+    });
+  } catch (error) {
+    res.status(422).json({ error: 'Error while fetching the data' });
+  }
+}
+
+// GET:http://localhost:3000/api/users/userId
+export async function getUser(req, res, token) {
+  try {
+    const { userId } = req.query;
+
+    if (!token || token.user._id !== userId) {
+      res.status(403).json(`You don't have authorization to view this page.`);
+      return;
+    }
+
+    const user = await Users.findById(userId);
+
+    res.status(200).json({
+      result: user,
     });
   } catch (error) {
     res.status(422).json({ error: 'Error while fetching the data' });
@@ -32,7 +58,7 @@ export async function getUsers(req, res) {
 export async function postUser(req, res) {
   try {
     if (!req.body) {
-      return res.status(404).send({ success: false, error: 'Empty form data' });
+      return res.status(404).json({ success: false, error: 'Empty form data' });
     }
 
     const { firstName, lastName, email, password } = req.body;

@@ -37,8 +37,8 @@ const StyledSubheader = styled(ListSubheader)({
 });
 
 export default function SiteLanguage() {
-  const { session } = useContext(DataContext);
-  const userData = session.result;
+  const { data, session } = useContext(DataContext);
+  const userData = data.result;
 
   const router = useRouter();
 

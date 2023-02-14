@@ -1,9 +1,9 @@
-import { sleep } from 'helpers/utils/common/Sleep';
+import { sleep } from '@utils/common/Sleep';
 
 export const getUser = async () => {
   try {
     const apiUrl = 'http://localhost:3000/api/users';
-    // const apiUrl = `https://touring.vercel.app/api/users?userId=${userId}`;
+    // const apiUrl = `https://touring.vercel.app/api/users`;
 
     let res = await fetch(apiUrl);
 
@@ -15,6 +15,6 @@ export const getUser = async () => {
 
     return data;
   } catch (error) {
-    console.log(error);
+    throw new Error(error.message);
   }
 };

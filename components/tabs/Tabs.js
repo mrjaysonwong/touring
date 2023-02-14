@@ -1,5 +1,4 @@
 import { useRouter } from 'next/router';
-
 import { Tabs as MuiTabs, Tab, useMediaQuery, useTheme } from '@mui/material';
 import { accountItems } from 'src/routes';
 import TabPanel from './TabPanel';
@@ -53,12 +52,7 @@ export default function Tabs() {
           borderRight: `${breakpoint ? 1 : 0}`,
           borderColor: 'divider',
           minWidth: 230,
-          height: '100%',
-          '& .MuiTab-root': {
-            display: 'flex',
-            justifyContent: 'flex-start',
-            textAlign: 'left',
-          },
+          maxHeight: '100vh',
         }}
       >
         {accountItems.map((item, index) => (

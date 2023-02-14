@@ -11,8 +11,8 @@ const Wrapper = styled(Box)({
 });
 
 export default function Deactivate() {
-  const { session } = useContext(DataContext);
-  const userData = session.result;
+  const { data, session } = useContext(DataContext);
+  const userData = data.result;
 
   return (
     <>

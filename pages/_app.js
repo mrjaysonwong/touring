@@ -4,7 +4,7 @@ import '../styles/globals.css';
 import { CacheProvider } from '@emotion/react';
 import createEmotionCache from '@utils/theme/createEmotionCache';
 import parseCookies from '@utils/theme/parseCookies';
-import MuiThemeProvider from '@utils/common/ThemeProvider';
+import MuiThemeProvider from '@utils/theme/ThemeProvider';
 import { SessionProvider } from 'next-auth/react';
 import Layout from '@components/layout/Layout';
 

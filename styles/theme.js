@@ -1,4 +1,4 @@
-import { darkTheme, lightTheme } from '@utils/common/ThemeProvider';
+import { darkTheme, lightTheme } from '@utils/theme/ThemeProvider';
 
 const GetDesignTokens = (mode) => ({
   palette: {

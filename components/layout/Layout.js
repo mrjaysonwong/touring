@@ -5,7 +5,7 @@ import Footer from './Footer';
 import { Tooltip, IconButton, Box, SvgIcon, useTheme } from '@mui/material';
 import Brightness4OutlinedIcon from '@mui/icons-material/Brightness4Outlined';
 import LightModeOutlinedIcon from '@mui/icons-material/LightModeOutlined';
-import ColorModeContext from 'contexts/colorModeContext';
+import ColorModeContext from '@contexts/ColorModeContext';
 
 const MainContainer = styled('main')({
   minHeight: '100vh',

@@ -5,9 +5,9 @@ import {
   createTheme,
   useMediaQuery,
 } from '@mui/material';
-import ColorModeContext from '../../contexts/colorModeContext';
-import GetDesignTokens from '../../styles/theme';
-import { ThemeMode } from '../../pages/_app';
+import ColorModeContext from '@contexts/ColorModeContext';
+import GetDesignTokens from '@styles/theme';
+import { ThemeMode } from '@pages/_app';
 import { Cookies, CookiesProvider, useCookies } from 'react-cookie';
 
 export const darkTheme = createTheme({

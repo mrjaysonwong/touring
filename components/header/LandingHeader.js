@@ -1,4 +1,4 @@
-import NextLink from 'next/link';
+import Link from 'next/link';
 import { styled } from '@mui/system';
 import { Button, Box, Typography, CardMedia } from '@mui/material';
 
@@ -53,16 +53,16 @@ const Header = () => {
             Discover Beautiful Places with secret offers of up to -70% off the
             best every weekend.
           </Typography>
-          <NextLink href="/tours" passHref>
+          <Link href="/tours" passHref>
             <Button variant="contained" color="secondary" sx={{ my: 2 }}>
               Book Now
             </Button>
-          </NextLink>
-          {/* <NextLink href="/dashboard" passHref>
-            <Button variant="contained" color="primary" sx={{ my: 2 }}>
+          </Link>
+          <Link href="/dashboard" passHref>
+            <Button variant="contained" color="secondary" sx={{ my: 2 }}>
               Test Dashboard
             </Button>
-          </NextLink> */}
+          </Link>
         </OverlayTitle>
         <BgOverlay></BgOverlay>
       </Wrapper>

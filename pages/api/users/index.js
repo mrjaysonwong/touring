@@ -13,20 +13,19 @@ export default async function handler(req, res) {
       res.status(405).json({ error: 'Connection Failed...!' })
     );
 
-    const token = await getToken({ req });
-
     // type of request
     const { method, query } = req;
 
     switch (method) {
       case 'GET':
+        const token = await getToken({ req });
         if (!query.userId) {
           await getUsers(req, res, token);
           break;
-        } else {
-          await getUser(req, res, token);
-          break;
         }
+
+        await getUser(req, res, token);
+        break;
 
       case 'POST':
         await postUser(req, res);

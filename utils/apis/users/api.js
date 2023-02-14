@@ -2,8 +2,8 @@ import { sleep } from '@utils/common/Sleep';
 
 export async function getUsers() {
   try {
-    // const apiUrl = 'http://localhost:3000/api/users';
-    const apiUrl = `https://touring.vercel.app/api/users`;
+    const apiUrl = 'http://localhost:3000/api/users';
+    // const apiUrl = 'https://touring.vercel.app/api/users';
 
     let res = await fetch(apiUrl);
 
@@ -21,8 +21,8 @@ export async function getUsers() {
 
 export const getUser = async (userId) => {
   try {
-    // const apiUrl = `http://localhost:3000/api/users?userId=${userId}`;
-    const apiUrl = `https://touring.vercel.app/api/users?userId=${userId}`;
+    const apiUrl = `http://localhost:3000/api/users?userId=${userId}`;
+    // const apiUrl = `https://touring.vercel.app/api/users?userId=${userId}`;
 
     let res = await fetch(apiUrl);
 
@@ -40,8 +40,8 @@ export const getUser = async (userId) => {
 
 export const patchUser = async (userId, values) => {
   try {
-    // const apiUrl = `http://localhost:3000/api/users?userId=${userId}`;
-    const apiUrl = `https://touring.vercel.app/api/users?userId=${userId}`;
+    const apiUrl = `http://localhost:3000/api/users?userId=${userId}`;
+    // const apiUrl = `https://touring.vercel.app/api/users?userId=${userId}`;
 
     await sleep(1000);
 
@@ -68,8 +68,8 @@ export const patchUser = async (userId, values) => {
 
 export const postUser = async (values) => {
   try {
-    // const apiUrl = 'http://localhost:3000/api/auth/signup';
-    const apiUrl = 'https://touring.vercel.app/api/auth/signup';
+    const apiUrl = 'http://localhost:3000/api/auth/signup';
+    // const apiUrl = 'https://touring.vercel.app/api/auth/signup';
 
     await sleep(1000);
 

@@ -35,7 +35,7 @@ export default function Dashboard(props) {
           textAlign: 'center',
         }}
       >
-        {props.token.user.role !== 'admin' && (
+        {props.token?.user?.role !== 'admin' && (
           <Box>
             <DoDisturbIcon
               sx={{ color: 'red', height: '100px', width: '100px' }}
@@ -53,11 +53,10 @@ export default function Dashboard(props) {
 }
 
 export async function getServerSideProps(context) {
-  return requireAuthentication(context, ({ token, data }) => {
+  return requireAuthentication(context, ({ token }) => {
     return {
       props: {
         token,
-        data,
       },
     };
   });

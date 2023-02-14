@@ -5,7 +5,7 @@ export const requireAuthentication = async (context, cb) => {
   const token = await getToken(context);
 
   const res = await fetch(
-    `http://localhost:3000/api/users/?userId=63de0ba6c4e8b31f73761137`,
+    `http://localhost:3000/api/users?userId=${token?.user?._id}`,
     {
       headers: {
         cookie: context.req.headers.cookie,

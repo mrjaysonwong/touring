@@ -5,7 +5,7 @@ export const requireAuthentication = async (context, cb) => {
   const token = await getToken(context);
 
   const res = await fetch(
-    `http://localhost:3000/api/users?userId=${token?.user?._id}`,
+    `https://touring.vercel.app/users/?userId=${token?.user?._id}`,
     {
       headers: {
         cookie: context.req.headers.cookie,

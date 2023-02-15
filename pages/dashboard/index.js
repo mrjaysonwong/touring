@@ -15,8 +15,6 @@ import {
 import DoDisturbIcon from '@mui/icons-material/DoDisturb';
 
 export default function Dashboard(props) {
-  console.log(props);
-
   // const { data: session } = useSession();
 
   return (

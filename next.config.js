@@ -7,6 +7,7 @@ const nextConfig = {
   },
   env: {
     NINJA_KEY: process.env.NINJA_KEY,
+    NEXTAUTH_URL: process.env.NEXTAUTH_URL,
   },
 };
 

@@ -27,6 +27,7 @@ import EventNoteIcon from '@mui/icons-material/EventNote';
 import LogoutIcon from '@mui/icons-material/Logout';
 import { navItems } from '@src/routes';
 import Sidebar from './Drawer';
+import NavSkeleton from '@components/placeholder/component/NavSkeleton';
 
 const Wrapper = styled('div')({
   '& a, & button': {
@@ -141,8 +142,20 @@ export default function Navbar() {
                 </NextLink>
               ))}
             </Box>
-            <Box sx={{ ml: 'auto', display: { xs: 'none', lg: 'flex' } }}>
-              {!session && (
+
+            <Box
+              sx={{
+                ml: 'auto',
+                display: { xs: 'none', lg: 'flex' },
+              }}
+            >
+              {status === 'loading' && (
+                <Avatar sx={{ mr: 1 }}>
+                  <NavSkeleton />
+                </Avatar>
+              )}
+
+              {session === null && (
                 <>
                   <NextLink href="/login" passHref>
                     <Button color="inherit" disableRipple>
@@ -174,11 +187,9 @@ export default function Navbar() {
                     onClick={handleClick}
                   >
                     {session.user.image ? (
-                      <Avatar sx={{ mr: 1 }} src={session.user.image} />
+                      <Avatar src={session.user.image} />
                     ) : (
-                      <AccountCircleIcon
-                        sx={{ mr: 1, width: 42, height: 42 }}
-                      />
+                      <AccountCircleIcon sx={{ width: 42, height: 42 }} />
                     )}
                   </Button>
                   <Menu

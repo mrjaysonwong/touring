@@ -15,7 +15,7 @@ import {
 import DoDisturbIcon from '@mui/icons-material/DoDisturb';
 
 export default function Dashboard(props) {
-  // console.log(props);
+  console.log(props);
 
   // const { data: session } = useSession();
 
@@ -25,16 +25,16 @@ export default function Dashboard(props) {
         <title>Dashboard | Touring</title>
       </Head>
 
-      <Container
-        sx={{
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'center',
-          minHeight: '100vh',
-          textAlign: 'center',
-        }}
-      >
-        {props.token?.user?.role !== 'admin' && (
+      {props.token.user.role !== 'admin' ? (
+        <Container
+          sx={{
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            minHeight: '100vh',
+            textAlign: 'center',
+          }}
+        >
           <Box>
             <DoDisturbIcon
               sx={{ color: 'red', height: '100px', width: '100px' }}
@@ -42,11 +42,24 @@ export default function Dashboard(props) {
             <Typography variant="h2">Access Denied</Typography>
             <Typography variant="h6">
               Only Admin can view this page. <br />
-              <Link href="/">Return Home</Link>
+            </Typography>
+            <Link href="/">Return Home</Link>
+            <br />
+            <br />
+            for testing admin. <br />
+            <Typography variant="body1">
+              Email: admin@touring.com <br />
+              Password: test1234 <br />
             </Typography>
           </Box>
-        )}
-      </Container>
+        </Container>
+      ) : (
+        <Container sx={{ mt: 10 }}>
+          <Typography variant="h6">
+            Welcome Admin! You can view this content
+          </Typography>
+        </Container>
+      )}
     </>
   );
 }

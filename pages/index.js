@@ -1,7 +1,8 @@
 import Head from 'next/head';
 import LandingHeader from '@components/header/LandingHeader';
+import { getToken } from 'next-auth/jwt';
 
-export default function Home() {
+export default function Home(props) {
   // console.log('ssr', props);
 
   // const testData = props.data.result.map((user, index) => (
@@ -14,7 +15,7 @@ export default function Home() {
         <title>Touring</title>
       </Head>
 
-      <LandingHeader />
+      <LandingHeader data={props} />
 
       {/* {testData} */}
     </>
@@ -22,15 +23,12 @@ export default function Home() {
 }
 
 /** SSR here */
-// export async function getServerSideProps(context) {
-//   const res = await fetch('http://localhost:3000/api/users');
-//   const data = await res.json();
+export async function getServerSideProps(context) {
+  const token = await getToken(context);
 
-//   console.log(data)
-
-//   return {
-//     props: {
-//       data: data,
-//     },
-//   };
-// }
+  return {
+    props: {
+      token,
+    },
+  };
+}

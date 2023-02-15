@@ -36,7 +36,7 @@ const BgOverlay = styled(Box)({
   background: 'var(--bgOverlayColor)',
 });
 
-const Header = () => {
+const Header = ({ data }) => {
   return (
     <>
       <Wrapper>
@@ -58,11 +58,13 @@ const Header = () => {
               Book Now
             </Button>
           </Link>
-          <Link href="/dashboard" passHref>
-            <Button variant="contained" color="secondary" sx={{ my: 2 }}>
-              Test Dashboard
-            </Button>
-          </Link>
+          {data.token && (
+            <Link href="/dashboard" passHref>
+              <Button variant="contained" color="secondary" sx={{ my: 2 }}>
+                Test Dashboard
+              </Button>
+            </Link>
+          )}
         </OverlayTitle>
         <BgOverlay></BgOverlay>
       </Wrapper>

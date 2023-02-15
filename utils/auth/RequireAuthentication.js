@@ -4,6 +4,15 @@ import { getToken } from 'next-auth/jwt';
 export const requireAuthentication = async (context, cb) => {
   const token = await getToken(context);
 
+  if (!token) {
+    return {
+      redirect: {
+        destination: '/login',
+        permanent: false,
+      },
+    };
+  }
+
   // const res = await fetch(
   //   `http://localhost:3000/api/users?userId=${token?.user?._id}`,
   //   {
@@ -13,7 +22,6 @@ export const requireAuthentication = async (context, cb) => {
   //   }
   // );
 
-
   const res = await fetch(
     `https://touring.vercel.app/api/users?userId=${token?.user?._id}`,
     {
@@ -22,16 +30,8 @@ export const requireAuthentication = async (context, cb) => {
       },
     }
   );
-  const data = await res.json();
 
-  if (!token) {
-    return {
-      redirect: {
-        destination: '/login',
-        permanent: false,
-      },
-    };
-  }
+  const data = await res.json();
 
   return cb({ token, data });
 };

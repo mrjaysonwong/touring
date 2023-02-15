@@ -1,14 +1,8 @@
+import { API_ENDPOINT } from '@utils/common/Common';
 import { sleep } from '@utils/common/Sleep';
 
 export async function getUsers() {
   try {
-    const apiUrl = 'http://localhost:3000/api/users';
-    // const apiUrl = 'https://touring.vercel.app/api/users';
-    const API_ENDPOINT =
-      process.env.NODE_ENV === 'production'
-        ? process.env.NEXTAUTH_URL
-        : 'http://localhost:3000/';
-
     let res = await fetch(`${API_ENDPOINT}api/users`);
 
     if (!res.ok) {
@@ -25,13 +19,6 @@ export async function getUsers() {
 
 export const getUser = async (userId) => {
   try {
-    const apiUrl = `http://localhost:3000/api/users?userId=${userId}`;
-    // const apiUrl = `https://touring.vercel.app/api/users?userId=${userId}`;
-    const API_ENDPOINT =
-      process.env.NODE_ENV === 'production'
-        ? process.env.NEXTAUTH_URL
-        : 'http://localhost:3000/';
-
     let res = await fetch(`${API_ENDPOINT}api/users?userId${userId}`);
 
     if (!res.ok) {
@@ -48,13 +35,6 @@ export const getUser = async (userId) => {
 
 export const patchUser = async (userId, values) => {
   try {
-    const apiUrl = `http://localhost:3000/api/users?userId=${userId}`;
-    // const apiUrl = `https://touring.vercel.app/api/users?userId=${userId}`;
-    const API_ENDPOINT =
-      process.env.NODE_ENV === 'production'
-        ? process.env.NEXTAUTH_URL
-        : 'http://localhost:3000/';
-
     await sleep(1000);
 
     const options = {
@@ -80,13 +60,6 @@ export const patchUser = async (userId, values) => {
 
 export const postUser = async (values) => {
   try {
-    const apiUrl = 'http://localhost:3000/api/auth/signup';
-    // const apiUrl = 'https://touring.vercel.app/api/auth/signup';
-    const API_ENDPOINT =
-    process.env.NODE_ENV === 'production'
-      ? process.env.NEXTAUTH_URL
-      : 'http://localhost:3000/';
-
     await sleep(1000);
 
     const options = {

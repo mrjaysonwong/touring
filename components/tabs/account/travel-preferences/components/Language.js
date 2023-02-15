@@ -8,7 +8,7 @@ import { languageSchema } from '@utils/yup/account-settings/PreferencesSchema';
 import { AlertBox } from '@utils/common/AlertBox';
 import { DataContext } from '@pages/account/profile';
 import { LoadSkeleton } from '@components/placeholder/LoadingSkeleton';
-import { patchUser } from '@utils/apis/users/patchUser';
+import { patchUser } from '@utils/apis/users/api';
 import { tourLanguages } from '@src/tour_languages';
 
 const Wrapper = styled(Box)({

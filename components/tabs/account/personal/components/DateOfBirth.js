@@ -7,7 +7,7 @@ import { DataContext } from '@pages/account/profile';
 import { dateOfBirthSchema } from '@utils/yup/account-settings/PInfoSchema';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
-import { patchUser } from '@utils/apis/users/patchUser';
+import { patchUser } from '@utils/apis/users/api';
 import { AlertBox } from '@utils/common/AlertBox';
 
 const Wrapper = styled(Box)({

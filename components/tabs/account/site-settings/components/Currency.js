@@ -5,7 +5,7 @@ import { Box, Typography, Button, TextField, MenuItem } from '@mui/material';
 import { useForm } from 'react-hook-form';
 import { DataContext } from '@pages/account/profile';
 import { countryCurrency } from '@src/currency';
-import { patchUser } from '@utils/apis/users/patchUser';
+import { patchUser } from '@utils/apis/users/api';
 import { AlertBox } from '@utils/common/AlertBox';
 
 const Wrapper = styled(Box)({

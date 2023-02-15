@@ -17,7 +17,7 @@ import {
   continentEurope,
   continentAfrica,
 } from '@src/country_languages';
-import { patchUser } from '@utils/apis/users/patchUser';
+import { patchUser } from '@utils/apis/users/api';
 import { AlertBox } from '@utils/common/AlertBox';
 
 const Wrapper = styled(Box)({

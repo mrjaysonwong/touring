@@ -7,7 +7,7 @@ import { nameSchema } from '@utils/yup/account-settings/PInfoSchema';
 import { AlertBox } from '@utils/common/AlertBox';
 import { useRouter } from 'next/router';
 import { DataContext } from '@pages/account/profile';
-import { patchUser } from '@utils/apis/users/patchUser';
+import { patchUser } from '@utils/apis/users/api';
 
 const Wrapper = styled(Box)({
   '&:not(:last-child)': {

@@ -8,7 +8,7 @@ import { specialReqSchema } from '@utils/yup/account-settings/PreferencesSchema'
 import { AlertBox } from '@utils/common/AlertBox';
 import { DataContext } from '@pages/account/profile';
 import { LoadSkeleton } from '@components/placeholder/LoadingSkeleton';
-import { patchUser } from '@utils/apis/users/patchUser';
+import { patchUser } from '@utils/apis/users/api';
 
 const Wrapper = styled(Box)({
   '&:not(:last-child)': {

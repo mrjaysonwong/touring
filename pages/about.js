@@ -1,6 +1,6 @@
 import Head from 'next/head';
-// import { Button, Box, Container} from '@mui/material';
-import Container from '@mui/material/Container';
+import Layout from '@components/layout/Layout';
+import { Container } from '@mui/material';
 
 export default function About() {
   return (
@@ -9,7 +9,9 @@ export default function About() {
         <title>About | Touring</title>
       </Head>
 
-      <Container sx={{ mt: 10 }}>About Page</Container>
+      <Layout>
+        <Container sx={{ mt: 10 }}>About Page</Container>
+      </Layout>
     </>
   );
 }

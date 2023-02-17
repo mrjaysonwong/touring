@@ -1,11 +1,5 @@
 import Image from 'next/image';
-import {
-  Box,
-  Container,
-  useTheme,
-  LinearProgress,
-  useMediaQuery,
-} from '@mui/material';
+import { Box, Container, useTheme, LinearProgress } from '@mui/material';
 
 export default function InitialLoading() {
   const theme = useTheme();
@@ -15,7 +9,7 @@ export default function InitialLoading() {
       <Box
         sx={{
           width: '100%',
-          height: '100vh',
+          height: '90vh',
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'center',

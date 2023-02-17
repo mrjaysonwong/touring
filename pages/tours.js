@@ -1,6 +1,6 @@
 import Head from 'next/head';
-// import { Button, Box, Container, Typography, CardMedia } from '@mui/material';
-import Container from '@mui/material/Container';
+import Layout from '@components/layout/Layout';
+import { Container } from '@mui/material';
 
 export default function Tours() {
   return (
@@ -9,7 +9,9 @@ export default function Tours() {
         <title>Tours | Touring</title>
       </Head>
 
-      <Container sx={{ mt: 10 }}>Tour Page</Container>
+      <Layout>
+        <Container sx={{ mt: 10 }}>Tour Page</Container>
+      </Layout>
     </>
   );
 }

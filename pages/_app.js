@@ -31,9 +31,9 @@ const MyApp = (props) => {
         <CacheProvider value={emotionCache}>
           <ThemeMode.Provider value={themeSetting}>
             <MuiThemeProvider>
-              <Layout>
+              {/* <Layout> */}
                 <Component {...pageProps} />
-              </Layout>
+              {/* </Layout> */}
             </MuiThemeProvider>
           </ThemeMode.Provider>
         </CacheProvider>

@@ -1,4 +1,5 @@
 import Head from 'next/head';
+import Layout from '@components/layout/Layout';
 import LandingHeader from '@components/header/LandingHeader';
 import { getToken } from 'next-auth/jwt';
 
@@ -15,7 +16,9 @@ export default function Home(props) {
         <title>Touring</title>
       </Head>
 
-      <LandingHeader data={props} />
+      <Layout>
+        <LandingHeader data={props} />
+      </Layout>
 
       {/* {testData} */}
     </>

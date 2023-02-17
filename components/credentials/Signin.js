@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import Image from 'next/image';
 import NextLink from 'next/link';
+import Layout from '@components/layout/Layout';
 import { Link } from '@utils/common/Link';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
@@ -80,10 +81,10 @@ export default function Signin() {
     await sleep(1000);
 
     const status = await signIn('credentials', {
-      redirect: false,
+      redirect: true,
       email: values.email,
       password: values.password,
-      callbackUrl: '/',
+      callbackUrl: '/welcome',
     });
 
     if (status.error === null) {
@@ -106,153 +107,160 @@ export default function Signin() {
 
   // Google Handler function
   async function handleGoogleSignIn() {
-    signIn('google', { callbackUrl: '/' });
+    signIn('google', { callbackUrl: '/welcome' });
   }
   // GitHub Handler function
   async function handleGitHubSignIn() {
-    signIn('github', { callbackUrl: '/' });
+    signIn('github', { callbackUrl: '/welcome' });
   }
 
   return (
     <>
-      <Container
-        sx={{
-          display: 'flex',
-          justifyContent: 'center',
-          my: 10,
-          width: 'min(95%, 100vw)',
-        }}
-      >
-        <StyledForm autoComplete="off">
-          <Box sx={{ position: 'absolute', top: -40, left: 0 }}>
-            <Tooltip title="Touring logo" arrow>
-              <MUILink component={Link} href="/">
-                <Image
-                  src={`/assets/touring-${
-                    theme.palette.mode === 'dark' ? 'light' : 'dark'
-                  }.png`}
-                  alt="Touring logo"
-                  width={85}
-                  height={25}
-                  priority
-                />
-              </MUILink>
-            </Tooltip>
-          </Box>
-
-          <Typography variant="h5" sx={{ mb: 1 }}>
-            Log in
-          </Typography>
-
-          {showError && (
-            <Box className="error-box">
-              <Typography
-                variant="body2"
-                color="error"
-                sx={{ display: 'flex', alignItems: 'center' }}
-              >
-                <ErrorIcon sx={{ mr: 0.5, width: 24, height: 24 }} />{' '}
-                {errorMessage}
-              </Typography>
+      <Layout>
+        <Container
+          sx={{
+            display: 'flex',
+            justifyContent: 'center',
+            my: 10,
+            width: 'min(95%, 100vw)',
+          }}
+        >
+          <StyledForm autoComplete="off">
+            <Box sx={{ position: 'absolute', top: -40, left: 0 }}>
+              <Tooltip title="Touring logo" arrow>
+                <MUILink component={Link} href="/">
+                  <Image
+                    src={`/assets/touring-${
+                      theme.palette.mode === 'dark' ? 'light' : 'dark'
+                    }.png`}
+                    alt="Touring logo"
+                    width={85}
+                    height={25}
+                    priority
+                  />
+                </MUILink>
+              </Tooltip>
             </Box>
-          )}
 
-          <TextField
-            id="email"
-            name="email"
-            label="Email address"
-            error={Boolean(errors.email)}
-            {...register('email')}
-            sx={{ mt: 2 }}
-          />
-
-          <Typography variant="body2" color="error">
-            {errors.email?.message}
-          </Typography>
-
-          <TextField
-            id="password"
-            name="password"
-            label="Password"
-            type={showPassword ? 'text' : 'password'}
-            error={Boolean(errors.password)}
-            {...register('password')}
-            InputProps={{
-              endAdornment: (
-                <InputAdornment position="end">
-                  <IconButton
-                    onClick={handleClickShowPassword}
-                    onMouseDown={handleMouseDownPassword}
-                  >
-                    {showPassword ? <VisibilityOff /> : <Visibility />}
-                  </IconButton>
-                </InputAdornment>
-              ),
-            }}
-            sx={{ mt: 2 }}
-          />
-
-          <Typography variant="body2" color="error">
-            {errors.password?.message}
-          </Typography>
-
-          <Button
-            variant="contained"
-            onClick={handleSubmit(onSubmit)}
-            disabled={isSubmitting}
-            sx={{ my: 2, bgcolor: '#1976d2' }}
-          >
-            <Typography variant="body1" sx={{ fontWeight: 600, color: '#fff' }}>
+            <Typography variant="h5" sx={{ mb: 1 }}>
               Log in
             </Typography>
-          </Button>
 
-          <Typography variant="h6">
-            <Divider sx={{ m: 1 }}>or</Divider>
-          </Typography>
+            {showError && (
+              <Box className="error-box">
+                <Typography
+                  variant="body2"
+                  color="error"
+                  sx={{ display: 'flex', alignItems: 'center' }}
+                >
+                  <ErrorIcon sx={{ mr: 0.5, width: 24, height: 24 }} />{' '}
+                  {errorMessage}
+                </Typography>
+              </Box>
+            )}
 
-          <ProviderButton onClick={handleGoogleSignIn}>
-            <Box sx={{ display: 'flex' }}>
-              <Image
-                src="/assets/google.svg"
-                alt="Google icon"
-                width={32}
-                height={32}
-                quality={100}
-                priority
-              />
-            </Box>
-            <Typography variant="body1" sx={{ ml: 1 }}>
-              Log in with Google
+            <TextField
+              id="email"
+              name="email"
+              label="Email address"
+              error={Boolean(errors.email)}
+              {...register('email')}
+              sx={{ mt: 2 }}
+            />
+
+            <Typography variant="body2" color="error">
+              {errors.email?.message}
             </Typography>
-          </ProviderButton>
-          <ProviderButton onClick={handleGitHubSignIn}>
-            <Box sx={{ display: 'flex' }}>
-              <Image
-                src={`/assets/github-${
-                  theme.palette.mode === 'dark' ? 'light' : 'dark'
-                }.svg`}
-                alt="Github icon"
-                width={34}
-                height={34}
-                quality={100}
-                priority
-              />
-            </Box>
-            <Typography variant="body1" sx={{ ml: 1 }}>
-              Log in with GitHub
-            </Typography>
-          </ProviderButton>
-          <Divider sx={{ border: '1px thin', borderColor: '#aaaaaa', my: 2 }} />
 
-          <Typography variant="body2" align="right">
-            Don&apos;t have an account?{' '}
-            <NextLink href="/signup" passHref>
-              <a className="signup-text">Sign up</a>
-            </NextLink>
-          </Typography>
-        </StyledForm>
-      </Container>
+            <TextField
+              id="password"
+              name="password"
+              label="Password"
+              type={showPassword ? 'text' : 'password'}
+              error={Boolean(errors.password)}
+              {...register('password')}
+              InputProps={{
+                endAdornment: (
+                  <InputAdornment position="end">
+                    <IconButton
+                      onClick={handleClickShowPassword}
+                      onMouseDown={handleMouseDownPassword}
+                    >
+                      {showPassword ? <VisibilityOff /> : <Visibility />}
+                    </IconButton>
+                  </InputAdornment>
+                ),
+              }}
+              sx={{ mt: 2 }}
+            />
+
+            <Typography variant="body2" color="error">
+              {errors.password?.message}
+            </Typography>
+
+            <Button
+              variant="contained"
+              onClick={handleSubmit(onSubmit)}
+              disabled={isSubmitting}
+              sx={{ my: 2, bgcolor: '#1976d2' }}
+            >
+              <Typography
+                variant="body1"
+                sx={{ fontWeight: 600, color: '#fff' }}
+              >
+                Log in
+              </Typography>
+            </Button>
+
+            <Typography variant="h6">
+              <Divider sx={{ m: 1 }}>or</Divider>
+            </Typography>
+
+            <ProviderButton onClick={handleGoogleSignIn}>
+              <Box sx={{ display: 'flex' }}>
+                <Image
+                  src="/assets/google.svg"
+                  alt="Google icon"
+                  width={32}
+                  height={32}
+                  quality={100}
+                  priority
+                />
+              </Box>
+              <Typography variant="body1" sx={{ ml: 1 }}>
+                Log in with Google
+              </Typography>
+            </ProviderButton>
+            <ProviderButton onClick={handleGitHubSignIn}>
+              <Box sx={{ display: 'flex' }}>
+                <Image
+                  src={`/assets/github-${
+                    theme.palette.mode === 'dark' ? 'light' : 'dark'
+                  }.svg`}
+                  alt="Github icon"
+                  width={34}
+                  height={34}
+                  quality={100}
+                  priority
+                />
+              </Box>
+              <Typography variant="body1" sx={{ ml: 1 }}>
+                Log in with GitHub
+              </Typography>
+            </ProviderButton>
+            <Divider
+              sx={{ border: '1px thin', borderColor: '#aaaaaa', my: 2 }}
+            />
+
+            <Typography variant="body2" align="right">
+              Don&apos;t have an account?{' '}
+              <NextLink href="/signup" passHref>
+                <a className="signup-text">Sign up</a>
+              </NextLink>
+            </Typography>
+          </StyledForm>
+        </Container>
+      </Layout>
     </>
   );
 }

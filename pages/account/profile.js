@@ -1,4 +1,5 @@
 import Head from 'next/head';
+import Layout from '@components/layout/Layout';
 import { createContext } from 'react';
 import { useTheme } from '@mui/styles';
 import { Box, Container, useMediaQuery } from '@mui/material';
@@ -17,22 +18,24 @@ export default function Profile(props) {
         <title>Profile Settings | Touring</title>
       </Head>
 
-      <Container sx={{ my: 12 }}>
-        <Box
-          sx={{
-            flexGrow: 1,
-            display: `${minWidth900px ? 'flex' : 'block'}`,
-          }}
-        >
-          <DataContext.Provider
-            value={{
-              ...props,
+      <Layout>
+        <Container sx={{ my: 12 }}>
+          <Box
+            sx={{
+              flexGrow: 1,
+              display: `${minWidth900px ? 'flex' : 'block'}`,
             }}
           >
-            <Tabs />
-          </DataContext.Provider>
-        </Box>
-      </Container>
+            <DataContext.Provider
+              value={{
+                ...props,
+              }}
+            >
+              <Tabs />
+            </DataContext.Provider>
+          </Box>
+        </Container>
+      </Layout>
     </>
   );
 }

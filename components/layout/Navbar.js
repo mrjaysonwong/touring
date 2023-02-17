@@ -149,13 +149,7 @@ export default function Navbar() {
                 display: { xs: 'none', lg: 'flex' },
               }}
             >
-              {status === 'loading' && (
-                <Avatar sx={{ mr: 1 }}>
-                  <NavSkeleton />
-                </Avatar>
-              )}
-
-              {session === null && (
+              {!session && (
                 <>
                   <NextLink href="/login" passHref>
                     <Button color="inherit" disableRipple>

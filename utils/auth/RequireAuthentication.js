@@ -1,4 +1,3 @@
-// import { getSession } from 'next-auth/react';
 import { API_ENDPOINT } from '@utils/common/Common';
 import { getToken } from 'next-auth/jwt';
 

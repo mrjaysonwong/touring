@@ -1,5 +1,6 @@
 import { useEffect, useState, forwardRef } from 'react';
 import Image from 'next/image';
+import Layout from '@components/layout/Layout';
 import NextLink from 'next/link';
 import { useRouter } from 'next/router';
 import { Link } from '@utils/common/Link';
@@ -116,193 +117,200 @@ export default function Register() {
 
   return (
     <>
-      <Container
-        sx={{
-          display: 'flex',
-          justifyContent: 'center',
-          my: 10,
-          width: 'min(95%, 100vw)',
-        }}
-      >
-        <StyledForm autoComplete="off">
-          <Box sx={{ position: 'absolute', top: -40, left: 0 }}>
-            <Tooltip title="Touring logo" arrow>
-              <MUILink component={Link} href="/">
-                <Image
-                  src={`/assets/touring-${
-                    theme.palette.mode === 'dark' ? 'light' : 'dark'
-                  }.png`}
-                  alt="Touring logo"
-                  width={85}
-                  height={25}
-                  priority
-                />
-              </MUILink>
-            </Tooltip>
-          </Box>
+      <Layout>
+        <Container
+          sx={{
+            display: 'flex',
+            justifyContent: 'center',
+            my: 10,
+            width: 'min(95%, 100vw)',
+          }}
+        >
+          <StyledForm autoComplete="off">
+            <Box sx={{ position: 'absolute', top: -40, left: 0 }}>
+              <Tooltip title="Touring logo" arrow>
+                <MUILink component={Link} href="/">
+                  <Image
+                    src={`/assets/touring-${
+                      theme.palette.mode === 'dark' ? 'light' : 'dark'
+                    }.png`}
+                    alt="Touring logo"
+                    width={85}
+                    height={25}
+                    priority
+                  />
+                </MUILink>
+              </Tooltip>
+            </Box>
 
-          <Typography variant="h5" sx={{ mb: 1 }}>
-            Create your account
-          </Typography>
+            <Typography variant="h5" sx={{ mb: 1 }}>
+              Create your account
+            </Typography>
 
-          {!showError && (
-            <Stack spacing={2} sx={{ width: '100%' }}>
-              <Snackbar
-                open={open}
-                autoHideDuration={1000}
-                onClose={handleClose}
-              >
-                <Alert
+            {!showError && (
+              <Stack spacing={2} sx={{ width: '100%' }}>
+                <Snackbar
+                  open={open}
+                  autoHideDuration={1000}
                   onClose={handleClose}
-                  severity="success"
-                  sx={{ width: '100%' }}
                 >
-                  Successfuly Registered!
-                </Alert>
-              </Snackbar>
-            </Stack>
-          )}
+                  <Alert
+                    onClose={handleClose}
+                    severity="success"
+                    sx={{ width: '100%' }}
+                  >
+                    Successfuly Registered!
+                  </Alert>
+                </Snackbar>
+              </Stack>
+            )}
 
-          {showError && (
-            <Box
-              sx={{
-                bgcolor: '#ffebed',
-                border: '2px solid #fc3d31',
-                display: 'flex',
-                alignItems: 'center',
-                p: 1,
-                borderRadius: 1,
+            {showError && (
+              <Box
+                sx={{
+                  bgcolor: '#ffebed',
+                  border: '2px solid #fc3d31',
+                  display: 'flex',
+                  alignItems: 'center',
+                  p: 1,
+                  borderRadius: 1,
+                }}
+              >
+                <Typography
+                  variant="body2"
+                  color="error"
+                  sx={{ display: 'flex', alignItems: 'center' }}
+                >
+                  <ErrorIcon sx={{ mr: 0.5, width: 24, height: 24 }} />{' '}
+                  {errorMessage}
+                </Typography>
+              </Box>
+            )}
+
+            <SingleRow>
+              <SingleColumn>
+                <TextField
+                  id="firstName"
+                  name="firstName"
+                  label="First name"
+                  error={Boolean(errors.firstName)}
+                  {...register('firstName')}
+                  sx={{ mt: 2 }}
+                />
+
+                <Typography variant="body2" color="error">
+                  {errors.firstName?.message}
+                </Typography>
+              </SingleColumn>
+
+              <SingleColumn>
+                <TextField
+                  id="lastName"
+                  name="lastName"
+                  label="Last name"
+                  error={Boolean(errors.lastName)}
+                  {...register('lastName')}
+                  sx={{ ml: 2, mt: 2 }}
+                />
+
+                <Typography variant="body2" color="error" sx={{ ml: 2 }}>
+                  {errors.lastName?.message}
+                </Typography>
+              </SingleColumn>
+            </SingleRow>
+
+            <TextField
+              id="email"
+              name="email"
+              label="Email address"
+              error={Boolean(errors.email)}
+              {...register('email')}
+              sx={{ mt: 2 }}
+            />
+
+            <Typography variant="body2" color="error">
+              {errors.email?.message}
+            </Typography>
+
+            <TextField
+              id="password"
+              name="password"
+              label="Password"
+              type={showPassword ? 'text' : 'password'}
+              error={Boolean(errors.password)}
+              {...register('password')}
+              InputProps={{
+                endAdornment: (
+                  <InputAdornment position="end">
+                    <IconButton
+                      onClick={handleClickShowPassword}
+                      onMouseDown={handleMouseDownPassword}
+                    >
+                      {showPassword ? <VisibilityOff /> : <Visibility />}
+                    </IconButton>
+                  </InputAdornment>
+                ),
               }}
+              sx={{ mt: 2 }}
+            />
+
+            <Typography variant="body2" color="error">
+              {errors.password?.message}
+            </Typography>
+
+            <TextField
+              id="passwordConfirm"
+              name="passwordConfirm"
+              label="Confirm Password"
+              type={showPassword ? 'text' : 'password'}
+              error={Boolean(errors.passwordConfirm)}
+              {...register('passwordConfirm')}
+              InputProps={{
+                endAdornment: (
+                  <InputAdornment position="end">
+                    <IconButton
+                      onClick={handleClickShowPassword}
+                      onMouseDown={handleMouseDownPassword}
+                    >
+                      {showPassword ? <VisibilityOff /> : <Visibility />}
+                    </IconButton>
+                  </InputAdornment>
+                ),
+              }}
+              sx={{ mt: 2 }}
+            />
+
+            <Typography variant="body2" color="error">
+              {errors.passwordConfirm?.message}
+            </Typography>
+
+            <Button
+              variant="contained"
+              onClick={handleSubmit(onSubmit)}
+              disabled={isSubmitting}
+              sx={{ my: 2, bgcolor: '#1976d2' }}
             >
               <Typography
-                variant="body2"
-                color="error"
-                sx={{ display: 'flex', alignItems: 'center' }}
+                variant="body1"
+                sx={{ fontWeight: 600, color: '#fff' }}
               >
-                <ErrorIcon sx={{ mr: 0.5, width: 24, height: 24 }} />{' '}
-                {errorMessage}
+                Register
               </Typography>
-            </Box>
-          )}
+            </Button>
 
-          <SingleRow>
-            <SingleColumn>
-              <TextField
-                id="firstName"
-                name="firstName"
-                label="First name"
-                error={Boolean(errors.firstName)}
-                {...register('firstName')}
-                sx={{ mt: 2 }}
-              />
+            <Divider
+              sx={{ border: '1px thin', borderColor: '#aaaaaa', my: 2 }}
+            />
 
-              <Typography variant="body2" color="error">
-                {errors.firstName?.message}
-              </Typography>
-            </SingleColumn>
-
-            <SingleColumn>
-              <TextField
-                id="lastName"
-                name="lastName"
-                label="Last name"
-                error={Boolean(errors.lastName)}
-                {...register('lastName')}
-                sx={{ ml: 2, mt: 2 }}
-              />
-
-              <Typography variant="body2" color="error" sx={{ ml: 2 }}>
-                {errors.lastName?.message}
-              </Typography>
-            </SingleColumn>
-          </SingleRow>
-
-          <TextField
-            id="email"
-            name="email"
-            label="Email address"
-            error={Boolean(errors.email)}
-            {...register('email')}
-            sx={{ mt: 2 }}
-          />
-
-          <Typography variant="body2" color="error">
-            {errors.email?.message}
-          </Typography>
-
-          <TextField
-            id="password"
-            name="password"
-            label="Password"
-            type={showPassword ? 'text' : 'password'}
-            error={Boolean(errors.password)}
-            {...register('password')}
-            InputProps={{
-              endAdornment: (
-                <InputAdornment position="end">
-                  <IconButton
-                    onClick={handleClickShowPassword}
-                    onMouseDown={handleMouseDownPassword}
-                  >
-                    {showPassword ? <VisibilityOff /> : <Visibility />}
-                  </IconButton>
-                </InputAdornment>
-              ),
-            }}
-            sx={{ mt: 2 }}
-          />
-
-          <Typography variant="body2" color="error">
-            {errors.password?.message}
-          </Typography>
-
-          <TextField
-            id="passwordConfirm"
-            name="passwordConfirm"
-            label="Confirm Password"
-            type={showPassword ? 'text' : 'password'}
-            error={Boolean(errors.passwordConfirm)}
-            {...register('passwordConfirm')}
-            InputProps={{
-              endAdornment: (
-                <InputAdornment position="end">
-                  <IconButton
-                    onClick={handleClickShowPassword}
-                    onMouseDown={handleMouseDownPassword}
-                  >
-                    {showPassword ? <VisibilityOff /> : <Visibility />}
-                  </IconButton>
-                </InputAdornment>
-              ),
-            }}
-            sx={{ mt: 2 }}
-          />
-
-          <Typography variant="body2" color="error">
-            {errors.passwordConfirm?.message}
-          </Typography>
-
-          <Button
-            variant="contained"
-            onClick={handleSubmit(onSubmit)}
-            disabled={isSubmitting}
-            sx={{ my: 2, bgcolor: '#1976d2' }}
-          >
-            <Typography variant="body1" sx={{ fontWeight: 600, color: '#fff' }}>
-              Register
+            <Typography variant="body2" align="right">
+              Already have an account?{' '}
+              <NextLink href="/login" passHref>
+                <a className="login-text">Log in</a>
+              </NextLink>
             </Typography>
-          </Button>
-
-          <Divider sx={{ border: '1px thin', borderColor: '#aaaaaa', my: 2 }} />
-
-          <Typography variant="body2" align="right">
-            Already have an account?{' '}
-            <NextLink href="/login" passHref>
-              <a className="login-text">Log in</a>
-            </NextLink>
-          </Typography>
-        </StyledForm>
-      </Container>
+          </StyledForm>
+        </Container>
+      </Layout>
     </>
   );
 }

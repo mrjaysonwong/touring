@@ -1,5 +1,5 @@
 import Typography from '@mui/material/Typography';
-import { LoadSkeleton } from '@components/placeholder/LoadingSkeleton';
+import { LoadSkeleton } from '@components/placeholder/skeleton/LoadingSkeleton';
 import Subscribe from './components/Subscribe';
 
 export default function Notifications() {

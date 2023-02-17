@@ -27,7 +27,7 @@ import EventNoteIcon from '@mui/icons-material/EventNote';
 import LogoutIcon from '@mui/icons-material/Logout';
 import { navItems } from '@src/routes';
 import Sidebar from './Drawer';
-import NavSkeleton from '@components/placeholder/component/NavSkeleton';
+import NavSkeleton from '@components/placeholder/skeleton/components/NavSkeleton';
 
 const Wrapper = styled('div')({
   '& a, & button': {

@@ -7,8 +7,8 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import { specialReqSchema } from '@utils/yup/account-settings/PreferencesSchema';
 import { AlertBox } from '@utils/common/AlertBox';
 import { DataContext } from '@pages/account/profile';
-import { LoadSkeleton } from '@components/placeholder/LoadingSkeleton';
-import { patchUser } from '@utils/apis/users/api';
+import { LoadSkeleton } from '@components/placeholder/skeleton/LoadingSkeleton';
+import { updateUser } from '@utils/apis/users/api';
 
 const Wrapper = styled(Box)({
   '&:not(:last-child)': {
@@ -60,7 +60,7 @@ export default function SpecialRequirements() {
     const userId = userData._id;
 
     try {
-      const data = await patchUser(userId, values);
+      const data = await updateUser(userId, values);
 
       setInputValue(data.specialReq);
       setIsSave(true);

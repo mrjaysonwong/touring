@@ -26,7 +26,7 @@ import {
 import Visibility from '@mui/icons-material/Visibility';
 import VisibilityOff from '@mui/icons-material/VisibilityOff';
 import ErrorIcon from '@mui/icons-material/Error';
-import { postUser } from '@utils/apis/users/api';
+import { createUser } from '@utils/apis/users/api';
 
 const StyledForm = styled('form')({
   position: 'relative',
@@ -92,7 +92,7 @@ export default function Register() {
 
   const onSubmit = async (values) => {
     try {
-      const data = await postUser(values);
+      const data = await createUser(values);
       if (data) {
         setOpen(true);
         setShowError(false);

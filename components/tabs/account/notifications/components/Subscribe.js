@@ -5,7 +5,7 @@ import { DataContext } from '@pages/account/profile';
 import { useForm, Controller } from 'react-hook-form';
 import { useRouter } from 'next/router';
 import { AlertBox } from '@utils/common/AlertBox';
-import { patchUser } from '@utils/apis/users/api';
+import { updateUser } from '@utils/apis/users/api';
 
 const Wrapper = styled(Box)({
   '&:not(:last-child)': {
@@ -57,7 +57,7 @@ export default function Subscribe() {
 
     try {
       setToggle(true);
-      const data = await patchUser(userId, values);
+      const data = await updateUser(userId, values);
 
       setChecked(data.subscribe);
       setToggle(false);

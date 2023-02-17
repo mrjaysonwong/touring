@@ -15,10 +15,10 @@ export default function Bookings(props) {
 }
 
 export async function getServerSideProps(context) {
-  return requireAuthentication(context, ({ session }) => {
+  return requireAuthentication(context, ({ token }) => {
     return {
       props: {
-        session,
+        token,
       },
     };
   });

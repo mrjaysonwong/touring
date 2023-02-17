@@ -55,7 +55,7 @@ export async function getUser(req, res, token) {
 }
 
 // POST:http://localhost:3000/api/users
-export async function postUser(req, res) {
+export async function createUser(req, res) {
   try {
     if (!req.body) {
       return res.status(404).json({ success: false, error: 'Empty form data' });

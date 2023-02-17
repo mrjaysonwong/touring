@@ -7,7 +7,7 @@ import { DataContext } from '@pages/account/profile';
 import { dateOfBirthSchema } from '@utils/yup/account-settings/PInfoSchema';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
-import { patchUser } from '@utils/apis/users/api';
+import { updateUser } from '@utils/apis/users/api';
 import { AlertBox } from '@utils/common/AlertBox';
 
 const Wrapper = styled(Box)({
@@ -62,7 +62,7 @@ export default function DateOfBirth() {
     const userId = userData._id;
 
     try {
-      const data = await patchUser(userId, values);
+      const data = await updateUser(userId, values);
 
       setDate(data.dateOfBirth);
       setIsSave(true);

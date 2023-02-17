@@ -1,5 +1,5 @@
 import Grid from '@mui/material/Grid';
-import Skeleton from './component/Skeleton';
+import Skeleton from './components/Skeleton';
 
 export const LoadSkeleton = (props) => {
   return (

@@ -7,7 +7,7 @@ import { nameSchema } from '@utils/yup/account-settings/PInfoSchema';
 import { AlertBox } from '@utils/common/AlertBox';
 import { useRouter } from 'next/router';
 import { DataContext } from '@pages/account/profile';
-import { patchUser } from '@utils/apis/users/api';
+import { updateUser } from '@utils/apis/users/api';
 
 const Wrapper = styled(Box)({
   '&:not(:last-child)': {
@@ -74,7 +74,7 @@ export default function Fullname() {
     const userId = userData._id;
 
     try {
-      const data = await patchUser(userId, values);
+      const data = await updateUser(userId, values);
 
       setFirstName(data.firstName);
       setLastName(data.lastName);

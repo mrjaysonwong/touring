@@ -1,3 +1,4 @@
+import { useState, useEffect } from 'react';
 import { useRouter } from 'next/router';
 import { styled } from '@mui/system';
 import Navbar from './Navbar';
@@ -6,6 +7,7 @@ import { Tooltip, IconButton, Box, SvgIcon, useTheme } from '@mui/material';
 import Brightness4OutlinedIcon from '@mui/icons-material/Brightness4Outlined';
 import LightModeOutlinedIcon from '@mui/icons-material/LightModeOutlined';
 import ColorModeContext from '@contexts/ColorModeContext';
+import InitialLoading from '@components/placeholder/loading/initialLoading';
 
 const MainContainer = styled('main')({
   minHeight: '100vh',
@@ -34,42 +36,57 @@ export default function Layout({ children }) {
 
   const router = useRouter();
 
+  const isSignUpPage = router.pathname === '/signup';
+  const isLoginPage = router.pathname === '/login';
+
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    setTimeout(() => {
+      setIsLoading(false);
+    }, 2000);
+  }, []);
+
   return (
     <>
-      {router.pathname !== '/login' && router.pathname !== '/signup' && (
-        <Navbar />
-      )}
-      <MainContainer>
-        <ThemeToggler>
-          <ColorModeContext.Consumer>
-            {({ toggleColorMode }) => (
-              <>
-                <Tooltip
-                  title={`Toggle ${
-                    theme.palette.mode === 'dark' ? 'light' : 'dark'
-                  } mode`}
-                  placement="left"
-                >
-                  <IconButton color="inherit" onClick={toggleColorMode}>
-                    {theme.palette.mode === 'dark' ? (
-                      <SvgIcon htmlColor="var(--lightIcon)">
-                        <LightModeOutlinedIcon />
-                      </SvgIcon>
-                    ) : (
-                      <SvgIcon>
-                        <Brightness4OutlinedIcon />
-                      </SvgIcon>
-                    )}
-                  </IconButton>
-                </Tooltip>
-              </>
-            )}
-          </ColorModeContext.Consumer>
-        </ThemeToggler>
-        {children}
-      </MainContainer>
+      {!isLoginPage && !isSignUpPage && isLoading ? (
+        <InitialLoading />
+      ) : (
+        <>
+          {!isLoginPage && !isSignUpPage && <Navbar />}
+          <MainContainer>
+            <ThemeToggler>
+              <ColorModeContext.Consumer>
+                {({ toggleColorMode }) => (
+                  <>
+                    <Tooltip
+                      title={`Toggle ${
+                        theme.palette.mode === 'dark' ? 'light' : 'dark'
+                      } mode`}
+                      placement="left"
+                    >
+                      <IconButton color="inherit" onClick={toggleColorMode}>
+                        {theme.palette.mode === 'dark' ? (
+                          <SvgIcon htmlColor="var(--lightIcon)">
+                            <LightModeOutlinedIcon />
+                          </SvgIcon>
+                        ) : (
+                          <SvgIcon>
+                            <Brightness4OutlinedIcon />
+                          </SvgIcon>
+                        )}
+                      </IconButton>
+                    </Tooltip>
+                  </>
+                )}
+              </ColorModeContext.Consumer>
+            </ThemeToggler>
+            {children}
+          </MainContainer>
 
-      <Footer />
+          <Footer />
+        </>
+      )}
     </>
   );
 }

@@ -33,7 +33,7 @@ export const getUser = async (userId) => {
   }
 };
 
-export const patchUser = async (userId, values) => {
+export const updateUser = async (userId, values) => {
   try {
     await sleep(1000);
 
@@ -58,7 +58,7 @@ export const patchUser = async (userId, values) => {
   }
 };
 
-export const postUser = async (values) => {
+export const createUser = async (values) => {
   try {
     await sleep(1000);
 

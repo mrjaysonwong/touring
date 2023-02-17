@@ -17,7 +17,7 @@ import {
   continentEurope,
   continentAfrica,
 } from '@src/country_languages';
-import { patchUser } from '@utils/apis/users/api';
+import { updateUser } from '@utils/apis/users/api';
 import { AlertBox } from '@utils/common/AlertBox';
 
 const Wrapper = styled(Box)({
@@ -74,7 +74,7 @@ export default function SiteLanguage() {
     const userId = userData._id;
 
     try {
-      const data = await patchUser(userId, values);
+      const data = await updateUser(userId, values);
 
       setSelectedValue(data.languageCountry);
       setIsSave(true);

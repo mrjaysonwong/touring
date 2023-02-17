@@ -2,7 +2,7 @@ import connectMongo from 'database/connection';
 import {
   getUser,
   getUsers,
-  postUser,
+  createUser,
   updateUser,
 } from '@pages/api/controllers/user';
 import { getToken } from 'next-auth/jwt';
@@ -10,7 +10,7 @@ import { getToken } from 'next-auth/jwt';
 export default async function handler(req, res) {
   try {
     connectMongo().catch(() =>
-      res.status(405).json({ error: 'Connection Failed...!' })
+      res.status(500).json({ error: 'Connection Failed...!' })
     );
 
     // type of request
@@ -28,7 +28,7 @@ export default async function handler(req, res) {
         break;
 
       case 'POST':
-        await postUser(req, res);
+        await createUser(req, res);
         break;
       case 'PATCH':
         await updateUser(req, res);

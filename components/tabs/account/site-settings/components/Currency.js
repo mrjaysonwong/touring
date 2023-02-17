@@ -5,7 +5,7 @@ import { Box, Typography, Button, TextField, MenuItem } from '@mui/material';
 import { useForm } from 'react-hook-form';
 import { DataContext } from '@pages/account/profile';
 import { countryCurrency } from '@src/currency';
-import { patchUser } from '@utils/apis/users/api';
+import { updateUser } from '@utils/apis/users/api';
 import { AlertBox } from '@utils/common/AlertBox';
 
 const Wrapper = styled(Box)({
@@ -58,7 +58,7 @@ export default function Currency() {
     const userId = userData._id;
 
     try {
-      const data = await patchUser(userId, values);
+      const data = await updateUser(userId, values);
 
       setSelectedValue(data.currency);
       setIsSave(true);

@@ -7,8 +7,8 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import { languageSchema } from '@utils/yup/account-settings/PreferencesSchema';
 import { AlertBox } from '@utils/common/AlertBox';
 import { DataContext } from '@pages/account/profile';
-import { LoadSkeleton } from '@components/placeholder/LoadingSkeleton';
-import { patchUser } from '@utils/apis/users/api';
+import { LoadSkeleton } from '@components/placeholder/skeleton/LoadingSkeleton';
+import { updateUser } from '@utils/apis/users/api';
 import { tourLanguages } from '@src/tour_languages';
 
 const Wrapper = styled(Box)({
@@ -61,7 +61,7 @@ export default function Language() {
     const userId = userData._id;
 
     try {
-      const data = await patchUser(userId, values);
+      const data = await updateUser(userId, values);
    
         setSelectedValue(data.tourLanguage);
         setIsSave(true);

@@ -9,7 +9,7 @@ import { phoneSchema } from '@utils/yup/account-settings/PInfoSchema';
 import { AlertBox } from '@utils/common/AlertBox';
 import { DataContext } from '@pages/account/profile';
 import { formatNum, formatPatternNum } from '@utils/common/Format';
-import { patchUser } from '@utils/apis/users/api';
+import { updateUser } from '@utils/apis/users/api';
 
 const Wrapper = styled(Box)({
   '&:not(:last-child)': {
@@ -77,7 +77,7 @@ export default function Phone() {
     const userId = userData._id;
 
     try {
-      const data = await patchUser(userId, values);
+      const data = await updateUser(userId, values);
 
       setSelectedValue(data.phone.areaCode);
       setInputValue(data.phone.phoneNumber);

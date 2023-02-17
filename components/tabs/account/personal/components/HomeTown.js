@@ -16,7 +16,7 @@ import { homeTownSchema } from '@utils/yup/account-settings/PInfoSchema';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useRouter } from 'next/router';
 import { AlertBox } from '@utils/common/AlertBox';
-import { patchUser } from '@utils/apis/users/api';
+import { updateUser } from '@utils/apis/users/api';
 import { getCities } from '@utils/apis/cities/getCities';
 
 const Wrapper = styled(Box)({
@@ -102,7 +102,7 @@ export default function HomeTown() {
     const userId = userData._id;
 
     try {
-      const data = await patchUser(userId, values);
+      const data = await updateUser(userId, values);
 
       if (data && data.success) {
         setText(data.homeTown);

@@ -3,6 +3,8 @@ export const getCities = async (value) => {
     const apiUrl = `https://api.api-ninjas.com/v1/city?name=${value}&limit=5`;
 
     const options = {
+      method: 'GET',
+      mode: 'cors',
       headers: {
         'X-Api-Key': process.env.NINJA_KEY,
       },

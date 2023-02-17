@@ -1,5 +1,5 @@
 import connectMongo from 'database/connection';
-import { postUser } from '@pages/api/controllers/user';
+import { createUser } from '@pages/api/controllers/user';
 
 /** explicit flag disables warnings unresolved requests. */
 export const config = {
@@ -16,7 +16,7 @@ export default async function handler(req, res) {
   const { method } = req;
 
   if (method === 'POST') {
-    await postUser(req, res);
+    await createUser(req, res);
     return;
   } else {
     res.status(405).send(`HTTP ${method} not valid, only POST Accepted`);

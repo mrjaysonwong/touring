@@ -2,7 +2,7 @@ import { styled } from '@mui/system';
 import { useContext } from 'react';
 import { Box, Typography } from '@mui/material';
 import { DataContext } from '@pages/account/profile';
-import { LoadSkeleton } from '@components/placeholder/LoadingSkeleton';
+import { LoadSkeleton } from '@components/placeholder/skeleton/LoadingSkeleton';
 
 const Wrapper = styled(Box)({
   '&:not(:last-child)': {

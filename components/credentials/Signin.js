@@ -24,6 +24,7 @@ import {
 import Visibility from '@mui/icons-material/Visibility';
 import VisibilityOff from '@mui/icons-material/VisibilityOff';
 import ErrorIcon from '@mui/icons-material/Error';
+import { sleep } from '@utils/common/Sleep';
 
 const StyledForm = styled('form')({
   position: 'relative',
@@ -88,6 +89,7 @@ export default function Signin() {
         setShowError(false);
         // redirect: false for same page error handling
         window.location.assign('/welcome');
+        await sleep(1000);
       } else {
         setShowError(true);
         throw new Error(`${status.error}`);

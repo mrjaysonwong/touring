@@ -36,7 +36,7 @@ export default function Dashboard(props) {
           >
             <Box>
               <DoDisturbIcon
-                sx={{ color: 'red', height: '100px', width: '100px' }}
+                sx={{ color: '#b9121b', height: '100px', width: '100px' }}
               />
               <Typography variant="h2">Access Denied</Typography>
               <Typography variant="h6">

@@ -31,9 +31,7 @@ export default function Welcome(props) {
               textAlign: 'center',
             }}
           >
-            <Typography variant="h4">
-              Welcome to Touring, <br /> {props.token.name}!
-            </Typography>
+            <Typography variant="h4">Welcome {props.token.name}!</Typography>
           </Container>
         </Layout>
       )}

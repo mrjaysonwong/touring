@@ -86,7 +86,7 @@ export async function createUser(req, res) {
           return res.status(500).json({ success: false, error: err });
         } else {
           // if no error
-          res.status(201).json({
+          return res.status(201).json({
             success: true,
             message: 'Successfully Registered',
             user: data,
@@ -95,7 +95,7 @@ export async function createUser(req, res) {
       }
     );
   } catch (error) {
-    res.status(422).json({ error: 'Error while creating the data' });
+    return res.status(422).json({ error: 'Error while creating the data' });
   }
 }
 
@@ -105,16 +105,18 @@ export async function updateUser(req, res) {
     const { userId } = req.query;
     const data = req.body;
 
-    if (userId && data) {
+    if (userId || data) {
       await Users.findByIdAndUpdate(userId, data, { new: true });
 
       return res.status(201).json({ success: true, ...data });
     }
 
-    res.status(404).json({ success: false, error: 'User Not Selected...!' });
-  } catch (error) {
-    res
+    return res
       .status(404)
+      .json({ success: false, error: 'User Not Selected...!' });
+  } catch (error) {
+    return res
+      .status(422)
       .json({ success: false, error: 'Error while updating the data' });
   }
 }

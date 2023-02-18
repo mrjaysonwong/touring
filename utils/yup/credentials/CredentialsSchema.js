@@ -1,8 +1,8 @@
 import * as yup from 'yup';
 
 export const signupSchema = yup.object({
-  firstName: yup.string().required('First name is required'),
-  lastName: yup.string().required('Last name is required'),
+  firstName: yup.string().trim().required('First name is required'),
+  lastName: yup.string().trim().required('Last name is required'),
   email: yup
     .string()
     .trim()
@@ -10,11 +10,13 @@ export const signupSchema = yup.object({
     .email('Invalid email address'),
   password: yup
     .string()
+    .trim()
     .required('Password is required')
     .min(6, 'Password must be at least 6 characters')
     .max(40, 'Password must not exceed 40 characters'),
   passwordConfirm: yup
     .string()
+    .trim()
     .required('Confirm your password')
     .oneOf([yup.ref('password')], 'Passwords must match'),
 });

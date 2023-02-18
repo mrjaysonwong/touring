@@ -24,7 +24,6 @@ import {
 import Visibility from '@mui/icons-material/Visibility';
 import VisibilityOff from '@mui/icons-material/VisibilityOff';
 import ErrorIcon from '@mui/icons-material/Error';
-import { sleep } from '@utils/common/Sleep';
 
 const StyledForm = styled('form')({
   position: 'relative',
@@ -79,8 +78,6 @@ export default function Signin() {
 
   const onSubmit = async (values) => {
     try {
-      await sleep(1000);
-
       const status = await signIn('credentials', {
         redirect: false,
         email: values.email,

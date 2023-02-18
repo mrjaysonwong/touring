@@ -12,7 +12,7 @@ export default function Welcome(props) {
   useEffect(() => {
     setTimeout(() => {
       setLoading(false);
-    }, 2000);
+    }, 4000);
   }, []);
 
   return (

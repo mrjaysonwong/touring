@@ -40,7 +40,9 @@ export default NextAuth({
   ],
   callbacks: {
     signIn: async ({ user, account, profile, email, credentials }) => {
-      connectMongo();
+      connectMongo().catch(() => {
+        throw new Error('Connection Failed...!');
+      });
 
       // helper f(n)
       authSignin(user, account, Users);
@@ -55,7 +57,10 @@ export default NextAuth({
       return token;
     },
     session: async ({ session, token, user }) => {
-      connectMongo();
+      connectMongo().catch(() => {
+        throw new Error('Connection Failed...!');
+      });
+
       const result = await Users.findOne({ email: token.user.email });
 
       // add result property from db to session object

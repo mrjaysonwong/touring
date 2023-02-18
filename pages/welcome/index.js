@@ -1,8 +1,8 @@
 import { useState, useEffect } from 'react';
+import Head from 'next/head';
 import Layout from '@components/layout/Layout';
-import { Container, Box, Typography } from '@mui/material';
+import { Container, Typography } from '@mui/material';
 import InitialLoading from '@components/placeholder/loading/initialLoading';
-import { requireAuthentication } from '@utils/auth/RequireAuthentication';
 import { getToken } from 'next-auth/jwt';
 
 export default function Welcome(props) {
@@ -12,11 +12,15 @@ export default function Welcome(props) {
   useEffect(() => {
     setTimeout(() => {
       setLoading(false);
-    }, 3000);
+    }, 2000);
   }, []);
 
   return (
     <>
+      <Head>
+        <title>Welcome | Touring</title>
+      </Head>
+
       {isLoading ? (
         <InitialLoading />
       ) : (

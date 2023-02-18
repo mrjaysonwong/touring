@@ -78,20 +78,25 @@ export default function Signin() {
   }, [isSubmitSuccessful, reset, showError]);
 
   const onSubmit = async (values) => {
-    await sleep(1000);
+    try {
+      await sleep(1000);
 
-    const status = await signIn('credentials', {
-      redirect: true,
-      email: values.email,
-      password: values.password,
-      callbackUrl: '/welcome',
-    });
+      const status = await signIn('credentials', {
+        redirect: false,
+        email: values.email,
+        password: values.password,
+      });
 
-    if (status.error === null) {
-      setShowError(false);
-    } else {
-      setShowError(true);
-      setErrorMessage(status.error);
+      if (status.error === null) {
+        setShowError(false);
+        // redirect: false for same page error handling
+        window.location.assign('/welcome');
+      } else {
+        setShowError(true);
+        throw new Error(`${status.error}`);
+      }
+    } catch (error) {
+      setErrorMessage(error.message);
     }
   };
 

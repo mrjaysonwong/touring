@@ -1,7 +1,7 @@
 import Head from 'next/head';
 import Link from 'next/link';
 import Layout from '@components/layout/Layout';
-import { requireAuthentication } from '@utils/auth/RequireAuthentication';
+// import { requireAuthentication } from '@utils/auth/RequireAuthentication';
 import { styled } from '@mui/system';
 import {
   Box,
@@ -14,10 +14,9 @@ import {
   ListSubheader,
 } from '@mui/material';
 import DoDisturbIcon from '@mui/icons-material/DoDisturb';
+import { getToken } from 'next-auth/jwt';
 
 export default function Dashboard(props) {
-  // const { data: session } = useSession();
-
   return (
     <>
       <Head>
@@ -65,12 +64,31 @@ export default function Dashboard(props) {
   );
 }
 
+// export async function getServerSideProps(context) {
+//   return requireAuthentication(context, ({ token }) => {
+//     return {
+//       props: {
+//         token,
+//       },
+//     };
+//   });
+// }
+
 export async function getServerSideProps(context) {
-  return requireAuthentication(context, ({ token }) => {
+  const token = await getToken(context);
+
+  if (!token) {
     return {
-      props: {
-        token,
+      redirect: {
+        destination: '/login',
+        permanent: false,
       },
     };
-  });
+  }
+
+  return {
+    props: {
+      token,
+    },
+  };
 }

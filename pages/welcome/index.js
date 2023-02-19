@@ -16,7 +16,7 @@ export default function Welcome(props) {
     if (status !== 'loading') {
       setTimeout(() => {
         setLoading(false);
-      }, 1000);
+      }, 2000);
     }
   }, [status]);
 
@@ -36,7 +36,9 @@ export default function Welcome(props) {
               textAlign: 'center',
             }}
           >
-            <Typography variant="h4">Welcome {props.token.name}!</Typography>
+            <Typography variant="h4" sx={{ fontWeight: 'bold' }}>
+              Welcome {props.token.name}!
+            </Typography>
           </Container>
         </Layout>
       )}

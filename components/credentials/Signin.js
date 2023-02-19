@@ -79,8 +79,6 @@ export default function Signin() {
 
   const onSubmit = async (values) => {
     try {
-      await sleep(2000);
-
       const status = await signIn('credentials', {
         redirect: false,
         email: values.email,
@@ -90,7 +88,6 @@ export default function Signin() {
       if (status.error === null) {
         setShowError(false);
         // redirect: false for same page error handling
-
         window.location.assign('/welcome');
       } else {
         setShowError(true);

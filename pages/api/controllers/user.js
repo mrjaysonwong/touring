@@ -14,8 +14,9 @@ export const config = {
 export async function getUsers(req, res, token) {
   try {
     if (!token || token.user.role !== 'admin') {
-      res.status(403).send(`You don't have authorization to view this page.`);
-      return;
+      return res
+        .status(403)
+        .send(`You don't have authorization to view this page.`);
     }
 
     const users = await Users.find({});
@@ -24,13 +25,13 @@ export async function getUsers(req, res, token) {
       return res.status(404).send({ error: 'Data not Found' });
     }
 
-    res.status(200).json({
+    return res.status(200).json({
       total_users: users.length,
       // result: filteredUsers(users),
       result: users,
     });
   } catch (error) {
-    res.status(422).json({ error: 'Error while fetching the data' });
+    return res.status(422).json({ error: 'Error while fetching the data' });
   }
 }
 
@@ -40,17 +41,18 @@ export async function getUser(req, res, token) {
     const { userId } = req.query;
 
     if (!token || token.user._id !== userId) {
-      res.status(403).send(`You don't have authorization to view this page.`);
-      return;
+      return res
+        .status(403)
+        .send(`You don't have authorization to view this page.`);
     }
 
     const user = await Users.findById(userId);
 
-    res.status(200).json({
+    return res.status(200).json({
       result: user,
     });
   } catch (error) {
-    res.status(422).json({ error: 'Error while fetching the data' });
+    return res.status(422).json({ error: 'Error while fetching the data' });
   }
 }
 

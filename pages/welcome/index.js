@@ -4,16 +4,21 @@ import Layout from '@components/layout/Layout';
 import { Container, Typography } from '@mui/material';
 import InitialLoading from '@components/placeholder/loading/initialLoading';
 import { getToken } from 'next-auth/jwt';
+import { useSession } from 'next-auth/react';
 
 export default function Welcome(props) {
   //   console.log(props);
   const [isLoading, setLoading] = useState(true);
 
+  const { data: session, status } = useSession();
+
   useEffect(() => {
-    setTimeout(() => {
-      setLoading(false);
-    }, 4000);
-  }, []);
+    if (status !== 'loading') {
+      setTimeout(() => {
+        setLoading(false);
+      }, 1000);
+    }
+  }, [status]);
 
   return (
     <>

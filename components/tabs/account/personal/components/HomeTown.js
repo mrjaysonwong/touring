@@ -14,7 +14,6 @@ import { DataContext } from '@pages/account/profile';
 import { useForm } from 'react-hook-form';
 import { homeTownSchema } from '@utils/yup/account-settings/PInfoSchema';
 import { yupResolver } from '@hookform/resolvers/yup';
-import { useRouter } from 'next/router';
 import { AlertBox } from '@utils/common/AlertBox';
 import { updateUser } from '@utils/apis/users/api';
 import { getCities } from '@utils/apis/cities/getCities';
@@ -32,10 +31,9 @@ const SingleRow = styled(Box)({
 });
 
 export default function HomeTown() {
-  const { data, session } = useContext(DataContext);
+  const { data, routerReplace } = useContext(DataContext);
   const userData = data.result;
 
-  const router = useRouter();
   const [isSave, setIsSave] = useState(false);
   const [editForm, setEditForm] = useState(false);
 
@@ -109,7 +107,7 @@ export default function HomeTown() {
         setIsSave(true);
         setEditForm(false);
 
-        router.replace(router.asPath, undefined, { scroll: false });
+        routerReplace();
       } else {
         throw new Error(data.error);
       }

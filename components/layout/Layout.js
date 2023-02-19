@@ -29,7 +29,9 @@ const ThemeToggler = styled(Box)({
   },
 });
 
-export default function Layout({ children }) {
+export default function Layout(props) {
+  const { children } = props;
+
   const theme = useTheme();
 
   const router = useRouter();

@@ -5,9 +5,9 @@ import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { nameSchema } from '@utils/yup/account-settings/PInfoSchema';
 import { AlertBox } from '@utils/common/AlertBox';
-import { useRouter } from 'next/router';
 import { DataContext } from '@pages/account/profile';
 import { updateUser } from '@utils/apis/users/api';
+
 
 const Wrapper = styled(Box)({
   '&:not(:last-child)': {
@@ -32,10 +32,9 @@ const SingleRow = styled(Box)({
 });
 
 export default function Fullname() {
-  const { data, token } = useContext(DataContext);
+  const { data, routerReplace } = useContext(DataContext);
   const userData = data.result;
 
-  const router = useRouter();
 
   const [isSave, setIsSave] = useState(false);
   const [editForm, setEditForm] = useState(false);
@@ -80,8 +79,7 @@ export default function Fullname() {
       setLastName(data.lastName);
       setIsSave(true);
       setEditForm(false);
-
-      router.replace(router.asPath, undefined, { scroll: false });
+      routerReplace();
     } catch (error) {
       setShowError(true);
       setErrorMessage(error.message);
@@ -102,7 +100,9 @@ export default function Fullname() {
               </Button>
             </SingleRow>
             <Typography variant="body1">
-              {isSave ? `${firstName} ${lastName}` : token.user.name}
+              {isSave
+                ? `${firstName} ${lastName}`
+                : `${userData.firstName} ${userData.lastName}`}
             </Typography>
           </>
         )}

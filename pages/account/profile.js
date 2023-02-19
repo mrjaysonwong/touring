@@ -2,6 +2,7 @@ import Head from 'next/head';
 import Layout from '@components/layout/Layout';
 import { createContext } from 'react';
 import { useTheme } from '@mui/styles';
+import { useRouter } from 'next/router';
 import { Box, Container, useMediaQuery } from '@mui/material';
 import { requireAuthentication } from '@utils/auth/RequireAuthentication';
 import Tabs from '@components/tabs/Tabs';
@@ -9,8 +10,14 @@ import Tabs from '@components/tabs/Tabs';
 export const DataContext = createContext();
 
 export default function Profile(props) {
+  const router = useRouter();
+
   const theme = useTheme();
   const minWidth900px = useMediaQuery(theme.breakpoints.up('md'));
+
+  const routerReplace = () => {
+    router.replace(router.asPath, undefined, { scroll: false });
+  };
 
   return (
     <>
@@ -29,6 +36,7 @@ export default function Profile(props) {
             <DataContext.Provider
               value={{
                 ...props,
+                routerReplace,
               }}
             >
               <Tabs />

@@ -1,6 +1,5 @@
 import { styled } from '@mui/system';
 import { useState, useContext } from 'react';
-import { useRouter } from 'next/router';
 import { Box, Typography, Button, TextField, MenuItem } from '@mui/material';
 import { useForm } from 'react-hook-form';
 import { DataContext } from '@pages/account/profile';
@@ -21,10 +20,8 @@ const SingleRow = styled(Box)({
 });
 
 export default function Currency() {
-  const { data, session } = useContext(DataContext);
+  const { data, routerReplace } = useContext(DataContext);
   const userData = data.result;
-
-  const router = useRouter();
 
   const [editForm, setEditForm] = useState(false);
   const [isSave, setIsSave] = useState(false);
@@ -64,7 +61,7 @@ export default function Currency() {
       setIsSave(true);
       setEditForm(false);
 
-      router.replace(router.asPath, undefined, { scroll: false });
+      routerReplace();
     } catch (error) {
       setShowError(true);
       setErrorMessage(error.message);

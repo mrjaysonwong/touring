@@ -1,6 +1,5 @@
 import { styled } from '@mui/system';
 import { useState, useContext } from 'react';
-import { useRouter } from 'next/router';
 import {
   Box,
   Typography,
@@ -37,10 +36,8 @@ const StyledSubheader = styled(ListSubheader)({
 });
 
 export default function SiteLanguage() {
-  const { data, session } = useContext(DataContext);
+  const { data, routerReplace } = useContext(DataContext);
   const userData = data.result;
-
-  const router = useRouter();
 
   const [editForm, setEditForm] = useState(false);
   const [isSave, setIsSave] = useState(false);
@@ -80,7 +77,7 @@ export default function SiteLanguage() {
       setIsSave(true);
       setEditForm(false);
 
-      router.replace(router.asPath, undefined, { scroll: false });
+      routerReplace();
     } catch (error) {
       setShowError(true);
       setErrorMessage(error.message);

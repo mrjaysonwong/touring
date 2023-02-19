@@ -6,8 +6,7 @@ import InitialLoading from '@components/placeholder/loading/initialLoading';
 import { getToken } from 'next-auth/jwt';
 import { useSession } from 'next-auth/react';
 
-export default function Welcome(props) {
-  //   console.log(props);
+export default function Welcome() {
   const [isLoading, setLoading] = useState(true);
 
   const { data: session, status } = useSession();
@@ -37,7 +36,7 @@ export default function Welcome(props) {
             }}
           >
             <Typography variant="h4" sx={{ fontWeight: 'bold' }}>
-              Welcome {props.token.name}!
+              Welcome {session.user.name}!
             </Typography>
           </Container>
         </Layout>

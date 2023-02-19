@@ -1,5 +1,4 @@
 import { useState, useContext } from 'react';
-import { useRouter } from 'next/router';
 import { styled } from '@mui/system';
 import { Box, Button, Typography, TextField, MenuItem } from '@mui/material';
 import { countryCodes } from '@src/country_codes';
@@ -24,10 +23,8 @@ const SingleRow = styled(Box)({
 });
 
 export default function Phone() {
-  const { data, session } = useContext(DataContext);
+  const { data, routerReplace } = useContext(DataContext);
   const userData = data.result;
-
-  const router = useRouter();
 
   const phoneCode = userData.phone.areaCode;
   const phoneNum = userData.phone.phoneNumber;
@@ -83,7 +80,7 @@ export default function Phone() {
       setInputValue(data.phone.phoneNumber);
       setIsSave(true);
       setEditForm(false);
-      router.replace(router.asPath, undefined, { scroll: false });
+      routerReplace();
     } catch (error) {
       setShowError(true);
       setErrorMessage(error.message);

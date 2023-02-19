@@ -1,6 +1,5 @@
 import { useState, useContext } from 'react';
 import { styled } from '@mui/system';
-import { useRouter } from 'next/router';
 import { Box, Button, Typography, TextField } from '@mui/material';
 import dayjs from 'dayjs';
 import { DataContext } from '@pages/account/profile';
@@ -23,10 +22,8 @@ const SingleRow = styled(Box)({
 });
 
 export default function DateOfBirth() {
-  const { data, session } = useContext(DataContext);
+  const { data, routerReplace } = useContext(DataContext);
   const userData = data.result;
-
-  const router = useRouter();
 
   const [editForm, setEditForm] = useState(false);
   const [isSave, setIsSave] = useState(false);
@@ -68,7 +65,7 @@ export default function DateOfBirth() {
       setIsSave(true);
       setEditForm(false);
 
-      router.replace(router.asPath, undefined, { scroll: false });
+      routerReplace();
     } catch (error) {
       setShowError(true);
       setErrorMessage(error.message);
@@ -114,6 +111,7 @@ export default function DateOfBirth() {
               onChange={handleChange}
               error={Boolean(errors.dateOfBirth)}
               {...register('dateOfBirth')}
+              sx={{ minWidth: '250px' }}
             />
 
             <Typography variant="body2" color="error">

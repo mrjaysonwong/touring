@@ -3,7 +3,6 @@ import { styled } from '@mui/system';
 import { Box, Typography, Switch, Divider, Alert } from '@mui/material';
 import { DataContext } from '@pages/account/profile';
 import { useForm, Controller } from 'react-hook-form';
-import { useRouter } from 'next/router';
 import { AlertBox } from '@utils/common/AlertBox';
 import { updateUser } from '@utils/apis/users/api';
 
@@ -25,10 +24,8 @@ const SingleRow = styled(Box)({
 });
 
 export default function Subscribe() {
-  const { data, session } = useContext(DataContext);
+  const { data, routerReplace } = useContext(DataContext);
   const userData = data.result;
-
-  const router = useRouter();
 
   const [checked, setChecked] = useState(userData.subscribe);
   const [open, setOpen] = useState(true);
@@ -61,8 +58,7 @@ export default function Subscribe() {
 
       setChecked(data.subscribe);
       setToggle(false);
-
-      router.replace(router.asPath, undefined, { scroll: false });
+      routerReplace();
     } catch (error) {
       setShowError(true);
       setErrorMessage(error.message);

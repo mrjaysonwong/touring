@@ -1,21 +1,19 @@
 import { useState, useEffect } from 'react';
 import Head from 'next/head';
-import Layout from '@components/layout/Layout';
-import { Container, Typography } from '@mui/material';
 import InitialLoading from '@components/placeholder/loading/initialLoading';
 import { getToken } from 'next-auth/jwt';
 import { useSession } from 'next-auth/react';
+import WelcomeHeader from '@components/header/WelcomeHeader';
 
-export default function Welcome() {
+export default function Welcome(props) {
   const [isLoading, setLoading] = useState(true);
-
   const { data: session, status } = useSession();
 
   useEffect(() => {
     if (status !== 'loading') {
       setTimeout(() => {
         setLoading(false);
-      }, 1000);
+      }, 3000);
     }
   }, [status]);
 
@@ -25,22 +23,7 @@ export default function Welcome() {
         <title>Welcome | Touring</title>
       </Head>
 
-      {isLoading ? (
-        <InitialLoading />
-      ) : (
-        <Layout>
-          <Container
-            sx={{
-              mt: 15,
-              textAlign: 'center',
-            }}
-          >
-            <Typography variant="h4" sx={{ fontWeight: 'bold' }}>
-              Welcome {session.user.name}!
-            </Typography>
-          </Container>
-        </Layout>
-      )}
+      {isLoading ? <InitialLoading /> : <WelcomeHeader data={session} />}
     </>
   );
 }

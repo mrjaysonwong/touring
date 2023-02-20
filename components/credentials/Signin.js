@@ -79,7 +79,7 @@ export default function Signin() {
 
   const onSubmit = async (values) => {
     try {
-      await sleep(1000);
+      await sleep(2000);
 
       const status = await signIn('credentials', {
         redirect: false,

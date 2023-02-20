@@ -15,7 +15,7 @@ export default function Welcome() {
     if (status !== 'loading') {
       setTimeout(() => {
         setLoading(false);
-      }, 2000);
+      }, 1000);
     }
   }, [status]);
 

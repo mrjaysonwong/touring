@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import Head from 'next/head';
-import InitialLoading from '@components/placeholder/loading/InitialLoading';
+import InitialLoading from '@components/placeholder/loading/initialLoading';
 import { getToken } from 'next-auth/jwt';
 import { useSession } from 'next-auth/react';
 import WelcomeHeader from '@components/header/WelcomeHeader';

@@ -70,7 +70,7 @@ export default function Subscribe() {
       <Wrapper>
         <Alert severity="info">
           <Typography variant="body1">
-            Touring will send you weekly emails, new tours andcompany updates
+            Touring will send you weekly emails, new tours and company updates
           </Typography>
         </Alert>
 

@@ -23,11 +23,16 @@ import {
   Stack,
   Alert as MuiAlert,
   useTheme,
+  useMediaQuery,
 } from '@mui/material';
 import Visibility from '@mui/icons-material/Visibility';
 import VisibilityOff from '@mui/icons-material/VisibilityOff';
 import ErrorIcon from '@mui/icons-material/Error';
 import { createUser } from '@utils/apis/users/api';
+
+const Alert = forwardRef(function Alert(props, ref) {
+  return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
+});
 
 const StyledForm = styled('form')({
   position: 'relative',
@@ -41,10 +46,6 @@ const StyledForm = styled('form')({
   '.login-text': {
     color: '#13a1ff',
   },
-});
-
-const Alert = forwardRef(function Alert(props, ref) {
-  return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
 });
 
 const SingleRow = styled(Box)({
@@ -62,6 +63,7 @@ export default function Register() {
   const [open, setOpen] = useState(false);
 
   const theme = useTheme();
+  const breakpoint = useMediaQuery(theme.breakpoints.up('sm'));
 
   const [showError, setShowError] = useState(false);
   const [errorMessage, setErrorMessage] = useState(null);
@@ -126,7 +128,10 @@ export default function Register() {
             width: 'min(95%, 100vw)',
           }}
         >
-          <StyledForm autoComplete="off">
+          <StyledForm
+            autoComplete="off"
+            sx={{ width: breakpoint ? '40%' : '100%' }}
+          >
             <Box sx={{ position: 'absolute', top: -40, left: 0 }}>
               <Tooltip title="Touring logo" arrow>
                 <MUILink component={Link} href="/">
@@ -191,6 +196,7 @@ export default function Register() {
               <SingleColumn>
                 <TextField
                   id="firstName"
+                  className="firstName"
                   name="firstName"
                   label="First name"
                   error={Boolean(errors.firstName)}
@@ -206,6 +212,7 @@ export default function Register() {
               <SingleColumn>
                 <TextField
                   id="lastName"
+                  className="lastName"
                   name="lastName"
                   label="Last name"
                   error={Boolean(errors.lastName)}

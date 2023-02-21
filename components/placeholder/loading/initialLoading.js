@@ -1,20 +1,21 @@
 import Image from 'next/image';
+import { styled } from '@mui/system';
 import { Box, Container, useTheme, LinearProgress } from '@mui/material';
+
+const Wrapper = styled(Box)({
+  width: '100%',
+  height: '90vh',
+  display: 'flex',
+  alignItems: 'center',
+  justifyContent: 'center',
+});
 
 export default function InitialLoading() {
   const theme = useTheme();
 
   return (
     <>
-      <Box
-        sx={{
-          width: '100%',
-          height: '90vh',
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'center',
-        }}
-      >
+      <Wrapper>
         <Container
           sx={{
             width: 'min(30%, 100vw)',
@@ -37,9 +38,9 @@ export default function InitialLoading() {
               priority
             />
           </Box>
-          <LinearProgress />
+          <LinearProgress sx={{ borderRadius: '6px' }} />
         </Container>
-      </Box>
+      </Wrapper>
     </>
   );
 }

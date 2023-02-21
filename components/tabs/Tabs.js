@@ -47,7 +47,7 @@ export default function Tabs() {
         indicatorColor="secondary"
         textColor="secondary"
         aria-label="custom tabs"
-        allowScrollButtonsMobile
+        // allowScrollButtonsMobile
         sx={{
           borderRight: `${breakpoint ? 1 : 0}`,
           borderColor: 'divider',

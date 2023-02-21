@@ -213,7 +213,7 @@ export default function Signin() {
                 variant="body1"
                 sx={{ fontWeight: 600, color: '#fff' }}
               >
-                Log in
+                {isSubmitting ? 'Logging in...' : 'Log in'}
               </Typography>
             </Button>
 
@@ -221,7 +221,10 @@ export default function Signin() {
               <Divider sx={{ m: 1 }}>or</Divider>
             </Typography>
 
-            <ProviderButton onClick={handleGoogleSignIn}>
+            <ProviderButton
+              onClick={handleGoogleSignIn}
+              disabled={isSubmitting}
+            >
               <Box sx={{ display: 'flex' }}>
                 <Image
                   src="/assets/google.svg"
@@ -236,7 +239,10 @@ export default function Signin() {
                 Log in with Google
               </Typography>
             </ProviderButton>
-            <ProviderButton onClick={handleGitHubSignIn}>
+            <ProviderButton
+              onClick={handleGitHubSignIn}
+              disabled={isSubmitting}
+            >
               <Box sx={{ display: 'flex' }}>
                 <Image
                   src={`/assets/github-${

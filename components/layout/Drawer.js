@@ -72,14 +72,14 @@ export default function Sidebar({ handleDrawerToggle }) {
           {!session && (
             <>
               <ListItem sx={{ display: 'block' }} disablePadding>
-                <NextLink href="/signup" passHref>
-                  <ListItemButton>
-                    <ListItemText primary="Sign Up" inset />
-                  </ListItemButton>
-                </NextLink>
                 <NextLink href="/login" passHref>
                   <ListItemButton>
-                    <ListItemText primary="Log In" inset />
+                    <ListItemText primary="Log in" inset />
+                  </ListItemButton>
+                </NextLink>
+                <NextLink href="/signup" passHref>
+                  <ListItemButton>
+                    <ListItemText primary="Sign up" inset />
                   </ListItemButton>
                 </NextLink>
               </ListItem>

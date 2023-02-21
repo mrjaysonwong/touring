@@ -7,7 +7,6 @@ import {
   ImageList,
   ImageListItem,
   Button,
-  useMediaQuery,
 } from '@mui/material';
 import { styled } from '@mui/system';
 import { tourRecommendations } from '@src/recommendations';
@@ -72,7 +71,8 @@ export default function WelcomeHeader({ data }) {
           <Link href="/">
             <Button
               variant="contained"
-              sx={{ bgcolor: 'var(--secondaryColor)', fontWeight: '600' }}
+              color="secondary"
+              sx={{ fontWeight: '600' }}
             >
               Not Interested
             </Button>

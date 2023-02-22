@@ -37,3 +37,31 @@ export const loginSchema = yup.object().shape({
     .min(6, 'Password must be at least 6 characters')
     .max(40, 'Password must not exceed 40 characters'),
 });
+
+export const changePasswordSchema = yup.object().shape({
+  currentPassword: yup
+    .string()
+    .trim()
+    .required('Password is required')
+    .matches(
+      /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[A-Za-z\d]+$/,
+      'Password must contain at least one uppercase letter, one lowercase letter, and one digit'
+    )
+    .min(8, 'Password must be at least 8 characters')
+    .max(40, 'Password must not exceed 40 characters'),
+  newPassword: yup
+    .string()
+    .trim()
+    .required('Password is required')
+    .matches(
+      /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[A-Za-z\d]+$/,
+      'Password must contain at least one uppercase letter, one lowercase letter, and one digit'
+    )
+    .min(8, 'Password must be at least 8 characters')
+    .max(40, 'Password must not exceed 40 characters'),
+  passwordConfirm: yup
+    .string()
+    .trim()
+    .required('Confirm your password')
+    .oneOf([yup.ref('newPassword')], 'Passwords must match'),
+});

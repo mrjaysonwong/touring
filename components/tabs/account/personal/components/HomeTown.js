@@ -123,7 +123,9 @@ export default function HomeTown() {
         {!editForm && (
           <>
             <SingleRow>
-              <Typography variant="body1">Home Town</Typography>
+              <Typography variant="body1">
+                Home Town
+              </Typography>
               <Button variant="text" onClick={handleClick}>
                 {!userData.homeTown ? 'Add' : 'Edit'}
               </Button>

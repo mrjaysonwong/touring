@@ -24,6 +24,7 @@ import {
   Alert as MuiAlert,
   useTheme,
   useMediaQuery,
+  CircularProgress,
 } from '@mui/material';
 import Visibility from '@mui/icons-material/Visibility';
 import VisibilityOff from '@mui/icons-material/VisibilityOff';
@@ -34,7 +35,7 @@ const Alert = forwardRef(function Alert(props, ref) {
   return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
 });
 
-const StyledForm = styled('form')({
+const StyledForm = styled('form')(({ breakpoint }) => ({
   position: 'relative',
   display: 'flex',
   flexDirection: 'column',
@@ -46,7 +47,8 @@ const StyledForm = styled('form')({
   '.login-text': {
     color: '#13a1ff',
   },
-});
+  width: breakpoint === 'true' ? '40%' : '100%',
+}));
 
 const SingleRow = styled(Box)({
   display: 'flex',
@@ -55,6 +57,15 @@ const SingleRow = styled(Box)({
 
 const SingleColumn = styled(Box)({
   display: 'block',
+});
+
+const ErrorBox = styled(Box)({
+  backgroundColor: '#ffebed',
+  border: '2px solid #fc3d31',
+  display: 'flex',
+  alignItems: 'center',
+  padding: '10px',
+  borderRadius: '3px',
 });
 
 export default function Register() {
@@ -128,10 +139,7 @@ export default function Register() {
             width: 'min(95%, 100vw)',
           }}
         >
-          <StyledForm
-            autoComplete="off"
-            sx={{ width: breakpoint ? '40%' : '100%' }}
-          >
+          <StyledForm autoComplete="off" breakpoint={`${breakpoint}`}>
             <Box sx={{ position: 'absolute', top: -40, left: 0 }}>
               <Tooltip title="Touring logo" arrow>
                 <MUILink component={Link} href="/">
@@ -171,16 +179,7 @@ export default function Register() {
             )}
 
             {showError && (
-              <Box
-                sx={{
-                  bgcolor: '#ffebed',
-                  border: '2px solid #fc3d31',
-                  display: 'flex',
-                  alignItems: 'center',
-                  p: 1,
-                  borderRadius: 1,
-                }}
-              >
+              <ErrorBox>
                 <Typography
                   variant="body2"
                   color="error"
@@ -189,7 +188,7 @@ export default function Register() {
                   <ErrorIcon sx={{ mr: 0.5, width: 24, height: 24 }} />{' '}
                   {errorMessage}
                 </Typography>
-              </Box>
+              </ErrorBox>
             )}
 
             <SingleRow>
@@ -301,7 +300,11 @@ export default function Register() {
                 variant="body1"
                 sx={{ fontWeight: 600, color: '#fff' }}
               >
-                Register
+                {isSubmitting ? (
+                  <CircularProgress size={24} sx={{ display: 'flex' }} />
+                ) : (
+                  'Register'
+                )}
               </Typography>
             </Button>
 

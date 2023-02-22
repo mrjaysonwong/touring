@@ -5,7 +5,7 @@ import { useTheme } from '@mui/styles';
 import { useRouter } from 'next/router';
 import { Box, Container, useMediaQuery } from '@mui/material';
 import { requireAuthentication } from '@utils/auth/RequireAuthentication';
-import Tabs from '@components/tabs/Tabs';
+import Tabs from '@components/tabs/account/Tabs';
 
 export const DataContext = createContext();
 
@@ -13,7 +13,8 @@ export default function Profile(props) {
   const router = useRouter();
 
   const theme = useTheme();
-  const minWidth900px = useMediaQuery(theme.breakpoints.up('md'));
+  const breakpointMd = useMediaQuery(theme.breakpoints.up('md'));
+  const breakpointSm = useMediaQuery(theme.breakpoints.up('sm'));
 
   const routerReplace = () => {
     router.replace(router.asPath, undefined, { scroll: false });
@@ -30,13 +31,14 @@ export default function Profile(props) {
           <Box
             sx={{
               flexGrow: 1,
-              display: `${minWidth900px ? 'flex' : 'block'}`,
+              display: `${breakpointMd ? 'flex' : 'block'}`,
             }}
           >
             <DataContext.Provider
               value={{
                 ...props,
                 routerReplace,
+                breakpointSm,
               }}
             >
               <Tabs />

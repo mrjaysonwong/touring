@@ -85,6 +85,7 @@ export default function Navbar() {
         <AppBar
           position="fixed"
           color="default"
+          elevation={1}
           sx={{
             display: 'flex',
             justifyContent: 'center',

@@ -14,6 +14,7 @@ const Wrapper = styled(Box)({
   '.typography': {
     display: 'flex',
     alignItems: 'center',
+    margin: '6px 0',
   },
 });
 

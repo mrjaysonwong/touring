@@ -2,7 +2,7 @@ import { styled } from '@mui/system';
 import { useContext } from 'react';
 import { Box, Typography } from '@mui/material';
 import { DataContext } from '@pages/account/profile';
-import { LoadSkeleton } from '@components/placeholder/skeleton/LoadingSkeleton';
+import { LoadSkeleton } from '@components/loaders/skeleton/LoadingSkeleton';
 
 const Wrapper = styled(Box)({
   '&:not(:last-child)': {
@@ -20,7 +20,9 @@ export default function Cards() {
       {/* <LoadSkeleton loading /> */}
 
       <Wrapper>
-        <Typography variant="body1">Your stored cards</Typography>
+        <Typography variant="body1" sx={{ my: 1 }}>
+          Your stored cards
+        </Typography>
 
         {userData.paymentCards ? (
           'Visa-Test'

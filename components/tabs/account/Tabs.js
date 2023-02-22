@@ -9,7 +9,7 @@ import {
   Notifications,
   TravelPreferences,
   SiteSettings,
-} from './account/index';
+} from './index';
 
 const a11yProps = (value) => {
   return {

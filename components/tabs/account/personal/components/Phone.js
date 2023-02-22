@@ -93,7 +93,9 @@ export default function Phone() {
         {!editForm && (
           <>
             <SingleRow>
-              <Typography variant="body1">Phone Number</Typography>
+              <Typography variant="body1">
+                Phone Number
+              </Typography>
               <Button variant="text" onClick={handleClick}>
                 {!phoneNum ? 'Add' : 'Edit'}
               </Button>

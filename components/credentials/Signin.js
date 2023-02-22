@@ -20,6 +20,7 @@ import {
   Link as MUILink,
   Tooltip,
   useTheme,
+  CircularProgress,
 } from '@mui/material';
 import Visibility from '@mui/icons-material/Visibility';
 import VisibilityOff from '@mui/icons-material/VisibilityOff';
@@ -35,17 +36,18 @@ const StyledForm = styled('form')({
   borderRadius: 8,
   boxShadow:
     'rgba(0, 0, 0, 0.25) 0px 0.0625em 0.0625em, rgba(0, 0, 0, 0.25) 0px 0.125em 0.5em, rgba(255, 255, 255, 0.4) 0px 0px 0px 1px inset',
-  '.signup-text': {
+  '.signup-text, .forgot-password': {
     color: '#13a1ff',
   },
-  '.error-box': {
-    backgroundColor: '#ffebed',
-    border: '2px solid #fc3d31',
-    display: 'flex',
-    alignItems: 'center',
-    padding: '8px',
-    borderRadius: '3px',
-  },
+});
+
+const ErrorBox = styled(Box)({
+  backgroundColor: '#ffebed',
+  border: '2px solid #fc3d31',
+  display: 'flex',
+  alignItems: 'center',
+  padding: '10px',
+  borderRadius: '3px',
 });
 
 const ProviderButton = styled(Button)({
@@ -152,7 +154,7 @@ export default function Signin() {
             </Typography>
 
             {showError && (
-              <Box className="error-box">
+              <ErrorBox>
                 <Typography
                   variant="body2"
                   color="error"
@@ -161,7 +163,7 @@ export default function Signin() {
                   <ErrorIcon sx={{ mr: 0.5, width: 24, height: 24 }} />{' '}
                   {errorMessage}
                 </Typography>
-              </Box>
+              </ErrorBox>
             )}
 
             <TextField
@@ -213,7 +215,11 @@ export default function Signin() {
                 variant="body1"
                 sx={{ fontWeight: 600, color: '#fff' }}
               >
-                {isSubmitting ? 'Logging in...' : 'Log in'}
+                {isSubmitting ? (
+                  <CircularProgress size={24} sx={{ display: 'flex' }} />
+                ) : (
+                  'Log in'
+                )}
               </Typography>
             </Button>
 
@@ -263,6 +269,12 @@ export default function Signin() {
               sx={{ border: '1px thin', borderColor: '#aaaaaa', my: 2 }}
             />
 
+            <Typography variant="body2" align="right">
+              <NextLink href="/" passHref>
+                <a className="forgot-password">Forgot password?</a>
+              </NextLink>
+            </Typography>
+            <br />
             <Typography variant="body2" align="right">
               Don&apos;t have an account?{' '}
               <NextLink href="/signup" passHref>

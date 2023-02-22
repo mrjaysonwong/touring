@@ -74,7 +74,9 @@ export default function Currency() {
         {!editForm && (
           <>
             <SingleRow>
-              <Typography variant="body1">Currency</Typography>
+              <Typography variant="body1" sx={{ my: 1 }}>
+                Currency
+              </Typography>
               <Button variant="text" onClick={handleClick}>
                 {!userData.currency ? 'Add' : 'Edit'}
               </Button>

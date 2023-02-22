@@ -6,7 +6,7 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import { languageSchema } from '@utils/yup/account-settings/PreferencesSchema';
 import { AlertBox } from '@utils/common/AlertBox';
 import { DataContext } from '@pages/account/profile';
-import { LoadSkeleton } from '@components/placeholder/skeleton/LoadingSkeleton';
+import { LoadSkeleton } from '@components/loaders/skeleton/LoadingSkeleton';
 import { updateUser } from '@utils/apis/users/api';
 import { tourLanguages } from '@src/tour_languages';
 
@@ -78,7 +78,9 @@ export default function Language() {
         {!editForm && (
           <>
             <SingleRow>
-              <Typography variant="body1">Tour Guide Language</Typography>
+              <Typography variant="body1" sx={{ my: 1 }}>
+                Tour Guide Language
+              </Typography>
               <Button variant="text" onClick={handleClick}>
                 {!userData.tourLanguage ? 'Add' : 'Edit'}
               </Button>

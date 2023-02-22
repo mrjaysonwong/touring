@@ -1,12 +1,21 @@
 import { useState, useContext } from 'react';
 import { styled } from '@mui/system';
-import { Box, Button, Typography, TextField } from '@mui/material';
+import {
+  Box,
+  Button,
+  Typography,
+  TextField,
+  InputAdornment,
+  IconButton,
+} from '@mui/material';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import {
   emailSchema,
   newEmailSchema,
 } from '@utils/yup/account-settings/PInfoSchema';
+import Visibility from '@mui/icons-material/Visibility';
+import VisibilityOff from '@mui/icons-material/VisibilityOff';
 import { DataContext } from '@pages/account/profile';
 
 const Wrapper = styled(Box)({
@@ -14,9 +23,6 @@ const Wrapper = styled(Box)({
     borderBottom: '1px solid var(--dividerColor)',
   },
   padding: '1rem 0',
-  '.email, .newEmail, .emailConfirm, .password': {
-    width: '100%',
-  },
 });
 
 const SingleRow = styled(Box)({
@@ -24,8 +30,16 @@ const SingleRow = styled(Box)({
   justifyContent: 'space-between',
 });
 
+const StyledBox = styled(Box)(({ breakpoint }) => ({
+  width: breakpoint === 'true' ? '50%' : '100%',
+  '& .email, .password, .newEmail, .emailConfirm': {
+    width: '100%',
+    margin: '6px 0',
+  },
+}));
+
 export default function Email() {
-  const { data, token } = useContext(DataContext);
+  const { data, token, breakpointSm } = useContext(DataContext);
   const userData = data.result;
 
   const [editForm, setEditForm] = useState(false);
@@ -35,6 +49,8 @@ export default function Email() {
   const [showError, setShowError] = useState(false);
   const [errorMessage, setErrorMessage] = useState(null);
 
+  const [showPassword, setShow] = useState(false);
+
   const {
     register,
     handleSubmit,
@@ -42,6 +58,7 @@ export default function Email() {
   } = useForm({
     resolver: yupResolver(newEmailSchema),
   });
+
   const {
     register: register1,
     handleSubmit: handleSubmit1,
@@ -60,12 +77,20 @@ export default function Email() {
     setEditForm(false);
   };
 
+  const handleClickShowPassword = () => {
+    setShow(!showPassword);
+  };
+
+  const handleMouseDownPassword = (event) => {
+    event.preventDefault();
+  };
+
   const handleEmailChange = (event) => {
     setEmail(event.target.value);
   };
 
   const onSubmit = (values) => {
-    // console.log(values);
+    console.log(values);
   };
 
   return (
@@ -88,44 +113,41 @@ export default function Email() {
             {userData.authProvider ? (
               <>
                 <form>
-                  <Typography variant="body1" sx={{ mb: 1 }}>
-                    Current Email
-                  </Typography>
-                  <Typography variant="body1">{userData.email}</Typography>
-                  <br />
+                  <StyledBox breakpoint={`${breakpointSm}`}>
+                    <Typography variant="body1">Current Email</Typography>
+                    <Typography variant="body1" sx={{ mt: '13px', mb: 2 }}>
+                      {userData.email}
+                    </Typography>
 
-                  <Typography variant="body1" sx={{ mb: 1 }}>
-                    New Email
-                  </Typography>
+                    <Typography variant="body1">New Email</Typography>
 
-                  <TextField
-                    id="newEmail"
-                    className="newEmail"
-                    name="newEmail"
-                    error={Boolean(errors.newEmail)}
-                    onChange={handleEmailChange}
-                    {...register('newEmail')}
-                  />
+                    <TextField
+                      id="newEmail"
+                      className="newEmail"
+                      name="newEmail"
+                      error={Boolean(errors.newEmail)}
+                      onChange={handleEmailChange}
+                      {...register('newEmail')}
+                    />
 
-                  <Typography variant="body2" color="error">
-                    {errors.newEmail?.message}
-                  </Typography>
+                    <Typography variant="body2" color="error">
+                      {errors.newEmail?.message}
+                    </Typography>
 
-                  <Typography variant="body1" sx={{ my: 1 }}>
-                    Confirm New Email
-                  </Typography>
-                  <TextField
-                    id="emailConfirm"
-                    className="emailConfirm"
-                    name="emailConfirm"
-                    error={Boolean(errors.emailConfirm)}
-                    onChange={handleEmailChange}
-                    {...register('emailConfirm')}
-                  />
+                    <Typography variant="body1">Confirm New Email</Typography>
+                    <TextField
+                      id="emailConfirm"
+                      className="emailConfirm"
+                      name="emailConfirm"
+                      error={Boolean(errors.emailConfirm)}
+                      onChange={handleEmailChange}
+                      {...register('emailConfirm')}
+                    />
 
-                  <Typography variant="body2" color="error">
-                    {errors.emailConfirm?.message}
-                  </Typography>
+                    <Typography variant="body2" color="error">
+                      {errors.emailConfirm?.message}
+                    </Typography>
+                  </StyledBox>
 
                   <Box sx={{ mt: 2 }}>
                     <Button
@@ -148,38 +170,54 @@ export default function Email() {
             ) : (
               <>
                 <form>
-                  <Typography variant="body1" sx={{ mb: 1 }}>
-                    Email
-                  </Typography>
+                  <StyledBox breakpoint={`${breakpointSm}`}>
+                    <Typography variant="body1">Email</Typography>
 
-                  <TextField
-                    id="email"
-                    className="email"
-                    name="email"
-                    defaultValue={userData.email}
-                    error={Boolean(errors1.email)}
-                    onChange={handleEmailChange}
-                    {...register1('email')}
-                  />
+                    <TextField
+                      id="email"
+                      className="email"
+                      name="email"
+                      defaultValue={userData.email}
+                      error={Boolean(errors1.email)}
+                      onChange={handleEmailChange}
+                      {...register1('email')}
+                    />
 
-                  <Typography variant="body2" color="error">
-                    {errors1.email?.message}
-                  </Typography>
+                    <Typography variant="body2" color="error">
+                      {errors1.email?.message}
+                    </Typography>
 
-                  <Typography variant="body1" sx={{ my: 1 }}>
-                    Confirm Password
-                  </Typography>
-                  <TextField
-                    id="password"
-                    className="password"
-                    name="password"
-                    type="password"
-                    error={Boolean(errors1.password)}
-                  />
+                    <Typography variant="body1">Confirm Password</Typography>
 
-                  <Typography variant="body2" color="error">
-                    {errors1.password?.message}
-                  </Typography>
+                    <TextField
+                      id="password"
+                      className="password"
+                      name="password"
+                      type={showPassword ? 'text' : 'password'}
+                      error={Boolean(errors1.password)}
+                      {...register1('password')}
+                      InputProps={{
+                        endAdornment: (
+                          <InputAdornment position="end">
+                            <IconButton
+                              onClick={handleClickShowPassword}
+                              onMouseDown={handleMouseDownPassword}
+                            >
+                              {showPassword ? (
+                                <VisibilityOff />
+                              ) : (
+                                <Visibility />
+                              )}
+                            </IconButton>
+                          </InputAdornment>
+                        ),
+                      }}
+                    />
+
+                    <Typography variant="body2" color="error">
+                      {errors1.password?.message}
+                    </Typography>
+                  </StyledBox>
 
                   <Box sx={{ mt: 2 }}>
                     <Button

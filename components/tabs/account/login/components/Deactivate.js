@@ -17,7 +17,7 @@ export default function Deactivate() {
   return (
     <>
       <Wrapper>
-        <Typography variant="body1" sx={{ my: 1 }}>
+        <Typography variant="body1">
           Deactivate
         </Typography>
         <Typography variant="body1" sx={{ my: 1 }}>

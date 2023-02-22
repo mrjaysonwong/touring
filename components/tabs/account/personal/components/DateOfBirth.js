@@ -78,7 +78,9 @@ export default function DateOfBirth() {
         {!editForm && (
           <>
             <SingleRow>
-              <Typography variant="body1">Date of Birth</Typography>
+              <Typography variant="body1">
+                Date of Birth
+              </Typography>
               <Button variant="text" onClick={handleClick}>
                 {!userData.dateOfBirth ? 'Add' : 'Edit'}
               </Button>

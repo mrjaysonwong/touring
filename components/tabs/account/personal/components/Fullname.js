@@ -8,7 +8,6 @@ import { AlertBox } from '@utils/common/AlertBox';
 import { DataContext } from '@pages/account/profile';
 import { updateUser } from '@utils/apis/users/api';
 
-
 const Wrapper = styled(Box)({
   '&:not(:last-child)': {
     borderBottom: '1px solid var(--dividerColor)',
@@ -16,6 +15,7 @@ const Wrapper = styled(Box)({
   padding: '1rem 0',
   '& .firstName, .lastName': {
     width: '100%',
+    margin: '6px 0',
   },
 });
 
@@ -34,7 +34,6 @@ const SingleRow = styled(Box)({
 export default function Fullname() {
   const { data, routerReplace } = useContext(DataContext);
   const userData = data.result;
-
 
   const [isSave, setIsSave] = useState(false);
   const [editForm, setEditForm] = useState(false);
@@ -92,9 +91,7 @@ export default function Fullname() {
         {!editForm && (
           <>
             <SingleRow>
-              <Typography variant="body1" sx={{ my: 1 }}>
-                Full Name
-              </Typography>
+              <Typography variant="body1">Full Name</Typography>
               <Button variant="text" onClick={handleClick}>
                 Edit
               </Button>
@@ -111,9 +108,7 @@ export default function Fullname() {
           <form>
             <Box sx={{ display: { xs: 'block', md: 'flex' } }}>
               <SingleRowForm>
-                <Typography variant="body1" sx={{ my: 1 }}>
-                  First Name
-                </Typography>
+                <Typography variant="body1">First Name</Typography>
 
                 <TextField
                   autoComplete="off"
@@ -132,9 +127,7 @@ export default function Fullname() {
               </SingleRowForm>
               <SingleRowForm>
                 <SingleRow>
-                  <Typography variant="body1" sx={{ my: 1 }}>
-                    Last Name
-                  </Typography>
+                  <Typography variant="body1">Last Name</Typography>
                 </SingleRow>
 
                 <TextField

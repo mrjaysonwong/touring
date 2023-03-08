@@ -77,7 +77,7 @@ export default function SpecialRequirements() {
         {!editForm && (
           <>
             <SingleRow>
-              <Typography variant="body1" sx={{ my: 1 }}>
+              <Typography variant="body1">
                 Special Requirements
               </Typography>
               <Button variant="text" onClick={handleClick}>

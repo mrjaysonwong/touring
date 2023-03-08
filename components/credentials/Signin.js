@@ -60,9 +60,12 @@ const ProviderButton = styled(Button)({
 
 export default function Signin() {
   const theme = useTheme();
+  const isDarkMode = theme.palette.mode === 'dark';
 
   const [showError, setShowError] = useState(false);
   const [errorMessage, setErrorMessage] = useState(null);
+
+  const [disable, setDisable] = useState(false);
 
   const {
     register,
@@ -91,8 +94,7 @@ export default function Signin() {
 
       if (status.error === null) {
         setShowError(false);
-        // redirect: false for same page error handling
-        window.location.replace('/welcome');
+        // window.location.replace('/welcome');
       } else {
         setShowError(true);
         throw new Error(`${status.error}`);
@@ -114,11 +116,13 @@ export default function Signin() {
 
   // Google Handler function
   async function handleGoogleSignIn() {
-    signIn('google', { callbackUrl: '/welcome' });
+    setDisable(true);
+    signIn('google', { callbackUrl: '/' });
   }
   // GitHub Handler function
   async function handleGitHubSignIn() {
-    signIn('github', { callbackUrl: '/welcome' });
+    setDisable(true);
+    signIn('github', { callbackUrl: '/' });
   }
 
   return (
@@ -132,14 +136,12 @@ export default function Signin() {
             width: 'min(95%, 100vw)',
           }}
         >
-          <StyledForm autoComplete="off">
+          <StyledForm autoComplete="off" onSubmit={handleSubmit(onSubmit)}>
             <Box sx={{ position: 'absolute', top: -40, left: 0 }}>
               <Tooltip title="Touring logo" arrow>
                 <MUILink component={Link} href="/">
                   <Image
-                    src={`/assets/touring-${
-                      theme.palette.mode === 'dark' ? 'light' : 'dark'
-                    }.png`}
+                    src={`/assets/touring-${isDarkMode ? 'light' : 'dark'}.svg`}
                     alt="Touring logo"
                     width={85}
                     height={25}
@@ -207,8 +209,8 @@ export default function Signin() {
 
             <Button
               variant="contained"
-              onClick={handleSubmit(onSubmit)}
-              disabled={isSubmitting}
+              type="submit"
+              disabled={disable || isSubmitting}
               sx={{ my: 2, bgcolor: '#1976d2' }}
             >
               <Typography
@@ -229,7 +231,7 @@ export default function Signin() {
 
             <ProviderButton
               onClick={handleGoogleSignIn}
-              disabled={isSubmitting}
+              disabled={disable || isSubmitting}
             >
               <Box sx={{ display: 'flex' }}>
                 <Image
@@ -247,7 +249,7 @@ export default function Signin() {
             </ProviderButton>
             <ProviderButton
               onClick={handleGitHubSignIn}
-              disabled={isSubmitting}
+              disabled={disable || isSubmitting}
             >
               <Box sx={{ display: 'flex' }}>
                 <Image

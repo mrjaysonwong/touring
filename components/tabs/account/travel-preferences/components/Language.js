@@ -78,7 +78,7 @@ export default function Language() {
         {!editForm && (
           <>
             <SingleRow>
-              <Typography variant="body1" sx={{ my: 1 }}>
+              <Typography variant="body1">
                 Tour Guide Language
               </Typography>
               <Button variant="text" onClick={handleClick}>

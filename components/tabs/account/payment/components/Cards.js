@@ -20,15 +20,13 @@ export default function Cards() {
       {/* <LoadSkeleton loading /> */}
 
       <Wrapper>
-        <Typography variant="body1" sx={{ my: 1 }}>
-          Your stored cards
-        </Typography>
+        <Typography variant="body1">Your stored cards</Typography>
 
         {userData.paymentCards ? (
           'Visa-Test'
         ) : (
           <>
-            <Typography variant="body1" sx={{ color: 'gray', mb: 2 }}>
+            <Typography variant="body1" sx={{ color: 'gray', my: 1 }}>
               No cards on file
             </Typography>
             <Typography variant="body1">

@@ -1,6 +1,6 @@
 import { useRouter } from 'next/router';
 import { Tabs as MuiTabs, Tab, useMediaQuery, useTheme } from '@mui/material';
-import { accountItems } from 'src/routes';
+import { accountItems } from '@src/routes/account-routes';
 import TabPanel from './TabPanel';
 import {
   PersonalInfo,
@@ -61,9 +61,9 @@ export default function Tabs() {
             label={item.title}
             {...a11yProps(item.value)}
             value={item.value}
-            icon={item.icon}
+            icon={currentTab === item.value ? item.icon : item.iconOutline}
             iconPosition="start"
-            sx={{ textTransform: 'initial', color: 'inherit' }}
+            sx={{ textTransform: 'initial', color: 'inherit', display: 'flex', justifyContent: 'flex-start' }}
           />
         ))}
       </MuiTabs>

@@ -14,7 +14,6 @@ const Wrapper = styled(Box)({
   '.typography': {
     display: 'flex',
     alignItems: 'center',
-    margin: '6px 0',
   },
 });
 
@@ -89,6 +88,7 @@ export default function Subscribe() {
                     <Switch
                       disabled={isSubmitting}
                       checked={checked}
+                      color="info"
                       onChange={(event, val) => {
                         if (val) {
                           setValue('subscribe', true);
@@ -113,7 +113,7 @@ export default function Subscribe() {
           </form>
         </SingleRow>
 
-        <Divider />
+       
 
         {toggle && showError && (
           <AlertBox severity="error" open={open}>

@@ -90,7 +90,7 @@ export default function SiteLanguage() {
         {!editForm && (
           <>
             <SingleRow>
-              <Typography variant="body1" sx={{ my: 1 }}>
+              <Typography variant="body1">
                 Language and Country
               </Typography>
               <Button variant="text" onClick={handleClick}>

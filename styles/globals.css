@@ -1,13 +1,16 @@
 :root {
   --secondaryColor: #f48638;
   --lightIcon: #ffd324;
+  --darkIcon: #00ab55;
   --navItemFocusColor: rgba(216, 216, 216, 0.5);
   --navItemActiveColor: #f48638;
-  --bgOverlayColor: rgba(22, 28, 36, 0.5);
+  --bgOverlayColor: rgba(22, 28, 36, 0.6);
   --floatingIconColor: rgba(40, 40, 40, 0.5);
   --dividerColor: rgba(155, 155, 155, 0.3);
   --borderColor: rgba(215, 215, 215, 0.8);
-  --demoColor: rgba(129, 129, 129, 0.5);
+  --bgPanelColor: rgba(121, 108, 108, 0.1);
+  --demoColor: rgba(236, 236, 236, 0.5);
+
 }
 
 a {

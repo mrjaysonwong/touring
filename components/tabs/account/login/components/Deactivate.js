@@ -1,7 +1,5 @@
-import { useContext } from 'react';
 import { styled } from '@mui/system';
 import { Box, Typography, Button } from '@mui/material';
-import { DataContext } from '@pages/account/profile';
 
 const Wrapper = styled(Box)({
   '&:not(:last-child)': {
@@ -11,15 +9,10 @@ const Wrapper = styled(Box)({
 });
 
 export default function Deactivate() {
-  const { data, session } = useContext(DataContext);
-  const userData = data.result;
-
   return (
     <>
       <Wrapper>
-        <Typography variant="body1">
-          Deactivate
-        </Typography>
+        <Typography variant="body1">Deactivate</Typography>
         <Typography variant="body1" sx={{ my: 1 }}>
           Deactivating your account means that your account will no longer be
           available. You will not be able to sign in and your profile will not

@@ -10,7 +10,9 @@ export default function TabPanel(props) {
       hidden={value !== tab}
       id={`custom-tabpanel-${tab}`}
       aria-labelledby={`custom-tab-${tab}`}
-      sx={{ width: '100%' }}
+      sx={{
+        width: '100%',
+      }}
     >
       {value === tab && <Box sx={{ p: 3 }}>{children}</Box>}
     </Box>

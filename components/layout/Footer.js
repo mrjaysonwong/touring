@@ -10,10 +10,9 @@ export default function Footer() {
           variant="body2"
           sx={{
             textAlign: 'center',
-            py: 5,
-            px: 2,
-            bgcolor: '#313131',
-            color: '#fff',
+            p: 2,
+            bgcolor: 'rgba(34, 34, 34, 1)',
+            color: '#f5f5f5',
           }}
         >
           <Box>
@@ -26,8 +25,10 @@ export default function Footer() {
               priority
             />
           </Box>
-          Copyright 2022-2023 by Mr Jayson Wong <br />
-          Touring App is Powered by NextJS and MUI.
+          <Typography variant="body2">
+            Copyright 2022-2023 by Mr Jayson Wong <br />
+            Touring App is Powered by NextJS and MUI.
+          </Typography>
         </Typography>
       </Box>
     </>

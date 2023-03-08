@@ -1,9 +1,10 @@
 import Image from 'next/image';
-import NextLink from 'next/link';
+import Link from 'next/link';
 import { useRouter } from 'next/router';
-import { useSession, signOut } from 'next-auth/react';
+import { signOut } from 'next-auth/react';
 import { styled } from '@mui/system';
 import {
+  Toolbar,
   Box,
   Divider,
   List,
@@ -11,18 +12,18 @@ import {
   ListItemButton,
   ListItemText,
   ListItemIcon,
-  IconButton,
   Button,
   Avatar,
   Typography,
   useTheme,
+  Badge,
 } from '@mui/material';
-import CloseIcon from '@mui/icons-material/Close';
 import LogoutIcon from '@mui/icons-material/Logout';
-import PersonIcon from '@mui/icons-material/Person';
-import EventNoteIcon from '@mui/icons-material/EventNote';
+import ManageAccountsIcon from '@mui/icons-material/ManageAccounts';
+import LoyaltyIcon from '@mui/icons-material/Loyalty';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
-import { navItems } from '@src/routes';
+import DashboardCustomizeIcon from '@mui/icons-material/DashboardCustomize';
+import { navItems } from '@src/routes/navbar-routes';
 
 const Wrapper = styled(List)({
   '.active, .active.svg': {
@@ -30,12 +31,16 @@ const Wrapper = styled(List)({
   },
 });
 
-export default function Sidebar({ handleDrawerToggle }) {
+export default function Sidebar({
+  handleDrawerToggle,
+  session,
+  isAdmin,
+  isUser,
+}) {
   const router = useRouter();
 
-  const { data: session } = useSession();
-
   const theme = useTheme();
+  const isDarkMode = theme.palette.mode === 'dark';
 
   const handleSignOut = () => {
     signOut({ callbackUrl: '/' });
@@ -44,45 +49,58 @@ export default function Sidebar({ handleDrawerToggle }) {
   return (
     <>
       <Box onClick={handleDrawerToggle} sx={{ textAlign: 'center' }}>
-        <Box
+        <Toolbar
           sx={{
-            py: 1.5,
             display: 'flex',
             justifyContent: 'center',
+            py: 1,
           }}
         >
-          <IconButton sx={{ position: 'absolute', left: 5 }}>
-            <CloseIcon />
-          </IconButton>
-          <Image
-            src={`/assets/touring-${
-              theme.palette.mode === 'dark' ? 'light' : 'dark'
-            }.png`}
-            alt="Touring app logo"
-            width={140}
-            height={40}
-            quality={100}
-            priority
-          />
-        </Box>
-
-        <Divider />
+          <Link href="/" passHref>
+            <a>
+              <Image
+                src={`/assets/touring-${
+                  isDarkMode ? 'light' : 'dark'
+                }.svg`}
+                alt="Touring app logo"
+                width={140}
+                height={40}
+                quality={100}
+                priority
+              />
+            </a>
+          </Link>
+        </Toolbar>
 
         <Wrapper>
           {!session && (
             <>
-              <ListItem sx={{ display: 'block' }} disablePadding>
-                <NextLink href="/login" passHref>
-                  <ListItemButton>
-                    <ListItemText primary="Log in" inset />
-                  </ListItemButton>
-                </NextLink>
-                <NextLink href="/signup" passHref>
-                  <ListItemButton>
-                    <ListItemText primary="Sign up" inset />
-                  </ListItemButton>
-                </NextLink>
-              </ListItem>
+              <Link href="/login">
+                <Button
+                  variant="outlined"
+                  sx={{
+                    my: 1,
+                    borderRadius: 13,
+                    width: '90%',
+                    textTransform: 'initial',
+                  }}
+                >
+                  Log in
+                </Button>
+              </Link>
+              <Link href="/signup">
+                <Button
+                  variant="outlined"
+                  sx={{
+                    my: 1,
+                    borderRadius: 13,
+                    width: '90%',
+                    textTransform: 'initial',
+                  }}
+                >
+                  Sign up
+                </Button>
+              </Link>
               <Divider sx={{ my: 1 }} />
             </>
           )}
@@ -94,89 +112,127 @@ export default function Sidebar({ handleDrawerToggle }) {
                   flexDirection: 'column',
                   alignItems: 'center',
                   justifyContent: 'center',
+                  my: 1,
                 }}
               >
                 {session.user.image ? (
                   <Avatar
                     src={session.user.image}
-                    sx={{ width: 64, height: 64, my: 2 }}
+                    sx={{ width: 64, height: 64 }}
                   />
                 ) : (
-                  <AccountCircleIcon sx={{ width: 64, height: 64, my: 2 }} />
+                  <AccountCircleIcon sx={{ width: 64, height: 64 }} />
                 )}
 
-                <Typography variant="body1" sx={{ fontWeight: 600 }}>
+                <Typography variant="body1" sx={{ fontWeight: 600, my: 2 }}>
                   {session.user.name}
                 </Typography>
               </Box>
 
-              <Button
-                variant="outlined"
-                sx={{
-                  mt: 2,
-                  borderRadius: 13,
-                  width: '90%',
-                  textTransform: 'initial',
-                }}
-                onClick={() => {
-                  router.push({
-                    pathname: '/account/profile',
-                    query: { tab: 'personal' },
-                  });
-                }}
-                startIcon={<PersonIcon />}
-              >
-                Account
-              </Button>
-
-              <NextLink href="/account/bookings">
+              {isUser && (
                 <Button
                   variant="outlined"
                   sx={{
-                    my: 3,
                     borderRadius: 13,
                     width: '90%',
                     textTransform: 'initial',
+                    my: 1,
                   }}
-                  startIcon={<EventNoteIcon />}
+                  onClick={() => {
+                    router.push({
+                      pathname: '/account/profile',
+                      query: { tab: 'personal' },
+                    });
+                  }}
+                  startIcon={<ManageAccountsIcon />}
                 >
-                  My Bookings
+                  Account
                 </Button>
-              </NextLink>
-              <Divider />
+              )}
+
+              {isAdmin && (
+                <Link href="/dashboard">
+                  <Button
+                    variant="outlined"
+                    sx={{
+                      my: 1,
+                      borderRadius: 13,
+                      width: '90%',
+                      textTransform: 'initial',
+                    }}
+                    startIcon={<DashboardCustomizeIcon />}
+                  >
+                    Dashboard
+                  </Button>
+                </Link>
+              )}
+
+              {isUser && (
+                <Link href="/account/bookings">
+                  <Button
+                    variant="outlined"
+                    sx={{
+                      my: 1,
+                      borderRadius: 13,
+                      width: '90%',
+                      textTransform: 'initial',
+                    }}
+                    startIcon={
+                      <Badge
+                        badgeContent={4}
+                        color="secondary"
+                        showZero
+                        overlap="circular"
+                      >
+                        <LoyaltyIcon />
+                      </Badge>
+                    }
+                  >
+                    Booking(s)
+                  </Button>
+                </Link>
+              )}
+
+              {session?.user && (
+                <>
+                  <Button
+                    variant="outlined"
+                    onClick={handleSignOut}
+                    sx={{
+                      borderRadius: 13,
+                      width: '90%',
+                      textTransform: 'initial',
+                      my: 1,
+                    }}
+                    startIcon={<LogoutIcon />}
+                  >
+                    Log out
+                  </Button>
+                </>
+              )}
+
+              <Divider sx={{ my: 1 }} />
             </>
           )}
 
           {navItems.map((item) => (
             <ListItem key={item.title} disablePadding>
-              <NextLink href={item.path} passHref>
+              <Link href={item.path} passHref>
                 <ListItemButton
                   className={router.pathname === item.path ? 'active' : ''}
                 >
                   <ListItemIcon
                     className={router.pathname === item.path ? 'active' : ''}
                   >
-                    {item.icon}
+                    {router.pathname === item.path
+                      ? item.icon
+                      : item.iconOutline}
                   </ListItemIcon>
                   <ListItemText primary={item.title} />
                 </ListItemButton>
-              </NextLink>
+              </Link>
             </ListItem>
           ))}
-
-          {session?.user && (
-            <>
-              <Divider sx={{ my: 1 }} />
-              <ListItem disablePadding>
-                <ListItemButton onClick={handleSignOut}>
-                  <ListItemIcon>
-                    <LogoutIcon />
-                  </ListItemIcon>
-                  <ListItemText primary="Log out" />
-                </ListItemButton>
-              </ListItem>
-            </>
-          )}
         </Wrapper>
       </Box>
     </>

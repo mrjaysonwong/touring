@@ -1,19 +1,19 @@
 import Head from 'next/head';
-import Layout from '@components/layout/Layout';
 import { getToken } from 'next-auth/jwt';
-import AccessDenied from '@components/protected/AccessDenied';
-import Users from '@components/tabs/dashboard/admin/users';
+import AccessDenied from '@components/layout/AccessDenied';
+import ReportsDashboard from '@components/dashboard/sidenav/general/components/reports';
 
 export default function Dashboard(props) {
+  const { token } = props;
+  const isAdmin = token.user.role === 'admin';
+
   return (
     <>
       <Head>
-        <title>Dashboard | Touring</title>
+        <title>Reports: Overview | Touring</title>
       </Head>
 
-      <Layout>
-        {props.token.user.role !== 'admin' ? <AccessDenied /> : <Users />}
-      </Layout>
+      {isAdmin ? <ReportsDashboard /> : <AccessDenied />}
     </>
   );
 }

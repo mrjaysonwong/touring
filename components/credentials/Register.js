@@ -74,6 +74,7 @@ export default function Register() {
   const [open, setOpen] = useState(false);
 
   const theme = useTheme();
+  const isDarkMode = theme.palette.mode === 'dark';
   const breakpoint = useMediaQuery(theme.breakpoints.up('sm'));
 
   const [showError, setShowError] = useState(false);
@@ -145,8 +146,8 @@ export default function Register() {
                 <MUILink component={Link} href="/">
                   <Image
                     src={`/assets/touring-${
-                      theme.palette.mode === 'dark' ? 'light' : 'dark'
-                    }.png`}
+                      isDarkMode ? 'light' : 'dark'
+                    }.svg`}
                     alt="Touring logo"
                     width={85}
                     height={25}

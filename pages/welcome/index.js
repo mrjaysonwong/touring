@@ -3,7 +3,7 @@ import Head from 'next/head';
 import InitialLoading from '@components/loaders/page-load/initialLoading';
 import { getToken } from 'next-auth/jwt';
 import { useSession } from 'next-auth/react';
-import WelcomeHeader from '@components/header/WelcomeHeader';
+import WelcomeHeader from '@components/header/welcome/WelcomeHeader';
 
 export default function Welcome(props) {
   const [isLoading, setLoading] = useState(true);

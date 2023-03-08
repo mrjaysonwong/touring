@@ -13,7 +13,7 @@ const MainContainer = styled('main')({
 
 const ThemeToggler = styled(Box)({
   backgroundColor: 'var(--floatingIconColor)',
-  color: '#8de8ff',
+  color: 'var(--darkIcon)',
   backdropFilter: 'blur(3px)',
   position: 'fixed',
   zIndex: 2,
@@ -33,6 +33,7 @@ export default function Layout(props) {
   const { children } = props;
 
   const theme = useTheme();
+  const isDarkMode = theme.palette.mode === 'dark';
 
   const router = useRouter();
 
@@ -48,13 +49,11 @@ export default function Layout(props) {
             {({ toggleColorMode }) => (
               <>
                 <Tooltip
-                  title={`Toggle ${
-                    theme.palette.mode === 'dark' ? 'light' : 'dark'
-                  } mode`}
+                  title={`Toggle ${isDarkMode ? 'light' : 'dark'} mode`}
                   placement="left"
                 >
                   <IconButton color="inherit" onClick={toggleColorMode}>
-                    {theme.palette.mode === 'dark' ? (
+                    {isDarkMode ? (
                       <SvgIcon htmlColor="var(--lightIcon)">
                         <LightModeOutlinedIcon />
                       </SvgIcon>

@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import Image from 'next/image';
-import NextLink from 'next/link';
+import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { useSession, signOut } from 'next-auth/react';
 import {
@@ -18,24 +18,25 @@ import {
   ListItemIcon,
   Divider,
   useTheme,
+  Badge,
 } from '@mui/material';
 import { styled } from '@mui/system';
 import MenuIcon from '@mui/icons-material/Menu';
-import PersonIcon from '@mui/icons-material/Person';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
-import EventNoteIcon from '@mui/icons-material/EventNote';
+import ManageAccountsIcon from '@mui/icons-material/ManageAccounts';
+import LoyaltyIcon from '@mui/icons-material/Loyalty';
+import DashboardCustomizeIcon from '@mui/icons-material/DashboardCustomize';
 import LogoutIcon from '@mui/icons-material/Logout';
-import { navItems } from '@src/routes';
+import { navItems } from '@src/routes/navbar-routes';
 import Sidebar from './Drawer';
 
 const Wrapper = styled('div')({
-  '& a, & button': {
+  ' a, button': {
     textTransform: 'initial',
   },
-  '& a:hover, & button: hover': {
+  ' a:hover, button:hover': {
     background: 'none',
   },
-
   '.active': {
     color: 'var(--navItemActiveColor)',
   },
@@ -47,8 +48,11 @@ export default function Navbar() {
   const router = useRouter();
 
   const { data: session, status } = useSession();
+  const isAdmin = session?.user.role === 'admin';
+  const isUser = session?.user.role === 'user';
 
   const theme = useTheme();
+  const isDarkMode = theme.palette.mode === 'dark';
 
   const [mobileOpen, setMobileOpen] = useState(false);
   const [anchorEl, setAnchorEl] = useState(null);
@@ -89,7 +93,6 @@ export default function Navbar() {
           sx={{
             display: 'flex',
             justifyContent: 'center',
-            height: 65,
           }}
         >
           <Toolbar>
@@ -103,18 +106,22 @@ export default function Navbar() {
               <MenuIcon />
             </IconButton>
             <Tooltip title="Touring logo" arrow>
-              <Box sx={{ display: 'flex', alignItems: 'center' }}>
-                <Image
-                  src={`/assets/touring-${
-                    theme.palette.mode === 'dark' ? 'light' : 'dark'
-                  }.png`}
-                  alt="Touring app logo"
-                  width={140}
-                  height={40}
-                  quality={100}
-                  tabIndex="1"
-                  priority
-                />
+              <Box sx={{ display: 'flex', alignItems: 'center', mt: 1 }}>
+                <Link href="/" passHref>
+                  <a>
+                    <Image
+                      src={`/assets/touring-${
+                        isDarkMode ? 'light' : 'dark'
+                      }.svg`}
+                      alt="Touring app logo"
+                      width={140}
+                      height={40}
+                      quality={100}
+                      tabIndex="1"
+                      priority
+                    />
+                  </a>
+                </Link>
               </Box>
             </Tooltip>
 
@@ -126,7 +133,7 @@ export default function Navbar() {
               }}
             >
               {navItems.map((item) => (
-                <NextLink key={item.title} href={item.path} passHref>
+                <Link key={item.title} href={item.path} passHref>
                   <Button
                     disableRipple
                     color="inherit"
@@ -139,7 +146,7 @@ export default function Navbar() {
                       {item.title}
                     </Typography>
                   </Button>
-                </NextLink>
+                </Link>
               ))}
             </Box>
 
@@ -151,20 +158,20 @@ export default function Navbar() {
             >
               {!session && (
                 <>
-                  <NextLink href="/login" passHref>
+                  <Link href="/login" passHref>
                     <Button color="inherit" disableRipple>
                       <Typography variant="body2" sx={{ fontWeight: 600 }}>
                         Log in
                       </Typography>
                     </Button>
-                  </NextLink>
-                  <NextLink href="/signup" passHref>
+                  </Link>
+                  <Link href="/signup" passHref>
                     <Button color="inherit" disableRipple>
                       <Typography variant="body2" sx={{ fontWeight: 600 }}>
                         Sign up
                       </Typography>
                     </Button>
-                  </NextLink>
+                  </Link>
                 </>
               )}
 
@@ -195,39 +202,67 @@ export default function Navbar() {
                       'aria-labelledby': 'basic-button',
                     }}
                   >
-                    <Box sx={{ pb: 1, px: 1.5 }}>
-                      <ListItemIcon
-                        sx={{ display: 'flex', alignItems: 'center' }}
-                      >
-                        {session.user.image ? (
-                          <Avatar sx={{ mr: 1 }} src={session.user.image} />
-                        ) : (
-                          <AccountCircleIcon
-                            sx={{ mr: 1, width: 42, height: 42 }}
-                          />
-                        )}
-                        <Typography variant="body1">
-                          {session.user.name}
-                        </Typography>
-                      </ListItemIcon>
-                    </Box>
-                    <Divider />
+                    <ListItemIcon
+                      sx={{
+                        display: 'flex',
+                        alignItems: 'center',
+                        mx: 1,
+                        color: isDarkMode ? '#f5f5f5' : '#000000de',
+                      }}
+                    >
+                      {session.user.image ? (
+                        <Avatar
+                          src={session.user.image}
+                          sx={{ width: 42, height: 42 }}
+                        />
+                      ) : (
+                        <AccountCircleIcon sx={{ width: 42, height: 42 }} />
+                      )}
 
-                    <MenuItem onClick={handleMenuClick}>
-                      <ListItemIcon>
-                        <PersonIcon />
-                      </ListItemIcon>
-                      Account
-                    </MenuItem>
+                      <Typography variant="body1" sx={{ mx: 1 }}>
+                        {session.user.name}
+                      </Typography>
+                    </ListItemIcon>
 
-                    <NextLink href="/account/bookings" passHref>
-                      <MenuItem onClick={handleClose}>
+                    <Divider sx={{ my: 1 }} />
+
+                    {isUser && (
+                      <MenuItem onClick={handleMenuClick}>
                         <ListItemIcon>
-                          <EventNoteIcon />
+                          <ManageAccountsIcon />
                         </ListItemIcon>
-                        My Bookings (0)
+                        Account
                       </MenuItem>
-                    </NextLink>
+                    )}
+
+                    {isAdmin && (
+                      <Link href="/dashboard" passHref>
+                        <MenuItem onClick={handleClose}>
+                          <ListItemIcon>
+                            <DashboardCustomizeIcon />
+                          </ListItemIcon>
+                          Dashboard
+                        </MenuItem>
+                      </Link>
+                    )}
+
+                    {isUser && (
+                      <Link href="/account/bookings" passHref>
+                        <MenuItem onClick={handleClose}>
+                          <ListItemIcon>
+                            <Badge
+                              badgeContent={4}
+                              color="secondary"
+                              showZero
+                              overlap="circular"
+                            >
+                              <LoyaltyIcon />
+                            </Badge>
+                          </ListItemIcon>
+                          Booking(s)
+                        </MenuItem>
+                      </Link>
+                    )}
                     <Divider />
                     <MenuItem onClick={handleSignOut}>
                       <ListItemIcon>
@@ -251,14 +286,19 @@ export default function Navbar() {
             keepMounted: true, // Better open performance on mobile.
           }}
           sx={{
-            display: { xs: 'block', lg: 'none' },
             '& .MuiDrawer-paper': {
               boxSizing: 'border-box',
               width: drawerWidth,
+              bgcolor: isDarkMode ? 'rgb(0,0,0)' : '#f5f5f5',
             },
           }}
         >
-          <Sidebar handleDrawerToggle={handleDrawerToggle} />
+          <Sidebar
+            handleDrawerToggle={handleDrawerToggle}
+            session={session}
+            isAdmin={isAdmin}
+            isUser={isUser}
+          />
         </Drawer>
       </Box>
     </>

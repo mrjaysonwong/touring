@@ -42,7 +42,7 @@ const Wrapper = styled('div')({
   },
 });
 
-const drawerWidth = 260;
+const drawerWidth = 250;
 
 export default function Navbar() {
   const router = useRouter();
@@ -114,8 +114,8 @@ export default function Navbar() {
                         isDarkMode ? 'light' : 'dark'
                       }.svg`}
                       alt="Touring app logo"
-                      width={140}
-                      height={40}
+                      width={130}
+                      height={30}
                       quality={100}
                       tabIndex="1"
                       priority
@@ -188,7 +188,10 @@ export default function Navbar() {
                     onClick={handleClick}
                   >
                     {session.user.image ? (
-                      <Avatar src={session.user.image} />
+                      <Avatar
+                        src={session.user.image}
+                        referrerPolicy="no-referrer"
+                      />
                     ) : (
                       <AccountCircleIcon sx={{ width: 42, height: 42 }} />
                     )}
@@ -279,6 +282,7 @@ export default function Navbar() {
       </Wrapper>
       <Box component="nav">
         <Drawer
+          elevation={1}
           variant="temporary"
           open={mobileOpen}
           onClose={handleDrawerToggle}
@@ -289,7 +293,6 @@ export default function Navbar() {
             '& .MuiDrawer-paper': {
               boxSizing: 'border-box',
               width: drawerWidth,
-              bgcolor: isDarkMode ? 'rgb(0,0,0)' : '#f5f5f5',
             },
           }}
         >

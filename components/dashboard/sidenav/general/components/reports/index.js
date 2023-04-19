@@ -1,4 +1,4 @@
-import Layout from '@components/dashboard/Layout';
+import Layout from '@components/dashboard/layout/Layout';
 import ReportsOne from './components/Reports-1';
 import ReportsTwo from './components/Reports-2';
 

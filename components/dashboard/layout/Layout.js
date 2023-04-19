@@ -29,12 +29,12 @@ import Brightness4OutlinedIcon from '@mui/icons-material/Brightness4Outlined';
 import LightModeOutlinedIcon from '@mui/icons-material/LightModeOutlined';
 import HomeIcon from '@mui/icons-material/Home';
 import ColorModeContext from '@contexts/ColorModeContext';
-import General from './sidenav/general';
-import Management from './sidenav/management';
-import Application from './sidenav/application';
-import Searchbar from './search';
+import General from '../sidenav/general';
+import Management from '../sidenav/management';
+import Application from '../sidenav/application';
+import Searchbar from '../search';
 import Footer from '@components/layout/Footer';
-import usersStore from 'stores/dashboard-store';
+import PrivacyPolicy from '@components/layout/PrivacyPolicy';
 
 export const SideNavContext = createContext();
 
@@ -50,6 +50,14 @@ const Wrapper = styled('div')({
   },
 });
 
+const StyledBox = styled(Box)({
+  display: 'flex',
+  alignItems: 'center',
+  '&:not(:last-child):after': {
+    content: "'•'",
+  },
+});
+
 const ThemeToggler = styled(Box)({
   display: 'flex',
   borderRadius: '50%',
@@ -59,7 +67,7 @@ const ThemeToggler = styled(Box)({
   },
 });
 
-const drawerWidth = 260;
+const drawerWidth = 250;
 
 export default function Layout(props) {
   const { children } = props;
@@ -98,7 +106,7 @@ export default function Layout(props) {
         sx={{
           display: 'flex',
           justifyContent: 'center',
-          py: 1,
+          py: 2,
         }}
       >
         <Link href="/dashboard" passHref>
@@ -106,8 +114,8 @@ export default function Layout(props) {
             <Image
               src={`/assets/touring-${isDarkMode ? 'light' : 'dark'}.svg`}
               alt="Touring app logo"
-              width={140}
-              height={40}
+              width={130}
+              height={30}
               quality={100}
               tabIndex="1"
               priority
@@ -126,7 +134,7 @@ export default function Layout(props) {
 
   return (
     <Wrapper>
-      <Box sx={{ display: 'flex', height: '100vh' }}>
+      <Box sx={{ display: 'flex', minheight: '100vh' }}>
         <AppBar
           position="fixed"
           color="default"
@@ -184,7 +192,6 @@ export default function Layout(props) {
                     aria-haspopup="true"
                     aria-expanded={open ? 'true' : undefined}
                     onClick={handleClick}
-                    sx={{ ml: 'auto' }}
                   >
                     {session.user.image ? (
                       <Avatar src={session.user.image} />
@@ -256,6 +263,7 @@ export default function Layout(props) {
             )}
           </Toolbar>
         </AppBar>
+
         <Box
           component="nav"
           sx={{ width: { lg: drawerWidth }, flexShrink: { lg: 0 } }}
@@ -264,6 +272,7 @@ export default function Layout(props) {
           {/* The implementation can be swapped with js to avoid SEO duplication of links. */}
           <Drawer
             variant="temporary"
+            elevation={1}
             open={mobileOpen}
             onClose={handleDrawerToggle}
             ModalProps={{
@@ -274,7 +283,6 @@ export default function Layout(props) {
               '& .MuiDrawer-paper': {
                 boxSizing: 'border-box',
                 width: drawerWidth,
-                bgcolor: isDarkMode ? 'rgb(0,0,0)' : '#f5f5f5',
               },
             }}
           >
@@ -287,6 +295,7 @@ export default function Layout(props) {
               '& .MuiDrawer-paper': {
                 boxSizing: 'border-box',
                 width: drawerWidth,
+                bgcolor: isDarkMode ? 'rgb(30,30,30)' : '',
               },
             }}
             open
@@ -304,7 +313,26 @@ export default function Layout(props) {
           <Toolbar />
           <Box sx={{ mb: 15, minHeight: '100vh' }}>{children}</Box>
 
-          <Footer />
+          {/* <Footer /> */}
+
+          <Divider />
+          <Box
+            sx={{
+              mt: 2,
+              display: 'flex',
+              justifyContent: 'center',
+            }}
+          >
+            <StyledBox>
+              <Typography variant="body2" sx={{ mr: 1 }}>
+                ©2022-2023 Touring Ltd.
+              </Typography>
+            </StyledBox>
+
+            <StyledBox>
+              <PrivacyPolicy />
+            </StyledBox>
+          </Box>
         </Box>
       </Box>
     </Wrapper>

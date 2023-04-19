@@ -16,7 +16,7 @@ const StyledImage = styled('img')({
   objectFit: 'cover',
 });
 
-export default function UserWelcomeHeader({ breakpointSm }) {
+export default function Content({ breakpointSm }) {
   const tours = tourRecommendations.map((tour) => (
     <Link href="/" key={tour.img}>
       <Box sx={{ cursor: 'pointer', m: 2 }}>

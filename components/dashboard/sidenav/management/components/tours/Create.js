@@ -1,4 +1,4 @@
-import Layout from '@components/dashboard/Layout';
+import Layout from '@components/dashboard/layout/Layout';
 import { Typography, Box } from '@mui/material';
 
 export default function CreateTourDashboard() {

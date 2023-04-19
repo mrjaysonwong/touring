@@ -35,29 +35,24 @@ const Alert = forwardRef(function Alert(props, ref) {
   return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
 });
 
-const StyledForm = styled('form')(({ breakpoint }) => ({
-  position: 'relative',
+const StyledForm = styled('form')(({ breakpoint, theme }) => ({
   display: 'flex',
   flexDirection: 'column',
   justifyContent: 'center',
   padding: '1.2rem',
   borderRadius: 8,
   boxShadow:
-    'rgba(0, 0, 0, 0.25) 0px 0.0625em 0.0625em, rgba(0, 0, 0, 0.25) 0px 0.125em 0.5em, rgba(255, 255, 255, 0.4) 0px 0px 0px 1px inset',
+    theme.palette.mode === 'light'
+      ? 'rgba(0, 0, 0, 0.25) 0px 0.0625em 0.0625em, rgba(0, 0, 0, 0.25) 0px 0.125em 0.5em, rgba(255, 255, 255, 0.4) 0px 0px 0px 1px inset'
+      : '',
   '.login-text': {
     color: '#13a1ff',
   },
   width: breakpoint === 'true' ? '40%' : '100%',
+  '.lastName, .email, .password , .passwordConfirm': {
+    marginTop: '16px',
+  },
 }));
-
-const SingleRow = styled(Box)({
-  display: 'flex',
-  alignItems: 'center',
-});
-
-const SingleColumn = styled(Box)({
-  display: 'block',
-});
 
 const ErrorBox = styled(Box)({
   backgroundColor: '#ffebed',
@@ -66,6 +61,7 @@ const ErrorBox = styled(Box)({
   alignItems: 'center',
   padding: '10px',
   borderRadius: '3px',
+  marginBottom: '1rem',
 });
 
 export default function Register() {
@@ -130,198 +126,187 @@ export default function Register() {
   };
 
   return (
-    <>
-      <Layout>
-        <Container
-          sx={{
-            display: 'flex',
-            justifyContent: 'center',
-            my: 10,
-            width: 'min(95%, 100vw)',
-          }}
-        >
-          <StyledForm autoComplete="off" breakpoint={`${breakpoint}`}>
-            <Box sx={{ position: 'absolute', top: -40, left: 0 }}>
-              <Tooltip title="Touring logo" arrow>
-                <MUILink component={Link} href="/">
-                  <Image
-                    src={`/assets/touring-${
-                      isDarkMode ? 'light' : 'dark'
-                    }.svg`}
-                    alt="Touring logo"
-                    width={85}
-                    height={25}
-                    priority
-                  />
-                </MUILink>
-              </Tooltip>
-            </Box>
-
-            <Typography variant="h5" sx={{ mb: 1 }}>
-              Create your account
-            </Typography>
-
-            {!showError && (
-              <Stack spacing={2} sx={{ width: '100%' }}>
-                <Snackbar
-                  open={open}
-                  autoHideDuration={1000}
-                  onClose={handleClose}
-                >
-                  <Alert
-                    onClose={handleClose}
-                    severity="success"
-                    sx={{ width: '100%' }}
-                  >
-                    Successfuly Registered!
-                  </Alert>
-                </Snackbar>
-              </Stack>
-            )}
-
-            {showError && (
-              <ErrorBox>
-                <Typography
-                  variant="body2"
-                  color="error"
-                  sx={{ display: 'flex', alignItems: 'center' }}
-                >
-                  <ErrorIcon sx={{ mr: 0.5, width: 24, height: 24 }} />{' '}
-                  {errorMessage}
-                </Typography>
-              </ErrorBox>
-            )}
-
-            <SingleRow>
-              <SingleColumn>
-                <TextField
-                  id="firstName"
-                  className="firstName"
-                  name="firstName"
-                  label="First name"
-                  error={Boolean(errors.firstName)}
-                  {...register('firstName')}
-                  sx={{ mt: 2 }}
+    <Layout>
+      <Container
+        sx={{
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          minHeight: '100vh',
+          py: 5,
+        }}
+      >
+        <StyledForm autoComplete="off" breakpoint={`${breakpoint}`}>
+          <Box>
+            <Tooltip title="Touring logo" arrow>
+              <MUILink component={Link} href="/">
+                <Image
+                  src={`/assets/touring-${isDarkMode ? 'light' : 'dark'}.svg`}
+                  alt="Touring logo"
+                  width={85}
+                  height={25}
+                  priority
                 />
+              </MUILink>
+            </Tooltip>
+          </Box>
 
-                <Typography variant="body2" color="error">
-                  {errors.firstName?.message}
-                </Typography>
-              </SingleColumn>
+          <Typography variant="h4" sx={{ my: 3 }}>
+            Create your account
+          </Typography>
 
-              <SingleColumn>
-                <TextField
-                  id="lastName"
-                  className="lastName"
-                  name="lastName"
-                  label="Last name"
-                  error={Boolean(errors.lastName)}
-                  {...register('lastName')}
-                  sx={{ ml: 2, mt: 2 }}
-                />
-
-                <Typography variant="body2" color="error" sx={{ ml: 2 }}>
-                  {errors.lastName?.message}
-                </Typography>
-              </SingleColumn>
-            </SingleRow>
-
-            <TextField
-              id="email"
-              name="email"
-              label="Email address"
-              error={Boolean(errors.email)}
-              {...register('email')}
-              sx={{ mt: 2 }}
-            />
-
-            <Typography variant="body2" color="error">
-              {errors.email?.message}
-            </Typography>
-
-            <TextField
-              id="password"
-              name="password"
-              label="Password"
-              type={showPassword ? 'text' : 'password'}
-              error={Boolean(errors.password)}
-              {...register('password')}
-              InputProps={{
-                endAdornment: (
-                  <InputAdornment position="end">
-                    <IconButton
-                      onClick={handleClickShowPassword}
-                      onMouseDown={handleMouseDownPassword}
-                    >
-                      {showPassword ? <VisibilityOff /> : <Visibility />}
-                    </IconButton>
-                  </InputAdornment>
-                ),
-              }}
-              sx={{ mt: 2 }}
-            />
-
-            <Typography variant="body2" color="error">
-              {errors.password?.message}
-            </Typography>
-
-            <TextField
-              id="passwordConfirm"
-              name="passwordConfirm"
-              label="Confirm Password"
-              type={showPassword ? 'text' : 'password'}
-              error={Boolean(errors.passwordConfirm)}
-              {...register('passwordConfirm')}
-              InputProps={{
-                endAdornment: (
-                  <InputAdornment position="end">
-                    <IconButton
-                      onClick={handleClickShowPassword}
-                      onMouseDown={handleMouseDownPassword}
-                    >
-                      {showPassword ? <VisibilityOff /> : <Visibility />}
-                    </IconButton>
-                  </InputAdornment>
-                ),
-              }}
-              sx={{ mt: 2 }}
-            />
-
-            <Typography variant="body2" color="error">
-              {errors.passwordConfirm?.message}
-            </Typography>
-
-            <Button
-              variant="contained"
-              onClick={handleSubmit(onSubmit)}
-              disabled={isSubmitting}
-              sx={{ my: 2, bgcolor: '#1976d2' }}
-            >
-              <Typography
-                variant="body1"
-                sx={{ fontWeight: 600, color: '#fff' }}
+          {!showError && (
+            <Stack spacing={2} sx={{ width: '100%' }}>
+              <Snackbar
+                open={open}
+                autoHideDuration={1000}
+                onClose={handleClose}
               >
-                {isSubmitting ? (
-                  <CircularProgress size={24} sx={{ display: 'flex' }} />
-                ) : (
-                  'Register'
-                )}
+                <Alert
+                  onClose={handleClose}
+                  severity="success"
+                  sx={{ width: '100%' }}
+                >
+                  Successfuly Registered!
+                </Alert>
+              </Snackbar>
+            </Stack>
+          )}
+
+          {showError && (
+            <ErrorBox>
+              <Typography
+                variant="body2"
+                color="error"
+                sx={{ display: 'flex', alignItems: 'center' }}
+              >
+                <ErrorIcon sx={{ mr: 0.5, width: 24, height: 24 }} />
+                {errorMessage}
               </Typography>
-            </Button>
+            </ErrorBox>
+          )}
 
-            <Divider
-              sx={{ border: '1px thin', borderColor: '#aaaaaa', my: 2 }}
-            />
+          <TextField
+            id="firstName"
+            className="firstName"
+            name="firstName"
+            label="First name"
+            error={Boolean(errors.firstName)}
+            {...register('firstName')}
+          />
 
-            <Typography variant="body2" align="right">
-              Already have an account?{' '}
-              <NextLink href="/login" passHref>
-                <a className="login-text">Log in</a>
-              </NextLink>
+          <Typography variant="body2" color="error">
+            {errors.firstName?.message}
+          </Typography>
+
+          <TextField
+            id="lastName"
+            className="lastName"
+            name="lastName"
+            label="Last name"
+            error={Boolean(errors.lastName)}
+            {...register('lastName')}
+          />
+
+          <Typography variant="body2" color="error">
+            {errors.lastName?.message}
+          </Typography>
+
+          <TextField
+            id="email"
+            className="email"
+            name="email"
+            label="Email address"
+            error={Boolean(errors.email)}
+            {...register('email')}
+          />
+
+          <Typography variant="body2" color="error">
+            {errors.email?.message}
+          </Typography>
+
+          <TextField
+            id="password"
+            className="password"
+            name="password"
+            label="Password"
+            type={showPassword ? 'text' : 'password'}
+            error={Boolean(errors.password)}
+            {...register('password')}
+            InputProps={{
+              endAdornment: (
+                <InputAdornment position="end">
+                  <IconButton
+                    onClick={handleClickShowPassword}
+                    onMouseDown={handleMouseDownPassword}
+                  >
+                    {showPassword ? <VisibilityOff /> : <Visibility />}
+                  </IconButton>
+                </InputAdornment>
+              ),
+            }}
+          />
+
+          <Typography variant="body2" color="error">
+            {errors.password?.message}
+          </Typography>
+
+          <TextField
+            id="passwordConfirm"
+            className="passwordConfirm"
+            name="passwordConfirm"
+            label="Confirm Password"
+            type={showPassword ? 'text' : 'password'}
+            error={Boolean(errors.passwordConfirm)}
+            {...register('passwordConfirm')}
+            InputProps={{
+              endAdornment: (
+                <InputAdornment position="end">
+                  <IconButton
+                    onClick={handleClickShowPassword}
+                    onMouseDown={handleMouseDownPassword}
+                  >
+                    {showPassword ? <VisibilityOff /> : <Visibility />}
+                  </IconButton>
+                </InputAdornment>
+              ),
+            }}
+          />
+
+          <Typography variant="body2" color="error">
+            {errors.passwordConfirm?.message}
+          </Typography>
+
+          <Button
+            variant="contained"
+            onClick={handleSubmit(onSubmit)}
+            disabled={isSubmitting}
+            sx={{ my: 2, bgcolor: '#1976d2' }}
+          >
+            <Typography variant="body1" sx={{ fontWeight: 600, color: '#fff' }}>
+              {isSubmitting ? (
+                <CircularProgress size={24} sx={{ display: 'flex' }} />
+              ) : (
+                'Register'
+              )}
             </Typography>
-          </StyledForm>
-        </Container>
-      </Layout>
-    </>
+          </Button>
+
+          <Divider
+            sx={{
+              border: '1px thin',
+              my: 2,
+            }}
+          />
+
+          <Typography variant="body2" align="right">
+            Already have an account?{' '}
+            <NextLink href="/login" passHref>
+              <a className="login-text">Log in</a>
+            </NextLink>
+          </Typography>
+        </StyledForm>
+      </Container>
+    </Layout>
   );
 }

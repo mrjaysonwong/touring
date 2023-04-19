@@ -59,12 +59,10 @@ export default function Sidebar({
           <Link href="/" passHref>
             <a>
               <Image
-                src={`/assets/touring-${
-                  isDarkMode ? 'light' : 'dark'
-                }.svg`}
+                src={`/assets/touring-${isDarkMode ? 'light' : 'dark'}.svg`}
                 alt="Touring app logo"
-                width={140}
-                height={40}
+                width={130}
+                height={30}
                 quality={100}
                 priority
               />
@@ -104,6 +102,7 @@ export default function Sidebar({
               <Divider sx={{ my: 1 }} />
             </>
           )}
+
           {session?.user && (
             <>
               <Box
@@ -118,6 +117,7 @@ export default function Sidebar({
                 {session.user.image ? (
                   <Avatar
                     src={session.user.image}
+                    referrerPolicy="no-referrer"
                     sx={{ width: 64, height: 64 }}
                   />
                 ) : (

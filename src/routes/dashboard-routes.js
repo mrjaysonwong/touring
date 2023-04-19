@@ -16,15 +16,18 @@ export const generalItems = [
 
 export const managementItems = [
   {
-    title: 'Tours',
+    title: 'Tour',
+    path: '/dashboard/tour/',
     icon: <TourIcon />,
   },
   {
-    title: 'Users',
+    title: 'User',
+    path: '/dashboard/user/',
     icon: <PeopleIcon />,
   },
   {
     title: 'Invoice',
+    path: '/dashboard/invoice/',
     icon: <DescriptionIcon />,
   },
   {

@@ -5,6 +5,7 @@ import ReportsDashboard from '@components/dashboard/sidenav/general/components/r
 
 export default function Dashboard(props) {
   const { token } = props;
+
   const isAdmin = token.user.role === 'admin';
 
   return (

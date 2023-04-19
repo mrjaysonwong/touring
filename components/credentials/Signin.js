@@ -21,25 +21,33 @@ import {
   Tooltip,
   useTheme,
   CircularProgress,
+  Grid,
+  useMediaQuery,
+  Chip,
 } from '@mui/material';
 import Visibility from '@mui/icons-material/Visibility';
 import VisibilityOff from '@mui/icons-material/VisibilityOff';
 import ErrorIcon from '@mui/icons-material/Error';
 import { sleep } from '@utils/common/Sleep';
+import LinearIndeterminate from '@components/loaders/indeterminate/LoaderStyle-2';
 
-const StyledForm = styled('form')({
-  position: 'relative',
+const StyledForm = styled('form')(({ theme }) => ({
   display: 'flex',
   flexDirection: 'column',
   justifyContent: 'center',
   padding: '1.2rem',
   borderRadius: 8,
   boxShadow:
-    'rgba(0, 0, 0, 0.25) 0px 0.0625em 0.0625em, rgba(0, 0, 0, 0.25) 0px 0.125em 0.5em, rgba(255, 255, 255, 0.4) 0px 0px 0px 1px inset',
+    theme.palette.mode === 'light'
+      ? 'rgba(0, 0, 0, 0.25) 0px 0.0625em 0.0625em, rgba(0, 0, 0, 0.25) 0px 0.125em 0.5em, rgba(255, 255, 255, 0.4) 0px 0px 0px 1px inset'
+      : '',
   '.signup-text, .forgot-password': {
     color: '#13a1ff',
   },
-});
+  ' .email, .password': {
+    width: '100%',
+  },
+}));
 
 const ErrorBox = styled(Box)({
   backgroundColor: '#ffebed',
@@ -48,6 +56,7 @@ const ErrorBox = styled(Box)({
   alignItems: 'center',
   padding: '10px',
   borderRadius: '3px',
+  marginBottom: '1rem',
 });
 
 const ProviderButton = styled(Button)({
@@ -61,6 +70,7 @@ const ProviderButton = styled(Button)({
 export default function Signin() {
   const theme = useTheme();
   const isDarkMode = theme.palette.mode === 'dark';
+  const breakpoint = useMediaQuery(theme.breakpoints.up('sm'));
 
   const [showError, setShowError] = useState(false);
   const [errorMessage, setErrorMessage] = useState(null);
@@ -94,7 +104,6 @@ export default function Signin() {
 
       if (status.error === null) {
         setShowError(false);
-        // window.location.replace('/welcome');
       } else {
         setShowError(true);
         throw new Error(`${status.error}`);
@@ -117,175 +126,204 @@ export default function Signin() {
   // Google Handler function
   async function handleGoogleSignIn() {
     setDisable(true);
-    signIn('google', { callbackUrl: '/' });
+    signIn('google', { callbackUrl: '/welcome' });
   }
   // GitHub Handler function
   async function handleGitHubSignIn() {
     setDisable(true);
-    signIn('github', { callbackUrl: '/' });
+    signIn('github', { callbackUrl: '/welcome' });
   }
 
   return (
-    <>
-      <Layout>
-        <Container
-          sx={{
-            display: 'flex',
-            justifyContent: 'center',
-            my: 10,
-            width: 'min(95%, 100vw)',
-          }}
-        >
-          <StyledForm autoComplete="off" onSubmit={handleSubmit(onSubmit)}>
-            <Box sx={{ position: 'absolute', top: -40, left: 0 }}>
-              <Tooltip title="Touring logo" arrow>
-                <MUILink component={Link} href="/">
-                  <Image
-                    src={`/assets/touring-${isDarkMode ? 'light' : 'dark'}.svg`}
-                    alt="Touring logo"
-                    width={85}
-                    height={25}
-                    priority
-                  />
-                </MUILink>
-              </Tooltip>
-            </Box>
+    <Layout>
+      <Container
+        sx={{
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          minHeight: '100vh',
+          py: 5,
+        }}
+      >
+        <StyledForm autoComplete="off" onSubmit={handleSubmit(onSubmit)}>
+          <Box>
+            <Tooltip title="Touring logo" arrow>
+              <MUILink component={Link} href="/">
+                <Image
+                  src={`/assets/touring-${isDarkMode ? 'light' : 'dark'}.svg`}
+                  alt="Touring logo"
+                  width={85}
+                  height={25}
+                  priority
+                />
+              </MUILink>
+            </Tooltip>
+          </Box>
 
-            <Typography variant="h5" sx={{ mb: 1 }}>
-              Log in
-            </Typography>
+          <Typography variant="h4" sx={{ my: 3 }}>
+            Log in
+          </Typography>
 
-            {showError && (
-              <ErrorBox>
+          <Grid
+            container
+            sx={{
+              display: 'flex',
+              justifyContent: 'space-between',
+            }}
+          >
+            <Grid item xs={12} sm={5} md={5} lg={5}>
+              {showError && (
+                <ErrorBox>
+                  <Typography
+                    variant="body2"
+                    color="error"
+                    sx={{ display: 'flex', alignItems: 'center' }}
+                  >
+                    <ErrorIcon sx={{ mr: 0.5, width: 24, height: 24 }} />{' '}
+                    {errorMessage}
+                  </Typography>
+                </ErrorBox>
+              )}
+
+              <TextField
+                id="email"
+                className="email"
+                name="email"
+                label="Email address"
+                error={Boolean(errors.email)}
+                {...register('email')}
+              />
+
+              <Typography variant="body2" color="error">
+                {errors.email?.message}
+              </Typography>
+
+              <TextField
+                id="password"
+                className="password"
+                name="password"
+                label="Password"
+                type={showPassword ? 'text' : 'password'}
+                error={Boolean(errors.password)}
+                {...register('password')}
+                InputProps={{
+                  endAdornment: (
+                    <InputAdornment position="end">
+                      <IconButton
+                        onClick={handleClickShowPassword}
+                        onMouseDown={handleMouseDownPassword}
+                      >
+                        {showPassword ? <VisibilityOff /> : <Visibility />}
+                      </IconButton>
+                    </InputAdornment>
+                  ),
+                }}
+                sx={{ mt: 2 }}
+              />
+
+              <Typography variant="body2" color="error">
+                {errors.password?.message}
+              </Typography>
+
+              <Button
+                variant="contained"
+                type="submit"
+                disabled={disable || isSubmitting}
+                sx={{ my: 2, bgcolor: '#1976d2', width: '100%' }}
+              >
                 <Typography
-                  variant="body2"
-                  color="error"
-                  sx={{ display: 'flex', alignItems: 'center' }}
+                  variant="body1"
+                  sx={{ fontWeight: 600, color: '#fff' }}
                 >
-                  <ErrorIcon sx={{ mr: 0.5, width: 24, height: 24 }} />{' '}
-                  {errorMessage}
+                  {isSubmitting ? (
+                    <CircularProgress size={24} sx={{ display: 'flex' }} />
+                  ) : (
+                    'Log in'
+                  )}
                 </Typography>
-              </ErrorBox>
+              </Button>
+
+              <Typography variant="body2" align="right">
+                <NextLink href="/" passHref>
+                  <a className="forgot-password">Forgot password?</a>
+                </NextLink>
+              </Typography>
+            </Grid>
+
+            {breakpoint ? (
+              <Box>
+                <Divider
+                  orientation="vertical"
+                  textAlign="center"
+                  sx={{ mx: 2 }}
+                >
+                  <Chip label="OR" />
+                </Divider>
+              </Box>
+            ) : (
+              <Box sx={{ width: '100%' }}>
+                <Divider
+                  orientation="horizontal"
+                  textAlign="center"
+                  sx={{ my: 2 }}
+                >
+                  <Chip label="OR" />
+                </Divider>
+              </Box>
             )}
 
-            <TextField
-              id="email"
-              name="email"
-              label="Email address"
-              error={Boolean(errors.email)}
-              {...register('email')}
-              sx={{ mt: 2 }}
-            />
-
-            <Typography variant="body2" color="error">
-              {errors.email?.message}
-            </Typography>
-
-            <TextField
-              id="password"
-              name="password"
-              label="Password"
-              type={showPassword ? 'text' : 'password'}
-              error={Boolean(errors.password)}
-              {...register('password')}
-              InputProps={{
-                endAdornment: (
-                  <InputAdornment position="end">
-                    <IconButton
-                      onClick={handleClickShowPassword}
-                      onMouseDown={handleMouseDownPassword}
-                    >
-                      {showPassword ? <VisibilityOff /> : <Visibility />}
-                    </IconButton>
-                  </InputAdornment>
-                ),
-              }}
-              sx={{ mt: 2 }}
-            />
-
-            <Typography variant="body2" color="error">
-              {errors.password?.message}
-            </Typography>
-
-            <Button
-              variant="contained"
-              type="submit"
-              disabled={disable || isSubmitting}
-              sx={{ my: 2, bgcolor: '#1976d2' }}
-            >
-              <Typography
-                variant="body1"
-                sx={{ fontWeight: 600, color: '#fff' }}
+            <Grid item xs={12} sm={5} md={5} lg={5}>
+              <ProviderButton
+                onClick={handleGoogleSignIn}
+                disabled={disable || isSubmitting}
               >
-                {isSubmitting ? (
-                  <CircularProgress size={24} sx={{ display: 'flex' }} />
-                ) : (
-                  'Log in'
-                )}
-              </Typography>
-            </Button>
+                <Box sx={{ display: 'flex' }}>
+                  <Image
+                    src="/assets/google.svg"
+                    alt="Google icon"
+                    width={32}
+                    height={32}
+                    quality={100}
+                    priority
+                  />
+                </Box>
+                <Typography variant="body1" sx={{ ml: 1 }}>
+                  Log in with Google
+                </Typography>
+              </ProviderButton>
+              <ProviderButton
+                onClick={handleGitHubSignIn}
+                disabled={disable || isSubmitting}
+              >
+                <Box sx={{ display: 'flex' }}>
+                  <Image
+                    src={`/assets/github-${
+                      theme.palette.mode === 'dark' ? 'light' : 'dark'
+                    }.svg`}
+                    alt="Github icon"
+                    width={34}
+                    height={34}
+                    quality={100}
+                    priority
+                  />
+                </Box>
+                <Typography variant="body1" sx={{ ml: 1 }}>
+                  Log in with GitHub
+                </Typography>
+              </ProviderButton>
+            </Grid>
+          </Grid>
 
-            <Typography variant="h6">
-              <Divider sx={{ m: 1 }}>or</Divider>
-            </Typography>
-
-            <ProviderButton
-              onClick={handleGoogleSignIn}
-              disabled={disable || isSubmitting}
-            >
-              <Box sx={{ display: 'flex' }}>
-                <Image
-                  src="/assets/google.svg"
-                  alt="Google icon"
-                  width={32}
-                  height={32}
-                  quality={100}
-                  priority
-                />
-              </Box>
-              <Typography variant="body1" sx={{ ml: 1 }}>
-                Log in with Google
-              </Typography>
-            </ProviderButton>
-            <ProviderButton
-              onClick={handleGitHubSignIn}
-              disabled={disable || isSubmitting}
-            >
-              <Box sx={{ display: 'flex' }}>
-                <Image
-                  src={`/assets/github-${
-                    theme.palette.mode === 'dark' ? 'light' : 'dark'
-                  }.svg`}
-                  alt="Github icon"
-                  width={34}
-                  height={34}
-                  quality={100}
-                  priority
-                />
-              </Box>
-              <Typography variant="body1" sx={{ ml: 1 }}>
-                Log in with GitHub
-              </Typography>
-            </ProviderButton>
-            <Divider
-              sx={{ border: '1px thin', borderColor: '#aaaaaa', my: 2 }}
-            />
-
-            <Typography variant="body2" align="right">
-              <NextLink href="/" passHref>
-                <a className="forgot-password">Forgot password?</a>
-              </NextLink>
-            </Typography>
-            <br />
+          <Box sx={{ mt: 4 }}>
             <Typography variant="body2" align="right">
               Don&apos;t have an account?{' '}
               <NextLink href="/signup" passHref>
                 <a className="signup-text">Sign up</a>
               </NextLink>
             </Typography>
-          </StyledForm>
-        </Container>
-      </Layout>
-    </>
+          </Box>
+        </StyledForm>
+      </Container>
+    </Layout>
   );
 }

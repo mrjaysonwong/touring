@@ -1,12 +1,10 @@
 import Layout from '@components/layout/Layout';
 import { Container, Typography, useTheme, useMediaQuery } from '@mui/material';
-import UserWelcomeHeader from './UserWelcomeHeader';
-import AdminWelcomeHeader from './AdminWelcomeHeader';
+import Content from './components/Content';
 
 export default function WelcomeHeader({ data }) {
-  const userRole = data.user.role
-  const theme = useTheme()
-  const breakpointSm = useMediaQuery(theme.breakpoints.up('sm'))
+  const theme = useTheme();
+  const breakpointSm = useMediaQuery(theme.breakpoints.up('sm'));
 
   return (
     <>
@@ -21,11 +19,7 @@ export default function WelcomeHeader({ data }) {
             Welcome {data.user.name}!
           </Typography>
           <br />
-          {userRole === 'admin' ? (
-            <AdminWelcomeHeader />
-          ) : (
-            <UserWelcomeHeader breakpointSm={breakpointSm} />
-          )}
+          <Content breakpointSm={breakpointSm} />
         </Container>
       </Layout>
     </>

@@ -10,12 +10,13 @@ import {
 import { managementItems, invoiceItems } from '@src/routes/dashboard-routes';
 import ExpandLessIcon from '@mui/icons-material/ExpandLess';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
-import { SideNavContext } from '@components/dashboard/Layout';
+import { SideNavContext } from '@components/dashboard/layout/Layout';
 import { invoiceStore } from 'stores/dashboard-store';
 
 export default function Invoice() {
   const icon = managementItems[2].icon;
   const title = managementItems[2].title;
+  const path = managementItems[2].path;
 
   const toggle = invoiceStore((state) => state.toggle);
   const currentpath = invoiceStore((state) => state.currentpath);
@@ -23,6 +24,10 @@ export default function Invoice() {
   const show = invoiceStore((state) => state.show);
 
   const router = useContext(SideNavContext);
+  const basePath = router.pathname.substring(
+    0,
+    router.pathname.lastIndexOf('/') + 1
+  );
 
   useEffect(() => {
     if (router.asPath !== currentpath) {
@@ -34,8 +39,13 @@ export default function Invoice() {
   return (
     <>
       <ListItemButton onClick={toggle}>
-        <ListItemIcon>{icon}</ListItemIcon>
-        <ListItemText primary={title} />
+        <ListItemIcon sx={{ color: basePath === path ? '#f48638' : '' }}>
+          {icon}
+        </ListItemIcon>
+        <ListItemText
+          primary={title}
+          sx={{ color: basePath === path ? '#f48638' : '' }}
+        />
         {show ? <ExpandLessIcon /> : <ExpandMoreIcon />}
       </ListItemButton>
       <Collapse in={show} timeout="auto" unmountOnExit>

@@ -41,7 +41,7 @@ export default function ReportsTwo() {
       <Paper
         sx={{
           my: 5,
-          width: breakpoint ? 480 : '100%',
+          width: breakpoint ? 490 : '100%',
           backgroundColor: isDarkMode ? '#121212' : '#f5f5f5',
         }}
       >

@@ -9,8 +9,7 @@
   --dividerColor: rgba(155, 155, 155, 0.3);
   --borderColor: rgba(215, 215, 215, 0.8);
   --bgPanelColor: rgba(121, 108, 108, 0.1);
-  --demoColor: rgba(236, 236, 236, 0.5);
-
+  --demoColor: #ffba9a;
 }
 
 a {

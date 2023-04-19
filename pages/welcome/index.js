@@ -1,11 +1,12 @@
 import { useState, useEffect } from 'react';
 import Head from 'next/head';
-import InitialLoading from '@components/loaders/page-load/initialLoading';
+import LinearIndeterminate from '@components/loaders/indeterminate/LoaderStyle-2';
 import { getToken } from 'next-auth/jwt';
 import { useSession } from 'next-auth/react';
 import WelcomeHeader from '@components/header/welcome/WelcomeHeader';
 
-export default function Welcome(props) {
+
+export default function Welcome() {
   const [isLoading, setLoading] = useState(true);
   const { data: session, status } = useSession();
 
@@ -13,7 +14,7 @@ export default function Welcome(props) {
     if (status !== 'loading') {
       setTimeout(() => {
         setLoading(false);
-      }, 3000);
+      }, 1000);
     }
   }, [status]);
 
@@ -23,7 +24,8 @@ export default function Welcome(props) {
         <title>Welcome | Touring</title>
       </Head>
 
-      {isLoading ? <InitialLoading /> : <WelcomeHeader data={session} />}
+      {isLoading ? <LinearIndeterminate /> : <WelcomeHeader data={session} />}
+
     </>
   );
 }
@@ -35,6 +37,15 @@ export async function getServerSideProps(context) {
     return {
       redirect: {
         destination: '/login',
+        permanent: false,
+      },
+    };
+  }
+
+  if (token.user.role === 'admin') {
+    return {
+      redirect: {
+        destination: '/dashboard',
         permanent: false,
       },
     };

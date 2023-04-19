@@ -10,7 +10,7 @@ const Wrapper = styled(Box)({
   justifyContent: 'center',
 });
 
-export default function InitialLoading() {
+export default function LinearIndeterminate() {
   const theme = useTheme();
 
   return (

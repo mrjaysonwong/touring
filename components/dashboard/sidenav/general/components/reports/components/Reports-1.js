@@ -60,7 +60,7 @@ export default function ReportsOne() {
         <Grid item xs={6} md={6} lg={3}>
           <Item>
             <SingleRow>
-              <Title variant="body1">Total Booking</Title>
+              <Title variant="body1">Total Bookings</Title>
               <StyledBox sx={{ bgcolor: 'darkcyan', ml: 'auto' }}>
                 <LoyaltyIcon />
               </StyledBox>

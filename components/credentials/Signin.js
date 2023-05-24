@@ -74,7 +74,7 @@ export default function Signin() {
   const [showError, setShowError] = useState(false);
   const [errorMessage, setErrorMessage] = useState(null);
 
-  // const [disable, setDisable] = useState(false);
+  const [disable, setDisable] = useState(false);
 
   const {
     register,
@@ -124,13 +124,13 @@ export default function Signin() {
 
   // Google Handler function
   async function handleGoogleSignIn() {
+    setDisable(true);
     signIn('google', { callbackUrl: '/' });
-    // setDisable(true);
   }
   // GitHub Handler function
   async function handleGitHubSignIn() {
+    setDisable(true);
     signIn('github', { callbackUrl: '/' });
-    // setDisable(true);
   }
 
   return (
@@ -227,7 +227,7 @@ export default function Signin() {
               <Button
                 variant="contained"
                 type="submit"
-                disabled={isSubmitting}
+                disabled={disable || isSubmitting}
                 sx={{ my: 2, bgcolor: '#1976d2', width: '100%' }}
               >
                 <Typography
@@ -274,7 +274,7 @@ export default function Signin() {
             <Grid item xs={12} sm={5} md={5} lg={5}>
               <ProviderButton
                 onClick={handleGoogleSignIn}
-                disabled={isSubmitting}
+                disabled={disable || isSubmitting}
               >
                 <Box sx={{ display: 'flex' }}>
                   <Image
@@ -292,7 +292,7 @@ export default function Signin() {
               </ProviderButton>
               <ProviderButton
                 onClick={handleGitHubSignIn}
-                disabled={isSubmitting}
+                disabled={disable || isSubmitting}
               >
                 <Box sx={{ display: 'flex' }}>
                   <Image

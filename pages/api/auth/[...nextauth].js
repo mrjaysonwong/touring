@@ -75,9 +75,5 @@ export default NextAuth({
   pages: {
     signIn: '/login',
   },
-  session: {
-    // Set to jwt in order to CredentialsProvider works properly
-    strategy: 'jwt',
-  },
   secret: process.env.NEXTAUTH_SECRET,
 });

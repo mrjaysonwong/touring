@@ -29,7 +29,6 @@ import Visibility from '@mui/icons-material/Visibility';
 import VisibilityOff from '@mui/icons-material/VisibilityOff';
 import ErrorIcon from '@mui/icons-material/Error';
 import { sleep } from '@utils/common/Sleep';
-import LinearIndeterminate from '@components/loaders/indeterminate/LoaderStyle-2';
 
 const StyledForm = styled('form')(({ theme }) => ({
   display: 'flex',

@@ -125,13 +125,13 @@ export default function Signin() {
 
   // Google Handler function
   async function handleGoogleSignIn() {
+    signIn('google', { callbackUrl: '/welcome' });
     setDisable(true);
-    signIn('google', { callbackUrl: '/' });
   }
   // GitHub Handler function
   async function handleGitHubSignIn() {
+    signIn('github', { callbackUrl: '/welcome' });
     setDisable(true);
-    signIn('github', { callbackUrl: '/' });
   }
 
   return (

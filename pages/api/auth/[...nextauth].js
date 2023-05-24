@@ -8,7 +8,7 @@ import { compare } from 'bcryptjs';
 import authSignin from '@utils/auth/authSignin';
 import authCredentials from '@utils/auth/authCredentials';
 
-export const authOptions = {
+export default NextAuth({
   // Configure one or more authentication providers
   providers: [
     GoogleProvider({
@@ -76,6 +76,4 @@ export const authOptions = {
     signIn: '/login',
   },
   secret: process.env.NEXTAUTH_SECRET,
-};
-
-export default NextAuth(authOptions);
+});

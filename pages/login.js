@@ -6,7 +6,7 @@ import { useSession } from 'next-auth/react';
 export default function Login() {
   const router = useRouter();
   const { data: session, status } = useSession();
-  if (session) router.push('/');
+  if (session) router.push('https://touring.vercel.app/');
 
   return (
     <>

@@ -124,7 +124,7 @@ export default function Signin() {
 
   // Google Handler function
   async function handleGoogleSignIn() {
-    signIn('google', { callbackUrl: '/' });
+    signIn('google', { callbackUrl: 'https://touring.vercel.app' });
     // setDisable(true);
   }
   // GitHub Handler function

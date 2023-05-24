@@ -5,6 +5,7 @@ import CreateUserDashboard from '@components/dashboard/sidenav/management/compon
 
 export default function CreateUser(props) {
   const { token } = props;
+
   const isAdmin = token.user.role === 'admin';
   return (
     <>
@@ -19,6 +20,7 @@ export default function CreateUser(props) {
 
 export async function getServerSideProps(context) {
   const token = await getToken(context);
+
 
   if (!token) {
     return {

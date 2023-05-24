@@ -36,7 +36,7 @@ export default function PrivacyPolicy() {
   }, [open]);
 
   let fetchData = async () => {
-    let res = await axios.get(`${API_ENDPOINT}privacy-policy.txt`);
+    let res = await axios.get(`${API_ENDPOINT}/privacy-policy.txt`);
     let data = await res.data;
     const format = data.split('\n').map((str, idx) => <p key={idx}>{str}</p>);
     setText(format);

@@ -228,7 +228,7 @@ export default function Signin() {
               <Button
                 variant="contained"
                 type="submit"
-                disabled={disable || isSubmitting}
+                disabled={isSubmitting}
                 sx={{ my: 2, bgcolor: '#1976d2', width: '100%' }}
               >
                 <Typography

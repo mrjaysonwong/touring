@@ -1,5 +1,5 @@
-import Tours from './Tours';
-import Users from './Users';
+import Tour from './Tour';
+import User from './User';
 import Invoice from './Invoice';
 import Account from './Account';
 import SideMenuList from '../SideMenuList';
@@ -7,8 +7,8 @@ import SideMenuList from '../SideMenuList';
 export default function Management() {
   return (
     <SideMenuList subHeader="MANAGEMENT">
-      <Tours />
-      <Users />
+      <Tour />
+      <User />
       <Invoice />
       <Account />
     </SideMenuList>

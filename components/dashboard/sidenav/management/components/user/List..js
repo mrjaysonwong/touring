@@ -5,9 +5,9 @@ import Layout from '@components/dashboard/layout/Layout';
 import { styled } from '@mui/system';
 import { Typography, Box, Avatar, useTheme } from '@mui/material';
 import { DataGrid, GridToolbar } from '@mui/x-data-grid';
-import ActionButtons from './components/ActionButtons';
+import ActionButtons from './components/buttons/ActionButtons';
 import NavBreadcrumbs from '@components/dashboard/layout/NavBreadcrumbs';
-import AddUser from './components/add-user/AddUser';
+import AddUser from './components/buttons/AddUser';
 
 function MyGridToolbar(props) {
   return (
@@ -46,7 +46,7 @@ export default function UserListDashBoard({ data }) {
   const isDarkMode = theme.palette.mode === 'dark';
 
   const router = useRouter();
-  const pathArray = router.pathname.split('/').filter((x) => x);
+  const pathArray = router.pathname.split('/').filter((path) => path);
 
   const columns = [
     { field: 'id', headerName: 'ID', width: 120 },

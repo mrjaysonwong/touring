@@ -18,10 +18,7 @@ export default function Invoice() {
   const title = managementItems[2].title;
   const path = managementItems[2].path;
 
-  const toggle = invoiceStore((state) => state.toggle);
-  const currentpath = invoiceStore((state) => state.currentpath);
-  const setCurrentPath = invoiceStore((state) => state.handlePath);
-  const show = invoiceStore((state) => state.show);
+  const { toggle, currentPath, setCurrentPath, show } = invoiceStore();
 
   const router = useContext(SideNavContext);
   const basePath = router.pathname.substring(
@@ -30,7 +27,7 @@ export default function Invoice() {
   );
 
   useEffect(() => {
-    if (router.asPath !== currentpath) {
+    if (router.asPath !== currentPath) {
       invoiceStore.setState({ show: false });
     }
     //eslint-disable-next-line react-hooks/exhaustive-deps

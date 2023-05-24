@@ -1,6 +1,8 @@
+import { useRouter } from 'next/router';
 import { Button } from '@mui/material';
 import { styled } from '@mui/system';
 import AddIcon from '@mui/icons-material/Add';
+import { userStore } from 'stores/dashboard-store';
 
 const StyledButton = styled(Button)({
   backgroundColor: 'var(--secondaryColor)',
@@ -11,9 +13,21 @@ const StyledButton = styled(Button)({
 });
 
 export default function AddUser() {
+  const router = useRouter();
+  const path = '/dashboard/user/new';
+  const { setCurrentPath } = userStore();
+
+  const handleClick = () => {
+    router.push(path), setCurrentPath(path);
+  };
+
   return (
     <>
-      <StyledButton startIcon={<AddIcon />} variant="contained">
+      <StyledButton
+        onClick={handleClick}
+        startIcon={<AddIcon />}
+        variant="contained"
+      >
         Add User
       </StyledButton>
     </>

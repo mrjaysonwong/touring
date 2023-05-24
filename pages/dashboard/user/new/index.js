@@ -1,7 +1,7 @@
 import Head from 'next/head';
 import { getToken } from 'next-auth/jwt';
 import AccessDenied from '@components/layout/AccessDenied';
-import CreateUserDashboard from '@components/dashboard/sidenav/management/components/users/Create';
+import CreateUserDashboard from '@components/dashboard/sidenav/management/components/user/Create';
 
 export default function CreateUser(props) {
   const { token } = props;

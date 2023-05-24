@@ -1,7 +1,7 @@
 import Head from 'next/head';
 import { getToken } from 'next-auth/jwt';
 import AccessDenied from '@components/layout/AccessDenied';
-import TourListDashboard from '@components/dashboard/sidenav/management/components/tours/List';
+import TourListDashboard from '@components/dashboard/sidenav/management/components/tour/List';
 
 export default function TourList(props) {
   const { token } = props;

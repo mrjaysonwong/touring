@@ -1,23 +1,23 @@
 import { create } from 'zustand';
 
 // For management dashboard
-export const usersStore = create((set) => ({
+export const userStore = create((set) => ({
   show: false,
-  currentpath: '',
+  currentPath: '',
   toggle: () => set((state) => ({ show: !state.show })),
-  handlePath: (path) => set((state) => ({ currentpath: path })),
+  setCurrentPath: (path) => set((state) => ({ currentPath: path })),
 }));
 
-export const toursStore = create((set) => ({
+export const tourStore = create((set) => ({
   show: false,
-  currentpath: '',
+  currentPath: '',
   toggle: () => set((state) => ({ show: !state.show })),
-  handlePath: (path) => set((state) => ({ currentpath: path })),
+  setCurrentPath: (path) => set((state) => ({ currentPath: path })),
 }));
 
 export const invoiceStore = create((set) => ({
   show: false,
-  currentpath: '',
+  currentPath: '',
   toggle: () => set((state) => ({ show: !state.show })),
-  handlePath: (path) => set((state) => ({ currentpath: path })),
+  setCurrentPath: (path) => set((state) => ({ currentPath: path })),
 }));

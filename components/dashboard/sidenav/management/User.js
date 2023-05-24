@@ -11,17 +11,14 @@ import { managementItems, userItems } from '@src/routes/dashboard-routes';
 import ExpandLessIcon from '@mui/icons-material/ExpandLess';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import { SideNavContext } from '@components/dashboard/layout/Layout';
-import { usersStore } from 'stores/dashboard-store';
+import { userStore } from 'stores/dashboard-store';
 
-export default function Users() {
+export default function User() {
   const icon = managementItems[1].icon;
   const title = managementItems[1].title;
   const path = managementItems[1].path;
 
-  const toggle = usersStore((state) => state.toggle);
-  const currentpath = usersStore((state) => state.currentpath);
-  const setCurrentPath = usersStore((state) => state.handlePath);
-  const show = usersStore((state) => state.show);
+  const { toggle, currentPath, setCurrentPath, show } = userStore();
 
   const router = useContext(SideNavContext);
   const basePath = router.pathname.substring(
@@ -30,9 +27,10 @@ export default function Users() {
   );
 
   useEffect(() => {
-    if (router.asPath !== currentpath) {
-      usersStore.setState({ show: false });
+    if (router.asPath !== currentPath) {
+      userStore.setState({ show: false });
     }
+
     //eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 

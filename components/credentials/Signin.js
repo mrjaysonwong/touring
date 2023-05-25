@@ -122,16 +122,16 @@ export default function Signin() {
     event.preventDefault();
   };
 
-  // // Google Handler function
-  // async function handleGoogleSignIn() {
-  //   setDisable(true);
-  //   signIn('google', { callbackUrl: '/' });
-  // }
-  // // GitHub Handler function
-  // async function handleGitHubSignIn() {
-  //   setDisable(true);
-  //   signIn('github', { callbackUrl: '/' });
-  // }
+  // Google Handler function
+  async function handleGoogleSignIn() {
+    setDisable(true);
+    signIn('google', { callbackUrl: '/welcome' });
+  }
+  // GitHub Handler function
+  async function handleGitHubSignIn() {
+    setDisable(true);
+    signIn('github', { callbackUrl: '/welcome' });
+  }
 
   return (
     <Layout>
@@ -273,10 +273,7 @@ export default function Signin() {
 
             <Grid item xs={12} sm={5} md={5} lg={5}>
               <ProviderButton
-                onClick={async () => {
-                  setDisable(true);
-                  await signIn('google', { callbackUrl: '/' });
-                }}
+                onClick={handleGoogleSignIn}
                 disabled={disable || isSubmitting}
               >
                 <Box sx={{ display: 'flex' }}>
@@ -294,10 +291,7 @@ export default function Signin() {
                 </Typography>
               </ProviderButton>
               <ProviderButton
-                onClick={async () => {
-                  setDisable(true);
-                  signIn('github', { callbackUrl: '/' });
-                }}
+                onClick={handleGitHubSignIn}
                 disabled={disable || isSubmitting}
               >
                 <Box sx={{ display: 'flex' }}>

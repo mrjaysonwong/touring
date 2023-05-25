@@ -1,6 +1,6 @@
 import Image from 'next/image';
 import { Box, Typography } from '@mui/material';
-import PrivacyPolicy from './PrivacyPolicy';
+// import PrivacyPolicy from './PrivacyPolicy';
 
 export default function Footer() {
   return (
@@ -31,7 +31,7 @@ export default function Footer() {
           <br />
           Touring App is Powered by NextJS and MUI.
         </Typography>
-        <PrivacyPolicy />
+        {/* <PrivacyPolicy /> */}
       </Typography>
     </Box>
   );

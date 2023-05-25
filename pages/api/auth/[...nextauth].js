@@ -14,7 +14,6 @@ export default NextAuth({
     GoogleProvider({
       clientId: process.env.GOOGLE_ID,
       clientSecret: process.env.GOOGLE_SECRET,
-      callbackUrl: `${process.env.NEXTAUTH_URL}/api/auth/callback/google`
     }),
     GitHubProvider({
       clientId: process.env.GITHUB_ID,
@@ -76,7 +75,6 @@ export default NextAuth({
   pages: {
     signIn: '/login',
   },
-  
-  secret: process.env.NEXTAUTH_SECRET,
 
+  secret: process.env.NEXTAUTH_SECRET,
 });

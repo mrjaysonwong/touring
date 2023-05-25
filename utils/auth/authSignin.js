@@ -1,5 +1,5 @@
 const authSignin = async (user, account, Users) => {
-  if (account?.provider === 'google' || account?.provider === 'github') {
+  if (account.provider === 'google' || account.provider === 'github') {
     const [fName, lName] = user.name.split(' ');
 
     const providerAuthData = {

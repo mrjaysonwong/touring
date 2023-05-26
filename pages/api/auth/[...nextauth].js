@@ -9,9 +9,6 @@ import authSignin from '@utils/auth/authSignin';
 import authCredentials from '@utils/auth/authCredentials';
 
 export default NextAuth({
-  session: {
-    strategy: 'jwt'
-  },
   // Configure one or more authentication providers
   providers: [
     GoogleProvider({

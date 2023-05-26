@@ -8,7 +8,7 @@ export default function Login() {
   const { data: session, status } = useSession();
 
   if (session) {
-    router.push('/welcome');
+    router.push('/');
   }
 
   return (

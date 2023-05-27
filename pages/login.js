@@ -4,12 +4,12 @@ import { useRouter } from 'next/router';
 import { useSession } from 'next-auth/react';
 
 export default function Login() {
-  // const router = useRouter();
-  // const { data: session, status } = useSession();
+  const router = useRouter();
+  const { data: session, status } = useSession();
 
-  // if (session) {
-  //   router.push('/');
-  // }
+  if (session) {
+    router.push('/welcome');
+  }
 
   return (
     <>

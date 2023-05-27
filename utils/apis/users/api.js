@@ -19,7 +19,7 @@ export async function getUsers() {
 
 export const getUser = async (userId) => {
   try {
-    let res = await fetch(`${API_ENDPOINT}/api/users?userId${userId}`);
+    let res = await fetch(`${API_ENDPOINT}/api/users?userId=${userId}`);
 
     if (!res.ok) {
       throw new Error('An error occurred. Please try again.');
@@ -45,7 +45,10 @@ export const updateUser = async (userId, values) => {
       body: JSON.stringify(values),
     };
 
-    let res = await fetch(`${API_ENDPOINT}/api/users?userId=${userId}`, options);
+    let res = await fetch(
+      `${API_ENDPOINT}/api/users?userId=${userId}`,
+      options
+    );
 
     if (!res.ok) {
       throw new Error('An error occurred. Please try again.');

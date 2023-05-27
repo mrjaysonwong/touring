@@ -17,7 +17,7 @@ const MyApp = (props) => {
   const {
     Component,
     emotionCache = clientSideEmotionCache,
-    pageProps: {session, ...pageProps},
+    pageProps,
     themeSetting,
   } = props;
 
@@ -27,7 +27,7 @@ const MyApp = (props) => {
         <meta name="viewport" content="initial-scale=1, width=device-width" />
       </Head>
 
-      <SessionProvider session={session}>
+      <SessionProvider session={pageProps?.session}>
         <CacheProvider value={emotionCache}>
           <ThemeMode.Provider value={themeSetting}>
             <MuiThemeProvider>

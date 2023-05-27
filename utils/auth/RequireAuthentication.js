@@ -1,12 +1,10 @@
 import { API_ENDPOINT } from '@utils/common/Common';
-import { getSession } from 'next-auth/react';
-// import { getToken } from 'next-auth/jwt';
+import { getToken } from 'next-auth/jwt';
 
 export const requireAuthentication = async (context, cb) => {
-  const session = await getSession(context);
-  // const token = await getToken(context);
+  const token = await getToken(context);
 
-  if (!session) {
+  if (!token) {
     return {
       redirect: {
         destination: '/login',
@@ -16,7 +14,7 @@ export const requireAuthentication = async (context, cb) => {
   }
 
   const res = await fetch(
-    `${API_ENDPOINT}/api/users?userId=${session?.user?._id}`,
+    `${API_ENDPOINT}/api/users?userId=${token?.user?._id}`,
     {
       headers: {
         cookie: context.req.headers.cookie,
@@ -26,5 +24,5 @@ export const requireAuthentication = async (context, cb) => {
 
   const data = await res.json();
 
-  return cb({ session, data });
+  return cb({ token, data });
 };

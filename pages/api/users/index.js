@@ -5,8 +5,7 @@ import {
   createUser,
   updateUser,
 } from '@pages/api/controllers/user';
-// import { getToken } from 'next-auth/jwt';
-import { getSession } from 'next-auth/react';
+import { getToken } from 'next-auth/jwt';
 
 export default async function handler(req, res) {
   try {
@@ -19,13 +18,13 @@ export default async function handler(req, res) {
 
     switch (method) {
       case 'GET':
-        const session = await getSession({ req });
+        const token = await getToken({ req });
         if (!query.userId) {
-          await getUsers(req, res, session);
+          await getUsers(req, res, token);
           break;
         }
 
-        await getUser(req, res, session);
+        await getUser(req, res, token);
         break;
 
       case 'POST':

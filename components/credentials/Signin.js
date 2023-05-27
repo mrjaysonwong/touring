@@ -125,7 +125,7 @@ export default function Signin() {
   // Google Handler function
   async function handleGoogleSignIn() {
     setDisable(true);
-    signIn('google');
+    signIn('google', { callbackUrl: '/' });
   }
   // GitHub Handler function
   async function handleGitHubSignIn() {

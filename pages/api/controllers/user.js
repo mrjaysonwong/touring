@@ -11,9 +11,9 @@ export const config = {
 };
 
 // GET:http://localhost:3000/api/users
-export async function getUsers(req, res, session) {
+export async function getUsers(req, res, token) {
   try {
-    if (!session || session.user.role !== 'admin') {
+    if (!token || token.user.role !== 'admin') {
       return res
         .status(403)
         .send(`You don't have authorization to view this page.`);
@@ -36,11 +36,11 @@ export async function getUsers(req, res, session) {
 }
 
 // GET:http://localhost:3000/api/users/userId
-export async function getUser(req, res, session) {
+export async function getUser(req, res, token) {
   try {
     const { userId } = req.query;
 
-    if (!session || session.user._id !== userId) {
+    if (!token || token.user._id !== userId) {
       return res
         .status(403)
         .send(`You don't have authorization to view this page.`);

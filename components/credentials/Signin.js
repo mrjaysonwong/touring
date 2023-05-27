@@ -144,7 +144,7 @@ export default function Signin() {
           py: 5,
         }}
       >
-        <StyledForm autoComplete="off">
+        <StyledForm autoComplete="off" onSubmit={handleSubmit(onSubmit)}>
           <Box>
             <Tooltip title="Touring logo" arrow>
               <MUILink component={Link} href="/">
@@ -226,7 +226,7 @@ export default function Signin() {
 
               <Button
                 variant="contained"
-                onClick={handleSubmit(onSubmit)}
+                type="submit"
                 disabled={disable || isSubmitting}
                 sx={{ my: 2, bgcolor: '#1976d2', width: '100%' }}
               >
@@ -274,7 +274,7 @@ export default function Signin() {
             <Grid item xs={12} sm={5} md={5} lg={5}>
               <ProviderButton
                 onClick={handleGoogleSignIn}
-         
+                disabled={disable || isSubmitting}
               >
                 <Box sx={{ display: 'flex' }}>
                   <Image
@@ -292,7 +292,7 @@ export default function Signin() {
               </ProviderButton>
               <ProviderButton
                 onClick={handleGitHubSignIn}
-          
+                disabled={disable || isSubmitting}
               >
                 <Box sx={{ display: 'flex' }}>
                   <Image

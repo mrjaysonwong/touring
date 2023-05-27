@@ -3,7 +3,7 @@ import { sleep } from '@utils/common/Sleep';
 
 export async function getUsers() {
   try {
-    let res = await fetch(`${API_ENDPOINT}api/users`);
+    let res = await fetch(`${API_ENDPOINT}/api/users`);
 
     if (!res.ok) {
       throw new Error('An error occurred. Please try again.');
@@ -19,7 +19,7 @@ export async function getUsers() {
 
 export const getUser = async (userId) => {
   try {
-    let res = await fetch(`${API_ENDPOINT}api/users?userId${userId}`);
+    let res = await fetch(`${API_ENDPOINT}/api/users?userId${userId}`);
 
     if (!res.ok) {
       throw new Error('An error occurred. Please try again.');
@@ -45,7 +45,7 @@ export const updateUser = async (userId, values) => {
       body: JSON.stringify(values),
     };
 
-    let res = await fetch(`${API_ENDPOINT}api/users?userId=${userId}`, options);
+    let res = await fetch(`${API_ENDPOINT}/api/users?userId=${userId}`, options);
 
     if (!res.ok) {
       throw new Error('An error occurred. Please try again.');
@@ -70,7 +70,7 @@ export const createUser = async (values) => {
       body: JSON.stringify(values),
     };
 
-    let res = await fetch(`${API_ENDPOINT}api/auth/signup`, options);
+    let res = await fetch(`${API_ENDPOINT}/api/auth/signup`, options);
 
     if (res.status === 422) {
       throw new Error('Email Already Exists');

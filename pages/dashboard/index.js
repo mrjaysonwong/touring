@@ -1,12 +1,13 @@
 import Head from 'next/head';
-import { getToken } from 'next-auth/jwt';
+// import { getToken } from 'next-auth/jwt';
+import { getSession } from 'next-auth/react';
 import AccessDenied from '@components/layout/AccessDenied';
 import ReportsDashboard from '@components/dashboard/sidenav/general/components/reports';
 
 export default function Dashboard(props) {
-  const { token } = props;
+  const { session } = props;
 
-  const isAdmin = token.user.role === 'admin';
+  const isAdmin = session.user.role === 'admin';
 
   return (
     <>
@@ -20,9 +21,9 @@ export default function Dashboard(props) {
 }
 
 export async function getServerSideProps(context) {
-  const token = await getToken(context);
+  const session = await getSession(context);
 
-  if (!token) {
+  if (!session) {
     return {
       redirect: {
         destination: '/login',
@@ -33,7 +34,7 @@ export async function getServerSideProps(context) {
 
   return {
     props: {
-      token,
+      session,
     },
   };
 }

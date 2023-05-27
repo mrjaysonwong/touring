@@ -7,9 +7,7 @@ export default function Login() {
   const router = useRouter();
   const { data: session, status } = useSession();
 
-  if (session) {
-    router.push('/');
-  }
+  if (session) router.push('/');
 
   return (
     <>

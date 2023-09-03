@@ -1,4 +1,3 @@
-import { API_ENDPOINT } from '@utils/common/Common';
 import { getToken } from 'next-auth/jwt';
 
 export const requireAuthentication = async (context, cb) => {
@@ -14,7 +13,7 @@ export const requireAuthentication = async (context, cb) => {
   }
 
   const res = await fetch(
-    `${API_ENDPOINT}/api/users?userId=${token?.user?._id}`,
+    `/api/users?userId=${token?.user?._id}`,
     {
       headers: {
         cookie: context.req.headers.cookie,
